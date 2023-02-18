@@ -17,7 +17,13 @@ class FormInput extends StatelessWidget {
         ),
       ),
       TextFormField(
-        validator: (value) => value!.isEmpty ? 'can\'t be empty' : null,
+        onSaved: (value) {},
+        validator: (value) {
+          if (value!.isEmpty) {
+            print('Please enter your $text');
+          }
+          return null;
+        },
         obscureText: text == 'Password' ? true : false,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
