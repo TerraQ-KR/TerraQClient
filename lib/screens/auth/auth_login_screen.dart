@@ -6,7 +6,7 @@ import 'package:eco_reward_app/screens/auth/widget/button_auth_social.dart';
 
 import 'package:eco_reward_app/utils/validation_utils.dart';
 
-class AutoLoginScreen extends StatelessWidget {
+class AuthLoginScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //private variable
   @override

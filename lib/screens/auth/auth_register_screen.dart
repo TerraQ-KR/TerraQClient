@@ -5,7 +5,7 @@ import 'package:eco_reward_app/screens/auth/widget/button_auth_common.dart';
 
 import 'package:eco_reward_app/utils/validation_utils.dart';
 
-class AutoRegisterScreen extends StatelessWidget {
+class AuthRegisterScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //private variable
   String password = '';
