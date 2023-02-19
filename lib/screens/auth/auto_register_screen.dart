@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import './widget/form_input.dart';
-import './widget/form_button.dart';
 
-import 'package:eco_reward_app/utils/font_utils.dart';
+import 'package:eco_reward_app/screens/auth/widget/input_auth_common.dart';
+import 'package:eco_reward_app/screens/auth/widget/button_auth_common.dart';
 
-class AccountPage extends StatelessWidget {
-  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+import 'package:eco_reward_app/utils/validation_utils.dart';
 
-  String password = '';
+class AutoRegisterScreen extends StatelessWidget {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //private variable
-
+  String password = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +22,6 @@ class AccountPage extends StatelessWidget {
               Text(
                 'Create Account',
                 style: TextStyle(
-                  fontFamily: FontUtils.primary,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                   color: Colors.black,
@@ -36,55 +34,42 @@ class AccountPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Form(
-                          key: _formkey,
+                          key: _formKey,
                           child: Column(children: <Widget>[
-                            FormInput(
+                            InputAuth(
                               text: 'User name',
                               hintMessage: 'Your username',
-                              validator: (value) => value!.isEmpty
-                                  ? 'That username is taken. Try another.'
-                                  : null,
+                              validator: (value) =>
+                                  ValidateUtils().validateName(value),
                             ),
-                            SizedBox(height: 10),
-                            FormInput(
+                            const SizedBox(height: 10),
+                            InputAuth(
                               text: 'Email',
                               hintMessage: 'EcoReward@GDSC.com',
-                              validator: (value) => value!.isEmpty
-                                  ? 'Email cannot be empty.'
-                                  : null,
+                              validator: (value) =>
+                                  ValidateUtils().validateEmail(value),
                             ),
-                            SizedBox(height: 10),
-                            FormInput(
+                            const SizedBox(height: 10),
+                            InputAuth(
                               text: 'Password',
                               hintMessage:
                                   'Password must be greater than 8 characters.',
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Password cannot be empty.';
-                                } else if (!RegExp(
-                                        r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?~^<>,.&+=])[A-Za-z\d$@$!%*#?~^<>,.&+=]{8,}$')
-                                    .hasMatch(value)) {
-                                  return 'Password must be greater than 8 characters.';
-                                }
-                                password = value;
-                              },
+                              validator: (value) =>
+                                  ValidateUtils().validatePassword(value),
+                              onChanged: (value) => password = value,
                             ),
-                            SizedBox(height: 10),
-                            FormInput(
+                            const SizedBox(height: 10),
+                            InputAuth(
                               text: 'Confirm Password',
                               hintMessage: 'Confirm Password',
-                              validator: (value) {
-                                if (value! == password) {
-                                  return null;
-                                }
-                                return 'Password does not match.';
-                              },
+                              validator: (value) => ValidateUtils()
+                                  .validateConfirmPassword(value, password),
                             ),
-                            SizedBox(height: 50),
-                            FormButton(
+                            const SizedBox(height: 50),
+                            ButtonAuth(
                               text: 'Sign up',
                               onPressed: () {
-                                if (_formkey.currentState!.validate()) {
+                                if (_formKey.currentState!.validate()) {
                                   Navigator.pop(context);
                                 }
                               },

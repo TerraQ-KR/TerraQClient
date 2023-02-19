@@ -1,12 +1,13 @@
-import 'package:eco_reward_app/screens/login/widget/form_social_button.dart';
 import 'package:flutter/material.dart';
-import './widget/form_input.dart';
-import './widget/form_button.dart';
-import './widget/form_social_button.dart';
-import 'package:eco_reward_app/style/default_theme.dart';
 
-class LoginPage extends StatelessWidget {
-  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+import 'package:eco_reward_app/screens/auth/widget/input_auth_common.dart';
+import 'package:eco_reward_app/screens/auth/widget/button_auth_common.dart';
+import 'package:eco_reward_app/screens/auth/widget/button_auth_social.dart';
+
+import 'package:eco_reward_app/utils/validation_utils.dart';
+
+class AutoLoginScreen extends StatelessWidget {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //private variable
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class LoginPage extends StatelessWidget {
                 'EcoReward',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              SizedBox(height: 80),
+              const SizedBox(height: 80),
               Stack(
                 children: <Widget>[
                   Padding(
@@ -30,61 +31,55 @@ class LoginPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Form(
-                          key: _formkey,
+                          key: _formKey,
                           child: Column(children: <Widget>[
-                            FormInput(
-                              text: '',
+                            InputAuth(
+                              text: 'Email',
                               hintMessage: 'Email',
-                              validator: (value) => value!.isEmpty
-                                  ? 'Email cannot be empty.'
-                                  : null,
+                              validator: (value) =>
+                                  ValidateUtils().validateEmail(value),
                             ),
-                            SizedBox(height: 20),
-                            FormInput(
-                              text: '',
+                            const SizedBox(height: 20),
+                            InputAuth(
+                              text: 'Password',
                               hintMessage: 'Password',
-                              validator: (value) => value!.isEmpty
-                                  ? 'Password cannot be empty.'
-                                  : null,
+                              validator: (value) =>
+                                  ValidateUtils().validatePassword(value),
                             ),
                             Text(
                               'Incorrect email or password',
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
-                            SizedBox(height: 42),
-                            FormButton(
+                            const SizedBox(height: 42),
+                            ButtonAuth(
                               text: 'Sign in',
                               onPressed: () {
-                                if (_formkey.currentState!.validate()) {
+                                if (_formKey.currentState!.validate()) {
                                   print('Success');
                                 }
                               },
                             ),
-                            SizedBox(height: 11),
+                            const SizedBox(height: 11),
                             Text(
                               "Forgot Password?",
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
-                            SizedBox(height: 47),
-                            SocialButton('Kakao'),
-                            SizedBox(height: 25),
-                            SocialButton('Google'),
+                            const SizedBox(height: 47),
+                            ButtonAuthSocial('Kakao'),
+                            const SizedBox(height: 25),
+                            ButtonAuthSocial('Google'),
                           ])),
                     ),
                   ),
                 ],
               ),
-              ElevatedButton(
-                child: Text(
-                  "Don't have an account? Sign Up",
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
+              TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/account');
                 },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.transparent,
-                  shadowColor: Colors.transparent,
+                child: Text(
+                  "Don't have an account? Sign Up",
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
             ],

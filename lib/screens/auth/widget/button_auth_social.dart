@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class SocialButton extends StatelessWidget {
+class ButtonAuthSocial extends StatelessWidget {
   final String text;
-  const SocialButton(this.text, {super.key});
+  const ButtonAuthSocial(this.text, {super.key});
 
   @override
   Widget build(BuildContext context) {

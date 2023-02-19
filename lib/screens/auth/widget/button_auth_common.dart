@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 
-class FormButton extends StatelessWidget {
+class ButtonAuth extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
-  const FormButton({required this.text, required this.onPressed, super.key});
+  const ButtonAuth({required this.text, required this.onPressed, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +14,6 @@ class FormButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         primary: ColorUtils.primary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
         minimumSize: const Size.fromHeight(50),
         elevation: 0.0,
       ),

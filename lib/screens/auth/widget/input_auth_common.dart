@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 
-class FormInput extends StatelessWidget {
+class InputAuth extends StatelessWidget {
   final String text;
   final String hintMessage;
   final FormFieldValidator validator;
-  const FormInput(
+  final Function(String)? onChanged;
+  const InputAuth(
       {required this.text,
       required this.hintMessage,
       required this.validator,
+      this.onChanged,
       super.key});
 
   @override
@@ -26,7 +28,9 @@ class FormInput extends StatelessWidget {
       ),
       TextFormField(
         validator: validator,
-        obscureText: text == 'Password' ? true : false,
+        onChanged: onChanged,
+        obscureText:
+            (text == 'Password' || text == 'Confirm Password') ? true : false,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: ColorUtils.primary),
