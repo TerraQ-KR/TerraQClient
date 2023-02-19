@@ -1,9 +1,13 @@
 import 'dart:ui';
 
 class ColorUtils {
+  static const Color primary = Color(0xFF4CAF50);
+  static const Color subBlue = Color(0xFF2196F3);
+  static const Color subOrange = Color(0xFFFFA000);
+  static const Color error = Color(0xFFFF5670);
+
   static const Color black = Color(0xFF000000);
   static const Color white = Color(0xFFFFFFFF);
-
   static const Color grey01 = Color(0xFFFAFAFA);
   static const Color grey02 = Color(0xFFF5F5F5);
   static const Color grey03 = Color(0xFFEEEEEE);
