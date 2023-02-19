@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 
+import 'package:eco_reward_app/utils/font_utils.dart';
+import 'package:eco_reward_app/utils/color_utils.dart';
+
 class FormInput extends StatelessWidget {
   final String text;
   final String hintMessage;
-  const FormInput(this.text, this.hintMessage, {super.key});
+  final FormFieldValidator validator;
+  const FormInput(
+      {required this.text,
+      required this.hintMessage,
+      required this.validator,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,27 +19,29 @@ class FormInput extends StatelessWidget {
       Text(
         text,
         style: TextStyle(
-          fontFamily: 'Open Sans',
+          fontFamily: FontUtils.primary,
           fontSize: 12,
           color: Colors.black,
         ),
       ),
       TextFormField(
-        onSaved: (value) {},
-        validator: (value) {
-          if (value!.isEmpty) {
-            print('Please enter your $text');
-          }
-          return null;
-        },
+        validator: validator,
         obscureText: text == 'Password' ? true : false,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.green),
+            borderSide: BorderSide(color: ColorUtils.primary),
             borderRadius: BorderRadius.zero,
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.green),
+            borderSide: BorderSide(color: ColorUtils.primary),
+            borderRadius: BorderRadius.zero,
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ColorUtils.primary),
+            borderRadius: BorderRadius.zero,
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ColorUtils.primary),
             borderRadius: BorderRadius.zero,
           ),
           hintText: hintMessage,

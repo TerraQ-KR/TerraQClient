@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
+import 'package:eco_reward_app/utils/font_utils.dart';
+import 'package:eco_reward_app/utils/color_utils.dart';
+
 class FormButton extends StatelessWidget {
   final String text;
-  const FormButton(this.text, {super.key});
+  final VoidCallback onPressed;
+  const FormButton({required this.text, required this.onPressed, super.key});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        print(text);
-      },
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        primary: Colors.green,
+        primary: ColorUtils.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),
@@ -23,7 +25,7 @@ class FormButton extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            fontFamily: 'Nunito',
+            fontFamily: FontUtils.primary,
             fontSize: 18,
             color: Colors.white,
             fontWeight: FontWeight.bold,

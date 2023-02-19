@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './widget/form_input.dart';
 import './widget/form_button.dart';
 import './widget/form_social_button.dart';
+import 'package:eco_reward_app/style/default_theme.dart';
 
 class LoginPage extends StatelessWidget {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
@@ -19,12 +20,7 @@ class LoginPage extends StatelessWidget {
             children: <Widget>[
               Text(
                 'EcoReward',
-                style: TextStyle(
-                  fontFamily: 'Nunito',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 36,
-                  color: Colors.black,
-                ),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               SizedBox(height: 80),
               Stack(
@@ -36,27 +32,38 @@ class LoginPage extends StatelessWidget {
                       child: Form(
                           key: _formkey,
                           child: Column(children: <Widget>[
-                            FormInput('', 'Email'),
+                            FormInput(
+                              text: '',
+                              hintMessage: 'Email',
+                              validator: (value) => value!.isEmpty
+                                  ? 'Email cannot be empty.'
+                                  : null,
+                            ),
                             SizedBox(height: 20),
-                            FormInput('', 'Password'),
+                            FormInput(
+                              text: '',
+                              hintMessage: 'Password',
+                              validator: (value) => value!.isEmpty
+                                  ? 'Password cannot be empty.'
+                                  : null,
+                            ),
                             Text(
                               'Incorrect email or password',
-                              style: TextStyle(
-                                fontFamily: 'OpenSans',
-                                fontSize: 11,
-                                color: Colors.blue,
-                              ),
+                              style: Theme.of(context).textTheme.bodySmall,
                             ),
                             SizedBox(height: 42),
-                            FormButton('Sign in'),
+                            FormButton(
+                              text: 'Sign in',
+                              onPressed: () {
+                                if (_formkey.currentState!.validate()) {
+                                  print('Success');
+                                }
+                              },
+                            ),
                             SizedBox(height: 11),
                             Text(
                               "Forgot Password?",
-                              style: TextStyle(
-                                fontFamily: 'OpenSans',
-                                fontSize: 12,
-                                color: Colors.blue,
-                              ),
+                              style: Theme.of(context).textTheme.bodySmall,
                             ),
                             SizedBox(height: 47),
                             SocialButton('Kakao'),
