@@ -80,7 +80,7 @@ class AccountPage extends StatelessWidget {
                               text: 'Sign up',
                               onPressed: () {
                                 if (_formkey.currentState!.validate()) {
-                                  print('Success');
+                                  Navigator.pop(context);
                                 }
                               },
                             ),

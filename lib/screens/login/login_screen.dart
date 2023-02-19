@@ -74,7 +74,19 @@ class LoginPage extends StatelessWidget {
                   ),
                 ],
               ),
-              Text("Don't have an account? Sign Up"),
+              ElevatedButton(
+                child: Text(
+                  "Don't have an account? Sign Up",
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/account');
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                ),
+              ),
             ],
           ),
         ],
