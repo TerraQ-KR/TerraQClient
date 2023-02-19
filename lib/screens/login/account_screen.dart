@@ -6,6 +6,8 @@ import 'package:eco_reward_app/utils/font_utils.dart';
 
 class AccountPage extends StatelessWidget {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+  String password = '';
   //private variable
 
   @override
@@ -64,16 +66,19 @@ class AccountPage extends StatelessWidget {
                                     .hasMatch(value)) {
                                   return 'Password must be greater than 8 characters.';
                                 }
-                                return null;
+                                password = value;
                               },
                             ),
                             SizedBox(height: 10),
                             FormInput(
                               text: 'Confirm Password',
                               hintMessage: 'Confirm Password',
-                              validator: (value) => value!.isEmpty
-                                  ? 'Email cannot be empty.'
-                                  : null,
+                              validator: (value) {
+                                if (value! == password) {
+                                  return null;
+                                }
+                                return 'Password does not match.';
+                              },
                             ),
                             SizedBox(height: 50),
                             FormButton(
