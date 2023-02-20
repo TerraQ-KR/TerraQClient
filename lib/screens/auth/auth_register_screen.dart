@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:eco_reward_app/screens/auth/widget/input_auth_common.dart';
 import 'package:eco_reward_app/screens/auth/widget/button_auth_common.dart';
-
-import 'package:eco_reward_app/utils/validation_utils.dart';
+import 'package:eco_reward_app/screens/auth/utils/validation_auth_utils.dart';
 
 class AuthRegisterScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

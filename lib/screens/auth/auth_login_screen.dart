@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:eco_reward_app/screens/auth/widget/input_auth_common.dart';
 import 'package:eco_reward_app/screens/auth/widget/button_auth_common.dart';
 import 'package:eco_reward_app/screens/auth/widget/button_auth_social.dart';
-
-import 'package:eco_reward_app/utils/validation_utils.dart';
+import 'package:eco_reward_app/screens/auth/utils/validation_auth_utils.dart';
 
 class AuthLoginScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

@@ -2,6 +2,12 @@ class ValidateUtils {
   String? validateEmail(value) {
     if (value.isEmpty) {
       return 'Email cannot be empty.';
+    } else {
+      RegExp regExp = RegExp(
+          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
+      if (!regExp.hasMatch(value)) {
+        return 'Please enter a valid email.';
+      }
     }
   }
 
