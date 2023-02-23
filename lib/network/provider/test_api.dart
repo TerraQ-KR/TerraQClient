@@ -1,20 +1,24 @@
-import '../dio_config.dart';
+import '../BasicAPI.dart';
 
-void getTest() async {
-  try {
-    var response = await dio.get('/getTest');
-    print(response);
-  } catch (e) {
-    print("##################");
-  }
+void getTest() {
+  var response = API.GET(
+    path: '/getTest',
+    resFunction: testFunc,
+  );
 }
 
-void postTest() async {
+dynamic testFunc(dynamic res) {
+  print(res);
+
+  return res;
+}
+
+void postTest() {
   String t = "violet";
-  try {
-    var response = await dio.post('/postTest', data: t);
-    print(response);
-  } catch (e) {
-    print("-------------------------");
-  }
+
+  var response = API.POST(
+    path: '/postTest',
+    data: t,
+    resFunction: testFunc,
+  );
 }
