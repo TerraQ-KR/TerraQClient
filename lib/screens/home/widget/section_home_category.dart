@@ -10,7 +10,7 @@ class SectionHomeCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 450,
+      height: 400,
       child: LayoutGrid(
         columnGap: 5,
         rowGap: 5,

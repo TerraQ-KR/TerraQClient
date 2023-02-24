@@ -28,7 +28,7 @@ class SectionHomeQuest extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Text(
-            'Quest content goes here...',
+            'Quest content',
             style: TextStyle(fontSize: 16),
           ),
         ],
