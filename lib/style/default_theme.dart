@@ -19,8 +19,8 @@ final ThemeData defaultTheme = ThemeData(
   ),
   textTheme: const TextTheme(
     titleLarge: TextStyle(
-        fontSize: 32,
-        fontWeight: FontWeight.bold,
+        fontSize: 36,
+        fontWeight: FontWeight.w900,
         fontFamily: FontUtils.primary),
     titleMedium: TextStyle(
         fontSize: 24,
@@ -31,7 +31,7 @@ final ThemeData defaultTheme = ThemeData(
   ),
   inputDecorationTheme: const InputDecorationTheme(
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+      borderRadius: BorderRadius.all(Radius.circular(24.0)),
     ),
   ),
   buttonTheme: const ButtonThemeData(

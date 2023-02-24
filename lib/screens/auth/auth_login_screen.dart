@@ -1,13 +1,14 @@
+import 'package:eco_reward_app/style/default_theme.dart';
 import 'package:flutter/material.dart';
-
 import 'package:eco_reward_app/screens/auth/widget/input_auth_common.dart';
 import 'package:eco_reward_app/screens/auth/widget/button_auth_common.dart';
 import 'package:eco_reward_app/screens/auth/widget/button_auth_social.dart';
-import 'package:eco_reward_app/screens/auth/utils/validation_auth_utils.dart';
+import 'package:eco_reward_app/screens/auth/utils/validate_auth_utils.dart';
 
 class AuthLoginScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  //private variable
+  AuthLoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,53 +21,48 @@ class AuthLoginScreen extends StatelessWidget {
             children: <Widget>[
               Text(
                 'EcoReward',
-                style: Theme.of(context).textTheme.titleLarge,
+                style: defaultTheme.textTheme.titleLarge,
               ),
               const SizedBox(height: 80),
               Stack(
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Form(
                           key: _formKey,
                           child: Column(children: <Widget>[
-                            InputAuth(
+                            InputAuthCommon(
                               text: 'Email',
                               hintMessage: 'Email',
                               validator: (value) =>
-                                  ValidateUtils().validateEmail(value),
+                                  ValidateAuthUtils().validateEmail(value),
                             ),
-                            const SizedBox(height: 20),
-                            InputAuth(
+                            const SizedBox(height: 10),
+                            InputAuthCommon(
                               text: 'Password',
                               hintMessage: 'Password',
                               validator: (value) =>
-                                  ValidateUtils().validatePassword(value),
+                                  ValidateAuthUtils().validatePassword(value),
                             ),
-                            Text(
-                              'Incorrect email or password',
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                            const SizedBox(height: 42),
+                            const SizedBox(height: 20),
                             ButtonAuth(
-                              text: 'Sign in',
+                              text: 'LOGIN',
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   print('Success');
                                 }
                               },
                             ),
-                            const SizedBox(height: 11),
-                            Text(
+                            const SizedBox(height: 10),
+                            const Text(
                               "Forgot Password?",
-                              style: Theme.of(context).textTheme.bodySmall,
                             ),
-                            const SizedBox(height: 47),
-                            ButtonAuthSocial('Kakao'),
-                            const SizedBox(height: 25),
-                            ButtonAuthSocial('Google'),
+                            const SizedBox(height: 40),
+                            const ButtonAuthSocial('Kakao'),
+                            const SizedBox(height: 10),
+                            const ButtonAuthSocial('Google'),
                           ])),
                     ),
                   ),
@@ -78,16 +74,6 @@ class AuthLoginScreen extends StatelessWidget {
                 },
                 child: Text(
                   "Don't have an account? Sign Up",
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ),
-              TextButton(
-                // ignore: prefer-extracting-callbacks
-                onPressed: () {
-                  Navigator.pushNamed(context, '/home');
-                },
-                child: Text(
-                  "Temp button to HOME",
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
