@@ -81,6 +81,16 @@ class AuthLoginScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
+              TextButton(
+                // ignore: prefer-extracting-callbacks
+                onPressed: () {
+                  Navigator.pushNamed(context, '/home');
+                },
+                child: Text(
+                  "Temp button to HOME",
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
             ],
           ),
         ],
