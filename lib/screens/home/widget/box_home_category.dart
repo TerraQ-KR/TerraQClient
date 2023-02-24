@@ -1,3 +1,4 @@
+import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/screens/auth/auth_login_screen.dart';
 import 'package:eco_reward_app/screens/home/class/t_category.dart';
@@ -17,7 +18,7 @@ class BoxHomeCategory extends StatelessWidget {
       onTap: () => handleTap(context),
       child: Card(
         elevation: 0,
-        color: category.color?.withAlpha(200),
+        color: category.color ?? ColorUtils.black,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(15.0)),
         ),
