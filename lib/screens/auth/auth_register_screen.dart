@@ -18,9 +18,10 @@ class AuthRegisterScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              // ignore: prefer_const_constructors
               Text(
                 'Create Account',
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                   color: Colors.black,
@@ -67,11 +68,7 @@ class AuthRegisterScreen extends StatelessWidget {
                             const SizedBox(height: 50),
                             ButtonAuth(
                               text: 'Sign up',
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  Navigator.pop(context);
-                                }
-                              },
+                              onPressed: () => validateAndSave(_formKey),
                             ),
                           ])),
                     ),
@@ -86,5 +83,12 @@ class AuthRegisterScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+Future<void> validateAndSave(key) async {
+  final FormState? form = key.currentState;
+  if (form!.validate()) {
+    print('Form is valid');
   }
 }

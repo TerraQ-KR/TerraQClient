@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eco_reward_app/screens/auth/widget/input_auth_common.dart';
@@ -52,11 +53,8 @@ class AuthLoginScreen extends StatelessWidget {
                             const SizedBox(height: 42),
                             ButtonAuth(
                               text: 'Sign in',
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  print('Success');
-                                }
-                              },
+                              // ignore: prefer-extracting-callbacks
+                              onPressed: () => validateAndSave(_formKey),
                             ),
                             const SizedBox(height: 11),
                             Text(
@@ -64,18 +62,17 @@ class AuthLoginScreen extends StatelessWidget {
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                             const SizedBox(height: 47),
-                            ButtonAuthSocial('Kakao'),
+                            const ButtonAuthSocial('Kakao'),
                             const SizedBox(height: 25),
-                            ButtonAuthSocial('Google'),
+                            const ButtonAuthSocial('Google'),
                           ])),
                     ),
                   ),
                 ],
               ),
               TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/account');
-                },
+                // ignore: prefer-extracting-callbacks
+                onPressed: () => navigateToHomeScreen(context),
                 child: Text(
                   "Don't have an account? Sign Up",
                   style: Theme.of(context).textTheme.bodySmall,
@@ -87,4 +84,15 @@ class AuthLoginScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> validateAndSave(key) async {
+  final FormState? form = key.currentState;
+  if (form!.validate()) {
+    print('Form is valid');
+  }
+}
+
+Future<void> navigateToHomeScreen(BuildContext context) async {
+  Navigator.pushNamed(context, '/account');
 }
