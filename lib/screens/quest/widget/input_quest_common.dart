@@ -79,9 +79,8 @@ class InputQuest extends StatelessWidget {
                   right: 10,
                   top: 10,
                   child: IconButton(
+                    icon: Icon(Icons.navigate_next, size: 45),
                     onPressed: null,
-                    icon: Icon(Icons.navigate_next),
-                    iconSize: 40,
                   ),
                 ),
               ],

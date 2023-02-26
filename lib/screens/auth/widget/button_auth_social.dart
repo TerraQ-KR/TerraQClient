@@ -7,6 +7,7 @@ class ButtonAuthSocial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      // ignore: prefer-extracting-callbacks
       onPressed: () {
         print(text);
       },
@@ -22,7 +23,7 @@ class ButtonAuthSocial extends StatelessWidget {
         padding: EdgeInsets.all(15.0),
         child: Text(
           'Continue with $text',
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: 'Nunito',
             fontSize: 14,
             color: Colors.black,

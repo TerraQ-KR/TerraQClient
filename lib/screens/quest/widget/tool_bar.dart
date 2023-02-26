@@ -29,17 +29,17 @@ class ToolBar extends StatelessWidget {
         FloatingActionButton.small(
           backgroundColor: Colors.white,
           onPressed: () => {},
-          child: Icon(Icons.search, color: Colors.black, size: 20),
+          child: const Icon(Icons.search, color: Colors.black, size: 20),
         ),
         FloatingActionButton.small(
           backgroundColor: Colors.white,
           onPressed: () => {},
-          child: Icon(Icons.sort, color: Colors.black, size: 20),
+          child: const Icon(Icons.sort, color: Colors.black, size: 20),
         ),
         FloatingActionButton.small(
           backgroundColor: Colors.white,
           onPressed: () => {},
-          child: Icon(Icons.alarm, color: Colors.black, size: 20),
+          child: const Icon(Icons.alarm, color: Colors.black, size: 20),
         ),
       ],
     );
