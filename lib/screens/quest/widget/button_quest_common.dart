@@ -10,8 +10,8 @@ class ButtonQuest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 197,
-      height: 35,
+      width: 185,
+      height: 30,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
