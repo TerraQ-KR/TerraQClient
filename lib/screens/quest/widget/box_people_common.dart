@@ -14,7 +14,7 @@ class BoxPeople extends StatelessWidget {
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.person),
+          Icon(Icons.person, size: 20),
           Text(
             "999+",
             textAlign: TextAlign.center,

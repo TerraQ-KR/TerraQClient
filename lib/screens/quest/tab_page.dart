@@ -20,10 +20,6 @@ class TabPage extends StatelessWidget {
             preferredSize: Size.fromHeight(AppBar().preferredSize.height),
             child: Container(
               height: 45,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 5,
-              ),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
@@ -38,11 +34,25 @@ class TabPage extends StatelessWidget {
                   ),
                   tabs: const [
                     Tab(
-                      text: 'Quest',
+                      child: Text(
+                        'Quest',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontFamily: "Nunito",
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
                     ),
                     Tab(
-                      text: 'My Quest',
-                    )
+                      child: Text(
+                        'My Quest',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontFamily: "Nunito",
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -51,8 +61,8 @@ class TabPage extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            MyQuestScreen(),
             QuestListScreen(),
+            MyQuestScreen(),
           ],
         ),
       ),

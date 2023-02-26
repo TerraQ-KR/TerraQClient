@@ -17,7 +17,8 @@ class InputQuestPicture extends StatelessWidget {
           Container(
             width: 360,
             height: 100,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
               color: ColorUtils.white,
             ),
             child: Stack(

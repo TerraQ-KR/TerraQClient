@@ -29,10 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
-    fonts:
-      - family: Back
-        fonts:
-        - assets: font/Back.ttf
+    sdk: flutter
 
 
   # The following adds the Cupertino Icons font to your application.
