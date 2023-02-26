@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eco_reward_app/screens/auth/widget/input_auth_common.dart';
@@ -54,7 +53,8 @@ class AuthLoginScreen extends StatelessWidget {
                             ButtonAuth(
                               text: 'Sign in',
                               // ignore: prefer-extracting-callbacks
-                              onPressed: () => validateAndSave(_formKey),
+                              onPressed: () =>
+                                  validateAndNavigate(context, _formKey),
                             ),
                             const SizedBox(height: 11),
                             Text(
@@ -86,10 +86,10 @@ class AuthLoginScreen extends StatelessWidget {
   }
 }
 
-Future<void> validateAndSave(key) async {
+Future<void> validateAndNavigate(BuildContext context, key) async {
   final FormState? form = key.currentState;
   if (form!.validate()) {
-    print('Form is valid');
+    Navigator.pushNamed(context, '/quest');
   }
 }
 
