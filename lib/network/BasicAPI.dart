@@ -1,49 +1,58 @@
-import 'package:dio/dio.dart';
+// ignore_for_file: strict_raw_type,non_constant_identifier_names
 
-final BasicAPI API = BasicAPI();
+import 'package:dio/dio.dart';
+import 'custom_log.dart';
+
+final API = BasicAPI();
 
 void stErrFunction(dynamic e) {
-  print("NetworkError");
+  print("Unexpected Error has been ocurred");
 }
 
-Response<dynamic> stResFunction(Response<dynamic> res) {
-  return res;
-}
-
+//option이 헤더
 class BasicAPI {
-  final Dio dio = Dio(
-    BaseOptions(
-      baseUrl: 'http://35.216.34.93:8080/',
-      connectTimeout: 5000,
-      receiveTimeout: 3000,
-    ),
-  );
+  late Dio dio;
 
-  // ignore: non_constant_identifier_names
-  dynamic GET({
+  final String baseUrl = "http://localhost:8080";
+
+  BasicAPI() {
+    BaseOptions options = BaseOptions(
+      baseUrl: baseUrl,
+      connectTimeout: 3000,
+      receiveTimeout: 3000,
+    );
+    dio = Dio(options);
+    dio.interceptors.add(
+      custrom_interceptor,
+    );
+  }
+
+  Future<Response> GET({
     required String path,
-    Map<String, dynamic>? quiryParameters,
+    Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
-    Function resFunction = stResFunction,
     Function errFunction = stErrFunction,
   }) async {
+    Response res;
+
     try {
-      var res = await dio.get(
+      res = await dio.get(
         path,
+        queryParameters: queryParameters,
         options: options,
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
       );
-
-      return resFunction(res);
-    } catch (e) {
-      return errFunction(e);
+    } on DioError catch (e) {
+      throw Exception(e.message);
     }
+
+    return res;
   }
 
-  dynamic POST({
+  Future<Response> POST({
     required String path,
     required dynamic data,
     Map<String, dynamic>? queryParameters,
@@ -51,11 +60,12 @@ class BasicAPI {
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
-    Function resFunction = stResFunction,
     Function errFunction = stErrFunction,
   }) async {
+    Response res;
+
     try {
-      var res = await dio.post(
+      res = await dio.post(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -64,26 +74,25 @@ class BasicAPI {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-
-      return resFunction(res);
-    } catch (e) {
-      return errFunction(e);
+    } on DioError catch (e) {
+      throw Exception(e.message);
     }
+
+    return res;
   }
 
-  dynamic PUT(
-    String path, {
+  dynamic PUT({
+    required String path,
     required data,
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
-    Function resFunction = stResFunction,
     Function errFunction = stErrFunction,
   }) async {
     try {
-      var res = await dio.put(
+      return await dio.put(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -92,33 +101,28 @@ class BasicAPI {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-
-      return resFunction(res);
-    } catch (e) {
+    } on DioError catch (e) {
       return errFunction(e);
     }
   }
 
-  dynamic DELETE(
-    String path, {
-    data,
+  dynamic DELETE({
+    required String path,
+    required String data,
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
-    Function resFunction = stResFunction,
     Function errFunction = stErrFunction,
   }) async {
     try {
-      var res = await dio.delete(
+      return await dio.delete(
         path,
         data: data,
         queryParameters: queryParameters,
         options: options,
         cancelToken: cancelToken,
       );
-
-      return resFunction(res);
-    } catch (e) {
+    } on DioError catch (e) {
       return errFunction(e);
     }
   }

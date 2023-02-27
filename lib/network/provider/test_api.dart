@@ -1,24 +1,20 @@
 import '../BasicAPI.dart';
 
-void getTest() {
-  var response = API.GET(
+void getTest() async {
+  var response = await API.GET(
     path: '/getTest',
-    resFunction: testFunc,
   );
+
+  print(response);
 }
 
-dynamic testFunc(dynamic res) {
-  print(res);
-
-  return res;
-}
-
-void postTest() {
+void postTest() async {
   String t = "violet";
 
-  var response = API.POST(
+  var response = await API.POST(
     path: '/postTest',
     data: t,
-    resFunction: testFunc,
   );
+
+  print(response);
 }
