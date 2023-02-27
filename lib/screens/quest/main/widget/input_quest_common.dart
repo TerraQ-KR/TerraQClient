@@ -63,12 +63,12 @@ class InputQuest extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Positioned(
+                Positioned(
                   right: 10,
                   top: 10,
                   child: IconButton(
-                    icon: Icon(Icons.navigate_next, size: 45),
-                    onPressed: null,
+                    onPressed: () => navigateToDetail(context),
+                    icon: const Icon(Icons.navigate_next, size: 45),
                   ),
                 ),
               ],
@@ -86,3 +86,7 @@ const textStyle = TextStyle(
   fontFamily: "Nunito",
   fontWeight: FontWeight.w400,
 );
+
+Future<void> navigateToDetail(context) async {
+  Navigator.pushNamed(context, '/quest/detail');
+}
