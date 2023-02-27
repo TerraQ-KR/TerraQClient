@@ -4,8 +4,8 @@ import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/screens/quest/main/quest_list_screen.dart';
 import 'package:eco_reward_app/screens/quest/main/quest_myquest_screen.dart';
 
-class TabPage extends StatelessWidget {
-  const TabPage({
+class QuestTabScreen extends StatelessWidget {
+  const QuestTabScreen({
     super.key,
   });
 

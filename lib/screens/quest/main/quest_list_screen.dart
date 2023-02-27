@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_picture.dart';
-import 'package:eco_reward_app/screens/quest/detail/widget/tool_bar.dart';
+import 'package:eco_reward_app/screens/quest/detail/widget/quest_tool_bar.dart';
 
 class QuestListScreen extends StatefulWidget {
   @override
@@ -23,23 +23,25 @@ class _QuestListScreenState extends State<QuestListScreen> {
           child: Column(
             children: [
               const SizedBox(height: 20),
-              ToolBar(),
+              QuestToolBar(),
               Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                  child: Column(
-                    children: <Widget>[
-                      const SizedBox(height: 20),
-                      Center(child: InputQuestPicture()),
-                      const SizedBox(height: 20),
-                      Center(child: InputQuestPicture()),
-                      const SizedBox(height: 20),
-                      Center(child: InputQuestPicture()),
-                      const SizedBox(height: 20),
-                      Center(child: InputQuestPicture()),
-                      const SizedBox(height: 20),
-                      Center(child: InputQuestPicture()),
-                    ],
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        const SizedBox(height: 20),
+                        InputQuestPicture(),
+                        const SizedBox(height: 20),
+                        InputQuestPicture(),
+                        const SizedBox(height: 20),
+                        InputQuestPicture(),
+                        const SizedBox(height: 20),
+                        InputQuestPicture(),
+                        const SizedBox(height: 20),
+                        InputQuestPicture(),
+                      ],
+                    ),
                   ),
                 ),
               ),

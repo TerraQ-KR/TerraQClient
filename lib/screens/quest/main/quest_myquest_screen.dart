@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
-import 'package:eco_reward_app/screens/quest/detail/widget/tool_bar.dart';
+import 'package:eco_reward_app/screens/quest/detail/widget/quest_tool_bar.dart';
 
 class MyQuestScreen extends StatefulWidget {
   @override
@@ -20,30 +20,32 @@ class _MyQuestScreenState extends State<MyQuestScreen> {
                 end: Alignment.bottomCenter,
                 colors: [ColorUtils.subOrange, ColorUtils.primary]),
           ),
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              ToolBar(),
-              Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    children: <Widget>[
-                      const SizedBox(height: 20),
-                      Center(child: InputQuest()),
-                      const SizedBox(height: 20),
-                      Center(child: InputQuest()),
-                      const SizedBox(height: 20),
-                      Center(child: InputQuest()),
-                      const SizedBox(height: 20),
-                      Center(child: InputQuest()),
-                      const SizedBox(height: 20),
-                      Center(child: InputQuest()),
-                    ],
+          child: Center(
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                QuestToolBar(),
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: <Widget>[
+                        const SizedBox(height: 20),
+                        InputQuest(),
+                        const SizedBox(height: 20),
+                        InputQuest(),
+                        const SizedBox(height: 20),
+                        InputQuest(),
+                        const SizedBox(height: 20),
+                        InputQuest(),
+                        const SizedBox(height: 20),
+                        InputQuest(),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           )),
     );
   }

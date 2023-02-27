@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
-import 'package:eco_reward_app/screens/quest/main/widget/box_category_common.dart';
-import 'package:eco_reward_app/screens/quest/main/widget/box_people_common.dart';
+import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_category.dart';
+import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 
 class InputQuestPicture extends StatelessWidget {
   @override
