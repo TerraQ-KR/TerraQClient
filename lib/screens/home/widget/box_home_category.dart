@@ -30,10 +30,10 @@ class BoxHomeCategory extends StatelessWidget {
               child: Text(
                 category.label,
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 18,
                   fontFamily: FontUtils.primary,
                   fontWeight: FontWeight.w900,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
             ),

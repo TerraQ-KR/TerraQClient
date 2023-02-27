@@ -1,13 +1,10 @@
 import 'dart:ui';
-import 'package:eco_reward_app/utils/color_utils.dart';
 import '../class/t_category.dart';
 
 final List<TCategory> categoryList = [
-  TCategory(label: "HOUSE", value: "house", color: ColorUtils.subOrange),
+  TCategory(label: "HOUSE", value: "house", color: const Color(0xFFF6F9FB)),
+  TCategory(label: "CONSUMP", value: "consump", color: const Color(0xFFF7F8F3)),
   TCategory(
-      label: "CONSUMP",
-      value: "consump",
-      color: const Color.fromARGB(255, 224, 131, 131)),
-  TCategory(label: "TRANSPORT", value: "transport", color: ColorUtils.subBlue),
-  TCategory(label: "FOOD", value: "food", color: ColorUtils.grey08),
+      label: "TRANSPORT", value: "transport", color: const Color(0xFFFDFBFA)),
+  TCategory(label: "FOOD", value: "food", color: const Color(0xFFFFF9F4)),
 ];
