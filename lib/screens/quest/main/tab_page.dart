@@ -16,7 +16,6 @@ class TabPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          title: const Text('tab bar'),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(AppBar().preferredSize.height),
             child: SizedBox(
