@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
-import 'package:eco_reward_app/screens/quest/widget/button_quest_common.dart';
-import 'package:eco_reward_app/screens/quest/widget/box_category_common.dart';
-import 'package:eco_reward_app/screens/quest/widget/box_people_common.dart';
+import 'package:eco_reward_app/screens/quest/main/widget/box_category_common.dart';
+import 'package:eco_reward_app/screens/quest/main/widget/box_people_common.dart';
 
-class InputQuest extends StatelessWidget {
+class InputQuestPicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 360,
-      height: 130,
+      height: 100,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -17,20 +16,13 @@ class InputQuest extends StatelessWidget {
         children: [
           Container(
             width: 360,
-            height: 130,
+            height: 100,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: Colors.white,
+              color: ColorUtils.white,
             ),
             child: Stack(
               children: [
-                Positioned(
-                  left: 165,
-                  top: 90,
-                  child: ButtonQuest(
-                    onPressed: () => {},
-                  ),
-                ),
                 Positioned(
                   left: 10,
                   top: 10,
@@ -76,11 +68,11 @@ class InputQuest extends StatelessWidget {
                   ),
                 ),
                 const Positioned(
-                  right: 10,
+                  right: 40,
                   top: 10,
-                  child: IconButton(
-                    icon: Icon(Icons.navigate_next, size: 45),
-                    onPressed: null,
+                  child: SizedBox(
+                    width: 50,
+                    child: Icon(Icons.square, size: 80),
                   ),
                 ),
               ],

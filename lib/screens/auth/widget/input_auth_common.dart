@@ -20,7 +20,7 @@ class InputAuth extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: FontUtils.primary,
           fontSize: 12,
           color: Colors.black,
@@ -32,28 +32,28 @@ class InputAuth extends StatelessWidget {
         obscureText:
             (text == 'Password' || text == 'Confirm Password') ? true : false,
         decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: ColorUtils.primary),
             borderRadius: BorderRadius.zero,
           ),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: ColorUtils.primary),
             borderRadius: BorderRadius.zero,
           ),
-          errorBorder: OutlineInputBorder(
+          errorBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: ColorUtils.primary),
             borderRadius: BorderRadius.zero,
           ),
-          focusedErrorBorder: OutlineInputBorder(
+          focusedErrorBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: ColorUtils.primary),
             borderRadius: BorderRadius.zero,
           ),
           hintText: hintMessage,
-          hintStyle: TextStyle(
-            color: Colors.grey,
+          hintStyle: const TextStyle(
+            color: ColorUtils.grey01,
             fontSize: 14,
           ),
-          fillColor: Colors.white,
+          fillColor: ColorUtils.white,
         ),
       ),
     ]);

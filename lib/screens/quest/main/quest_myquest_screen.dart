@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:eco_reward_app/utils/color_utils.dart';
-import 'package:eco_reward_app/screens/quest/widget/input_quest_common.dart';
-import 'package:eco_reward_app/screens/quest/widget/tool_bar.dart';
+import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
+import 'package:eco_reward_app/screens/quest/detail/widget/tool_bar.dart';
 
 class MyQuestScreen extends StatelessWidget {
   @override

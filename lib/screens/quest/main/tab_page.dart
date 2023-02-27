@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:eco_reward_app/utils/color_utils.dart';
-import 'package:eco_reward_app/screens/quest/quest_list_screen.dart';
-import 'package:eco_reward_app/screens/quest/quest_myquest_screen.dart';
+import 'package:eco_reward_app/screens/quest/main/quest_list_screen.dart';
+import 'package:eco_reward_app/screens/quest/main/quest_myquest_screen.dart';
 
 class TabPage extends StatelessWidget {
   const TabPage({
@@ -15,42 +15,35 @@ class TabPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white.withOpacity(0),
+          backgroundColor: Colors.transparent,
+          title: const Text('tab bar'),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(AppBar().preferredSize.height),
-            child: Container(
+            child: SizedBox(
               height: 45,
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: Colors.transparent,
+                  color: ColorUtils.white,
                 ),
                 child: TabBar(
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Colors.black,
+                  labelColor: ColorUtils.white,
+                  unselectedLabelColor: ColorUtils.black,
                   indicator: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     color: ColorUtils.subBlue,
                   ),
-                  tabs: const [
+                  tabs: [
                     Tab(
                       child: Text(
                         'Quest',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontFamily: "Nunito",
-                          fontWeight: FontWeight.w900,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                     Tab(
                       child: Text(
                         'My Quest',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontFamily: "Nunito",
-                          fontWeight: FontWeight.w900,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                   ],

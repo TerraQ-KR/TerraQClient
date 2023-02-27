@@ -7,7 +7,7 @@ class ToolBar extends StatelessWidget {
       children: [
         const SizedBox(width: 30),
         ElevatedButton.icon(
-          onPressed: () => {},
+          onPressed: () => navigateToStatus(context),
           icon: const Icon(Icons.all_inbox, color: Colors.black, size: 20),
           label: const Text(
             'Status',
@@ -19,7 +19,7 @@ class ToolBar extends StatelessWidget {
             ),
           ),
           style: ElevatedButton.styleFrom(
-            primary: Colors.white,
+            backgroundColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25),
             ),
@@ -44,4 +44,8 @@ class ToolBar extends StatelessWidget {
       ],
     );
   }
+}
+
+Future<void> navigateToStatus(context) async {
+  Navigator.pushNamed(context, '/quest/status');
 }
