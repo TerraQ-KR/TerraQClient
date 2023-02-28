@@ -1,87 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
-import 'package:eco_reward_app/screens/quest/main/widget/button_quest_common.dart';
+import 'package:eco_reward_app/screens/quest/detail/widget/quest_description_box.dart';
+import 'package:eco_reward_app/screens/quest/detail/widget/quest_infrom_box.dart';
 
-class QuestDetailScreen extends StatelessWidget {
+class QuestDetailScreen extends StatefulWidget {
+  @override
+  State<QuestDetailScreen> createState() => _QuestDetailScreen();
+}
+
+class _QuestDetailScreen extends State<QuestDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Quest Detail')),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            margin: const EdgeInsets.fromLTRB(30, 30, 30, 30),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
+      body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [ColorUtils.subOrange, ColorUtils.primary],
-              ),
-            ),
-            child: Stack(
+                colors: [ColorUtils.subOrange, ColorUtils.primary]),
+          ),
+          child: Center(
+            child: Column(
               children: [
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: SizedBox(
-                      width: 360,
-                      height: 490,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 360,
-                            height: 490,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15),
-                                bottomLeft: Radius.circular(0),
-                                bottomRight: Radius.circular(0),
-                              ),
-                              color: ColorUtils.white,
-                            ),
-                            padding: const EdgeInsets.only(
-                              left: 40,
-                              right: 40,
-                              top: 40,
-                              bottom: 130,
-                            ),
-                            child: const Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 100,
-                  child: ButtonQuest(),
-                ),
-                const Positioned(
-                  left: 15,
-                  top: 170,
-                  child: Text(
-                    " Quest name",
-                    style: TextStyle(
-                      color: ColorUtils.black,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
+                const SizedBox(height: 20),
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: <Widget>[
+                        QuestInformBox(),
+                        const SizedBox(height: 20),
+                        QuestDescriptionBox(),
+                        const SizedBox(height: 20),
+                      ],
                     ),
                   ),
                 ),
               ],
             ),
-          ),
-        ),
-      ),
+          )),
     );
   }
 }

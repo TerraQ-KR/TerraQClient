@@ -17,7 +17,7 @@ class _QuestToolBarState extends State<QuestToolBar> {
       children: [
         ElevatedButton.icon(
           onPressed: () => navigateToStatus(context),
-          icon: const Icon(Icons.all_inbox, color: ColorUtils.black, size: 20),
+          icon: const Icon(Icons.image, color: ColorUtils.black, size: 20),
           label: const Text(
             'Gallery',
             style: TextStyle(

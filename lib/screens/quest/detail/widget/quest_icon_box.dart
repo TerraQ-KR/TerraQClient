@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
 
-class QuestModalBox extends StatelessWidget {
+class QuestIconBox extends StatelessWidget {
   final IconData icon;
   final String text;
-  const QuestModalBox({required this.icon, required this.text});
+  const QuestIconBox({required this.icon, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class QuestModalBox extends StatelessWidget {
           ),
         ),
         Text(
-          'Sort by $text',
+          text,
           style: const TextStyle(
             color: ColorUtils.black,
             fontSize: 18,

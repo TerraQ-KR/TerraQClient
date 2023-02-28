@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
-import 'package:eco_reward_app/screens/quest/detail/widget/quest_modal_box.dart';
-import 'package:eco_reward_app/screens/quest/detail/widget/button_quest_confirm.dart';
+import 'package:eco_reward_app/screens/quest/detail/widget/quest_icon_box.dart';
+import 'package:eco_reward_app/screens/quest/detail/widget/button_quest_detail.dart';
 
 class ModalUtils {
   Future sortMyQuest(context) async {
@@ -30,18 +30,21 @@ class ModalUtils {
               ),
               const Padding(
                 padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                child: QuestModalBox(
+                child: QuestIconBox(
                   icon: Icons.check_circle_outline_rounded,
-                  text: 'Date',
+                  text: 'Sort by Date',
                 ),
               ),
-              const QuestModalBox(
+              const QuestIconBox(
                 icon: Icons.check_circle_outline_rounded,
-                text: 'Category',
+                text: 'Sort by Category',
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 30),
-                child: ButtonQuestConfirm(),
+                padding: EdgeInsets.only(top: 30),
+                child: ButtonQuestDetail(
+                  text: 'Confirm',
+                  onPressed: () {},
+                ),
               ),
             ],
           ),

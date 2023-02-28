@@ -9,9 +9,6 @@ class QuestGalleryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Gallery'),
-      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -35,16 +32,8 @@ class QuestGalleryScreen extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return DottedBorder(
                   color: Colors.white,
-                  strokeWidth: 2,
-                  dashPattern: const [5, 5],
                   child: Container(
-                    color: Colors.white,
-                    child: const Center(
-                      child: Icon(
-                        Icons.add,
-                        color: ColorUtils.primary,
-                      ),
-                    ),
+                    color: ColorUtils.grey05,
                   ),
                 );
               },
