@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
+import 'package:eco_reward_app/screens/quest/detail/widget/quest_icon_button.dart';
 
 class QuestToolBar extends StatelessWidget {
   @override
@@ -28,26 +29,23 @@ class QuestToolBar extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 100),
-        FloatingActionButton.small(
-          backgroundColor: ColorUtils.white,
+        QuestIconButton(
+          icon: Icons.search,
           onPressed: () => {},
-          child: const Icon(Icons.search, color: ColorUtils.black, size: 20),
         ),
-        FloatingActionButton.small(
-          backgroundColor: ColorUtils.white,
+        QuestIconButton(
+          icon: Icons.sort,
           onPressed: () => {},
-          child: const Icon(Icons.sort, color: ColorUtils.black, size: 20),
         ),
-        FloatingActionButton.small(
-          backgroundColor: ColorUtils.white,
+        QuestIconButton(
+          icon: Icons.alarm,
           onPressed: () => {},
-          child: const Icon(Icons.alarm, color: Colors.black, size: 20),
         ),
       ],
     );
   }
 }
 
-Future<void> navigateToStatus(context) async {
-  Navigator.pushNamed(context, '/quest/status');
+Future<Future<Object?>> navigateToStatus(context) async {
+  return Navigator.pushNamed(context, '/quest/status');
 }

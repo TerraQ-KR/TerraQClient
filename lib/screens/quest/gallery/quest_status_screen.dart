@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 
-class QuestStatusScreen extends StatelessWidget {
+class QuestGalleryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
