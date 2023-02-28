@@ -13,7 +13,7 @@ class QuestToolBar extends StatelessWidget {
           onPressed: () => navigateToStatus(context),
           icon: const Icon(Icons.all_inbox, color: ColorUtils.black, size: 20),
           label: const Text(
-            'Status',
+            'Gallery',
             style: TextStyle(
               color: ColorUtils.black,
               fontSize: 18,
@@ -47,5 +47,5 @@ class QuestToolBar extends StatelessWidget {
 }
 
 Future<Future<Object?>> navigateToStatus(context) async {
-  return Navigator.pushNamed(context, '/quest/status');
+  return Navigator.pushNamed(context, '/quest/gallery');
 }
