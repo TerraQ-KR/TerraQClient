@@ -4,11 +4,13 @@ import 'package:eco_reward_app/utils/color_utils.dart';
 // import 'package:eco_reward_app/screens/quest/gallery/widget/quest_image.dart';
 
 class QuestGalleryScreen extends StatelessWidget {
+  const QuestGalleryScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Quest Status'),
+        title: const Text('Gallery'),
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -18,33 +20,34 @@ class QuestGalleryScreen extends StatelessWidget {
               colors: [ColorUtils.subOrange, ColorUtils.primary]),
         ),
         child: SafeArea(
-          child: SingleChildScrollView(
-            child: Container(
-              margin: const EdgeInsets.fromLTRB(30, 30, 30, 30),
-              child: GridView.count(
-                  padding: const EdgeInsets.all(10),
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 5,
-                  crossAxisSpacing: 5,
-                  children: List.generate(
-                    4,
-                    (index) => DottedBorder(
-                      color: ColorUtils.black,
-                      strokeWidth: 1,
-                      child: Container(
-                        color: ColorUtils.white,
-                        child: const Center(
-                          child: Text(
-                            'No Image',
-                            style: TextStyle(
-                              color: ColorUtils.black,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            child: GridView.builder(
+              padding: const EdgeInsets.all(8),
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 10,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 10,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return DottedBorder(
+                  color: Colors.white,
+                  strokeWidth: 2,
+                  dashPattern: const [5, 5],
+                  child: Container(
+                    color: Colors.white,
+                    child: const Center(
+                      child: Icon(
+                        Icons.add,
+                        color: ColorUtils.primary,
                       ),
                     ),
-                  )),
+                  ),
+                );
+              },
             ),
           ),
         ),
