@@ -13,14 +13,10 @@ class QuestIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        FloatingActionButton.small(
-          backgroundColor: ColorUtils.white,
-          onPressed: onPressed,
-          child: Icon(icon, color: ColorUtils.black, size: 20),
-        ),
-      ],
+    return FloatingActionButton.small(
+      backgroundColor: ColorUtils.white,
+      onPressed: onPressed,
+      child: Icon(icon, color: ColorUtils.black, size: 20),
     );
   }
 }

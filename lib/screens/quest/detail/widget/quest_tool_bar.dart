@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/quest_icon_button.dart';
+import 'package:eco_reward_app/screens/quest/detail/utils/modal_utils.dart';
 
-class QuestToolBar extends StatelessWidget {
+class QuestToolBar extends StatefulWidget {
+  @override
+  State<QuestToolBar> createState() => _QuestToolBarState();
+}
+
+class _QuestToolBarState extends State<QuestToolBar> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -35,7 +41,7 @@ class QuestToolBar extends StatelessWidget {
         ),
         QuestIconButton(
           icon: Icons.sort,
-          onPressed: () => {},
+          onPressed: () => ModalUtils().sortMyQuest(context),
         ),
         QuestIconButton(
           icon: Icons.alarm,
