@@ -13,18 +13,18 @@ class ButtonAuth extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        primary: ColorUtils.primary,
+        backgroundColor: ColorUtils.primary,
         minimumSize: const Size.fromHeight(50),
         elevation: 0.0,
       ),
       child: Padding(
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         child: Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: FontUtils.primary,
             fontSize: 18,
-            color: Colors.white,
+            color: ColorUtils.white,
             fontWeight: FontWeight.bold,
           ),
         ),

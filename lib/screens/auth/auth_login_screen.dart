@@ -1,5 +1,5 @@
-import 'package:eco_reward_app/style/default_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:eco_reward_app/style/default_theme.dart';
 import 'package:eco_reward_app/screens/auth/widget/input_auth_common.dart';
 import 'package:eco_reward_app/screens/auth/widget/button_auth_common.dart';
 import 'package:eco_reward_app/screens/auth/widget/button_auth_social.dart';
@@ -49,38 +49,31 @@ class AuthLoginScreen extends StatelessWidget {
                             const SizedBox(height: 20),
                             ButtonAuth(
                               text: 'LOGIN',
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  print('Success');
-                                }
-                              },
+                              onPressed: () =>
+                                  validateAndNavigate(context, _formKey),
                             ),
                             const SizedBox(height: 10),
                             const Text(
                               "Forgot Password?",
                             ),
                             const SizedBox(height: 40),
-                            const ButtonAuthSocial('Kakao'),
-                            const SizedBox(height: 10),
                             const ButtonAuthSocial('Google'),
+                            const SizedBox(height: 10),
+                            const ButtonAuthSocial('Facebook'),
                           ])),
                     ),
                   ),
                 ],
               ),
               TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/account');
-                },
+                onPressed: () => navigateToHomeScreen(context),
                 child: Text(
                   "Don't have an account? Sign Up",
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
               TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/home');
-                },
+                onPressed: () => validateAndNavigate(context, _formKey),
                 child: Text(
                   "TEMP MOVE HOME",
                   style: Theme.of(context).textTheme.bodySmall,
@@ -92,4 +85,15 @@ class AuthLoginScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> validateAndNavigate(BuildContext context, key) async {
+  final FormState? form = key.currentState;
+  if (form!.validate()) {
+    Navigator.pushNamed(context, '/home');
+  }
+}
+
+Future<void> navigateToHomeScreen(BuildContext context) async {
+  Navigator.pushNamed(context, '/account');
 }

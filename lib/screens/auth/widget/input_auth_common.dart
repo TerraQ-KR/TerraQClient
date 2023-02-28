@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
-import '../../../style/default_theme.dart';
+import 'package:eco_reward_app/style/default_theme.dart';
 
 class InputAuthCommon extends StatelessWidget {
   final String text;
@@ -27,7 +28,7 @@ class InputAuthCommon extends StatelessWidget {
             fontFamily: FontUtils.primary,
             fontSize: 16,
             fontWeight: FontWeight.w600,
-            color: Colors.black,
+            color: ColorUtils.black,
           ),
         ),
         const SizedBox(height: 4),
