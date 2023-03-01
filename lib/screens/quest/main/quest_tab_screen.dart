@@ -4,59 +4,68 @@ import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/screens/quest/main/quest_list_screen.dart';
 import 'package:eco_reward_app/screens/quest/main/quest_myquest_screen.dart';
 
-class QuestTabScreen extends StatelessWidget {
+class QuestTabScreen extends StatefulWidget {
   const QuestTabScreen({
     super.key,
   });
 
   @override
+  State<QuestTabScreen> createState() => _QuestTabScreenState();
+}
+
+class _QuestTabScreenState extends State<QuestTabScreen>
+    with TickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 2, vsync: this, initialIndex: 0);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          bottom: PreferredSize(
-            preferredSize: Size.fromHeight(AppBar().preferredSize.height),
-            child: SizedBox(
-              height: 45,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: ColorUtils.white,
-                ),
-                child: TabBar(
-                  labelColor: ColorUtils.white,
-                  unselectedLabelColor: ColorUtils.black,
-                  indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: ColorUtils.subBlue,
-                  ),
-                  tabs: [
-                    Tab(
-                      child: Text(
-                        'Quest',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        'My Quest',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-                  ],
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        children: [
+          TabBar(
+            tabs: [
+              Container(
+                height: 45,
+                alignment: Alignment.center,
+                child: Text(
+                  'Quest',
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
+              Container(
+                height: 45,
+                alignment: Alignment.center,
+                child: Text(
+                  'My Quest',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+            ],
+            controller: _tabController,
+            labelColor: ColorUtils.white,
+            unselectedLabelColor: ColorUtils.black,
+            indicator: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: ColorUtils.subBlue,
             ),
           ),
-        ),
-        body: TabBarView(
-          children: [
-            QuestListScreen(),
-            MyQuestScreen(),
-          ],
-        ),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                QuestListScreen(),
+                MyQuestScreen(),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
