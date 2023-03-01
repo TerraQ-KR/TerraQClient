@@ -18,7 +18,6 @@ class QuestInformBox extends StatelessWidget {
                 icon: Icons.date_range,
                 text: 'Date',
               ),
-              SizedBox(height: 20),
               QuestIconBox(
                 icon: Icons.camera,
                 text: 'Authentication methods',
