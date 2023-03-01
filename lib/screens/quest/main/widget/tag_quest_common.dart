@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 
-class BoxCategory extends StatelessWidget {
+class TagQuest extends StatelessWidget {
+  final String text;
+
+  const TagQuest({Key? key, required this.text}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,10 +15,10 @@ class BoxCategory extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         color: ColorUtils.subBlue,
       ),
-      child: const Text(
-        "Reuse",
+      child: Text(
+        text,
         textAlign: TextAlign.center,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 14,
           fontFamily: "Nunito",

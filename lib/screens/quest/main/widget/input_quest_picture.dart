@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
-import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_category.dart';
+import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 
 class InputQuestPicture extends StatelessWidget {
@@ -25,37 +25,45 @@ class InputQuestPicture extends StatelessWidget {
               children: [
                 Positioned(
                   left: 10,
-                  top: 10,
-                  child: BoxCategory(),
-                ),
-                Positioned(
-                  left: 90,
-                  top: 10,
-                  child: BoxPeople(),
-                ),
-                const Positioned(
-                  left: 20,
-                  top: 40,
-                  child: SizedBox(
-                    width: 250,
-                    height: 45,
-                    child: Text(
-                      "Quest name ~~",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontFamily: "Nunito",
-                        fontWeight: FontWeight.w900,
-                      ),
+                  top: 15,
+                  child: Container(
+                    height: 70,
+                    width: 70,
+                    decoration: const BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
                   ),
                 ),
                 const Positioned(
-                  left: 20,
-                  top: 69,
+                  left: 90,
+                  top: 10,
+                  child: TagQuest(text: 'Reuse'),
+                ),
+                Positioned(
+                  left: 170,
+                  top: 10,
+                  child: TagQuestPeople(),
+                ),
+                const Positioned(
+                  left: 90,
+                  top: 35,
+                  child: Text(
+                    "Quest name ~~",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontFamily: "Nunito",
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+                const Positioned(
+                  left: 90,
+                  bottom: 15,
                   child: SizedBox(
                     width: 250,
-                    height: 21,
+                    height: 20,
                     child: Text(
                       'Quest description ~~',
                       style: TextStyle(
@@ -67,12 +75,13 @@ class InputQuestPicture extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Positioned(
-                  right: 40,
+                Positioned(
+                  right: 10,
                   top: 10,
-                  child: SizedBox(
-                    width: 50,
-                    child: Icon(Icons.square, size: 80),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.bookmark,
+                        color: ColorUtils.subBlue, size: 30),
                   ),
                 ),
               ],

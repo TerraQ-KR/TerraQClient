@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 
-class BoxPeople extends StatelessWidget {
+class TagQuestPeople extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -9,7 +9,9 @@ class BoxPeople extends StatelessWidget {
       height: 20,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: ColorUtils.grey04,
+        color: Colors.transparent,
+        border: const Border.fromBorderSide(
+            BorderSide(color: ColorUtils.grey04, width: 2)),
       ),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/button_quest_common.dart';
-import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_category.dart';
+import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 
 class InputQuest extends StatelessWidget {
@@ -29,15 +29,15 @@ class InputQuest extends StatelessWidget {
                   top: 90,
                   child: ButtonQuest(),
                 ),
-                Positioned(
+                const Positioned(
                   left: 10,
                   top: 10,
-                  child: BoxCategory(),
+                  child: TagQuest(text: 'Recycle'),
                 ),
                 Positioned(
                   left: 90,
                   top: 10,
-                  child: BoxPeople(),
+                  child: TagQuestPeople(),
                 ),
                 const Positioned(
                   left: 20,
