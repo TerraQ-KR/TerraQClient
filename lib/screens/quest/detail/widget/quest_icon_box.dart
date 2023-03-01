@@ -25,10 +25,6 @@ class QuestIconBox extends StatelessWidget {
               fontFamily: FontUtils.primary,
             ),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.navigate_next, size: 30),
-          ),
         ],
       ),
     );

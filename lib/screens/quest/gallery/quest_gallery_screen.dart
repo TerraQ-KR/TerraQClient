@@ -9,38 +9,54 @@ class QuestGalleryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [ColorUtils.subOrange, ColorUtils.primary]),
-        ),
-        child: SafeArea(
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            child: GridView.builder(
-              padding: const EdgeInsets.all(8),
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 10,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 10,
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                return DottedBorder(
-                  color: Colors.white,
-                  child: Container(
-                    color: ColorUtils.grey05,
+      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [ColorUtils.subOrange, ColorUtils.primary]),
+          ),
+          child: SafeArea(
+            child: Column(
+              children: [
+                IconButton(
+                  onPressed: () => _navigateToBefore(context),
+                  icon: const Icon(Icons.navigate_before,
+                      color: ColorUtils.black, size: 50),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  child: GridView.builder(
+                    padding: const EdgeInsets.all(10),
+                    shrinkWrap: true,
+                    itemCount: 20,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 10,
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      return DottedBorder(
+                        color: Colors.white,
+                        child: Container(
+                          color: ColorUtils.grey05,
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
   }
+}
+
+_navigateToBefore(context) async {
+  return Navigator.pop(context);
 }
