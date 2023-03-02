@@ -27,45 +27,51 @@ class _QuestTabScreenState extends State<QuestTabScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-          TabBar(
-            tabs: [
-              Container(
-                height: 45,
-                alignment: Alignment.center,
-                child: Text(
-                  'Quest',
-                  style: Theme.of(context).textTheme.titleMedium,
+      body: Container(
+        margin: const EdgeInsets.only(top: 50),
+        child: Column(
+          children: [
+            FractionallySizedBox(
+              widthFactor: 0.9,
+              child: TabBar(
+                tabs: [
+                  Container(
+                    height: 45,
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Quest',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                  Container(
+                    height: 45,
+                    alignment: Alignment.center,
+                    child: Text(
+                      'My Quest',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                ],
+                controller: _tabController,
+                labelColor: ColorUtils.white,
+                unselectedLabelColor: ColorUtils.black,
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: ColorUtils.subBlue,
                 ),
               ),
-              Container(
-                height: 45,
-                alignment: Alignment.center,
-                child: Text(
-                  'My Quest',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  QuestListScreen(),
+                  MyQuestScreen(),
+                ],
               ),
-            ],
-            controller: _tabController,
-            labelColor: ColorUtils.white,
-            unselectedLabelColor: ColorUtils.black,
-            indicator: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: ColorUtils.subBlue,
             ),
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                QuestListScreen(),
-                MyQuestScreen(),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

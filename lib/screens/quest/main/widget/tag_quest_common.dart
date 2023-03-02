@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
+import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
 
 class TagQuest extends StatelessWidget {
   final String text;
@@ -18,12 +19,7 @@ class TagQuest extends StatelessWidget {
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 14,
-          fontFamily: "Nunito",
-          fontWeight: FontWeight.w700,
-        ),
+        style: questTheme.textTheme.bodyMedium,
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
+import 'package:eco_reward_app/screens/quest/detail/style/detail_theme.dart';
 
 class TagQuestFoot extends StatelessWidget {
   @override
@@ -11,20 +12,13 @@ class TagQuestFoot extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         color: ColorUtils.subBlue,
       ),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.assist_walker, size: 20),
-          Text(
-            "500Km",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: ColorUtils.white,
-              fontSize: 14,
-              fontFamily: "Nunito",
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          const Icon(Icons.assist_walker, size: 20),
+          Text("500Km",
+              textAlign: TextAlign.center,
+              style: detailTheme.textTheme.bodyMedium),
         ],
       ),
     );

@@ -12,33 +12,38 @@ class QuestInformBox extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(15),
           ),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  const QuestIconBox(
-                    icon: Icons.watch,
-                    text: 'Date',
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.navigate_next, size: 30),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  const QuestIconBox(
-                    icon: Icons.camera,
-                    text: 'Authentication methods',
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.navigate_next, size: 30),
-                  ),
-                ],
-              ),
-            ],
+          child: Container(
+            width: double.infinity,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const QuestIconBox(
+                      icon: Icons.watch,
+                      text: 'Date',
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.navigate_next, size: 30),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const QuestIconBox(
+                      icon: Icons.camera,
+                      text: 'Authentication methods',
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.navigate_next, size: 30),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

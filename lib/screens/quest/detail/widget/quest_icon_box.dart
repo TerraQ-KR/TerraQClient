@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
-import 'package:eco_reward_app/utils/font_utils.dart';
+import 'package:eco_reward_app/screens/quest/detail/style/detail_theme.dart';
 
 class QuestIconBox extends StatelessWidget {
   final IconData icon;
@@ -19,11 +19,8 @@ class QuestIconBox extends StatelessWidget {
           ),
           Text(
             text,
-            style: const TextStyle(
-              color: ColorUtils.black,
-              fontSize: 18,
-              fontFamily: FontUtils.primary,
-            ),
+            style: detailTheme.textTheme.bodyLarge!
+                .copyWith(color: ColorUtils.black),
           ),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
+import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/button_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
@@ -39,7 +40,7 @@ class InputQuest extends StatelessWidget {
                   top: 10,
                   child: TagQuestPeople(),
                 ),
-                const Positioned(
+                Positioned(
                   left: 20,
                   top: 40,
                   child: SizedBox(
@@ -47,11 +48,13 @@ class InputQuest extends StatelessWidget {
                     height: 45,
                     child: Text(
                       "Quest name ~~",
-                      style: textStyle,
+                      style: questTheme.textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
-                const Positioned(
+                Positioned(
                   left: 20,
                   top: 69,
                   child: SizedBox(
@@ -59,7 +62,7 @@ class InputQuest extends StatelessWidget {
                     height: 21,
                     child: Text(
                       'Quest description ~~',
-                      style: textStyle,
+                      style: questTheme.textTheme.bodyLarge,
                     ),
                   ),
                 ),
@@ -80,13 +83,6 @@ class InputQuest extends StatelessWidget {
   }
 }
 
-const textStyle = TextStyle(
-  color: Colors.black,
-  fontSize: 16,
-  fontFamily: "Nunito",
-  fontWeight: FontWeight.w400,
-);
-
-Future<void> navigateToDetail(context) async {
-  Navigator.pushNamed(context, '/quest/detail');
+Future<Future<Object?>> navigateToDetail(context) async {
+  return Navigator.pushNamed(context, '/quest/detail');
 }

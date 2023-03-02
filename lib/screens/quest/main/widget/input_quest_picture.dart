@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
+import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 
@@ -45,20 +46,17 @@ class InputQuestPicture extends StatelessWidget {
                   top: 10,
                   child: TagQuestPeople(),
                 ),
-                const Positioned(
+                Positioned(
                   left: 90,
                   top: 35,
                   child: Text(
                     "Quest name ~~",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontFamily: "Nunito",
-                      fontWeight: FontWeight.w900,
+                    style: questTheme.textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                const Positioned(
+                Positioned(
                   left: 90,
                   bottom: 15,
                   child: SizedBox(
@@ -66,12 +64,7 @@ class InputQuestPicture extends StatelessWidget {
                     height: 20,
                     child: Text(
                       'Quest description ~~',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontFamily: "Nunito",
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style: questTheme.textTheme.bodyLarge,
                     ),
                   ),
                 ),

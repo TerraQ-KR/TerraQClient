@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
+import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
 
 class ButtonQuest extends StatelessWidget {
   @override
@@ -16,14 +15,9 @@ class ButtonQuest extends StatelessWidget {
           minimumSize: const Size.fromHeight(50),
           elevation: 0.0,
         ),
-        child: const Text(
+        child: Text(
           'Certification',
-          style: TextStyle(
-            fontFamily: FontUtils.primary,
-            fontSize: 14,
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: questTheme.textTheme.bodyMedium,
         ),
       ),
     );

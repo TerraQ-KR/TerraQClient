@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
+import 'package:eco_reward_app/screens/quest/detail/style/detail_theme.dart';
 
 class ButtonQuestDetail extends StatelessWidget {
   final String text;
@@ -24,12 +23,7 @@ class ButtonQuestDetail extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: const TextStyle(
-            fontFamily: FontUtils.primary,
-            fontSize: 18,
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: detailTheme.textTheme.bodyLarge,
         ),
       ),
     );

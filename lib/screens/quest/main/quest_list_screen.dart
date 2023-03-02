@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_picture.dart';
-import 'package:eco_reward_app/screens/quest/detail/widget/quest_tool_bar.dart';
+import 'package:eco_reward_app/screens/quest/detail/widget/toolbar_quest.dart';
 
 class QuestListScreen extends StatefulWidget {
   @override
@@ -23,7 +23,7 @@ class _QuestListScreenState extends State<QuestListScreen> {
           child: Column(
             children: [
               const SizedBox(height: 20),
-              QuestToolBar(),
+              ToolbarQuest(),
               Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
