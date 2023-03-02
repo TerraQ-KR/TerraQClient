@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'package:eco_reward_app/screens/auth/widget/input_auth_common.dart';
 import 'package:eco_reward_app/screens/auth/widget/button_auth_common.dart';
-import 'package:eco_reward_app/screens/auth/utils/validation_auth_utils.dart';
+import 'package:eco_reward_app/screens/auth/utils/validate_auth_utils.dart';
 
 class AuthRegisterScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //private variable
-  String password = '';
+  AuthRegisterScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
+    String password = '';
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -18,7 +21,7 @@ class AuthRegisterScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
+              const Text(
                 'Create Account',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -29,49 +32,45 @@ class AuthRegisterScreen extends StatelessWidget {
               Stack(
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Form(
                           key: _formKey,
                           child: Column(children: <Widget>[
-                            InputAuth(
+                            InputAuthCommon(
                               text: 'User name',
                               hintMessage: 'Your username',
                               validator: (value) =>
-                                  ValidateUtils().validateName(value),
+                                  ValidateAuthUtils().validateName(value),
                             ),
                             const SizedBox(height: 10),
-                            InputAuth(
+                            InputAuthCommon(
                               text: 'Email',
                               hintMessage: 'EcoReward@GDSC.com',
                               validator: (value) =>
-                                  ValidateUtils().validateEmail(value),
+                                  ValidateAuthUtils().validateEmail(value),
                             ),
                             const SizedBox(height: 10),
-                            InputAuth(
+                            InputAuthCommon(
                               text: 'Password',
                               hintMessage:
                                   'Password must be greater than 8 characters.',
                               validator: (value) =>
-                                  ValidateUtils().validatePassword(value),
+                                  ValidateAuthUtils().validatePassword(value),
                               onChanged: (value) => password = value,
                             ),
                             const SizedBox(height: 10),
-                            InputAuth(
+                            InputAuthCommon(
                               text: 'Confirm Password',
                               hintMessage: 'Confirm Password',
-                              validator: (value) => ValidateUtils()
+                              validator: (value) => ValidateAuthUtils()
                                   .validateConfirmPassword(value, password),
                             ),
                             const SizedBox(height: 50),
                             ButtonAuth(
                               text: 'Sign up',
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  Navigator.pop(context);
-                                }
-                              },
+                              onPressed: () => handleClick(context),
                             ),
                           ])),
                     ),
@@ -86,5 +85,11 @@ class AuthRegisterScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void handleClick(BuildContext context) {
+    if (_formKey.currentState!.validate()) {
+      Navigator.pop(context);
+    }
   }
 }
