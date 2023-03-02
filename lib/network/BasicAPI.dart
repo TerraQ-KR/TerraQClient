@@ -13,7 +13,7 @@ void stErrFunction(dynamic e) {
 class BasicAPI {
   late Dio dio;
 
-  final String baseUrl = "http://localhost:8080";
+  final String baseUrl = "http://localhost:8080/";
 
   BasicAPI() {
     BaseOptions options = BaseOptions(
@@ -91,8 +91,10 @@ class BasicAPI {
     ProgressCallback? onReceiveProgress,
     Function errFunction = stErrFunction,
   }) async {
+    Response res;
+
     try {
-      return await dio.put(
+      res = await dio.put(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -102,7 +104,7 @@ class BasicAPI {
         onReceiveProgress: onReceiveProgress,
       );
     } on DioError catch (e) {
-      return errFunction(e);
+      throw Exception(e.message);
     }
   }
 
@@ -114,8 +116,10 @@ class BasicAPI {
     CancelToken? cancelToken,
     Function errFunction = stErrFunction,
   }) async {
+    Response res;
+
     try {
-      return await dio.delete(
+      res = await dio.delete(
         path,
         data: data,
         queryParameters: queryParameters,
@@ -123,7 +127,9 @@ class BasicAPI {
         cancelToken: cancelToken,
       );
     } on DioError catch (e) {
-      return errFunction(e);
+      throw Exception(e.message);
     }
+
+    return res;
   }
 }

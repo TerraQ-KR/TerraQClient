@@ -1,20 +1,12 @@
-import '../BasicAPI.dart';
+import 'package:eco_reward_app/network/custom_jobs.dart';
 
-void getTest() async {
-  var response = await API.GET(
-    path: '/getTest',
-  );
+// final Testjob = customQueryJob(queryKey: "getTest", path: "/getTest");
+// final testQuery = useQuery(job: Testjob, externalData: Null);
 
-  print(response);
-}
-
-void postTest() async {
-  String t = "violet";
-
-  var response = await API.POST(
-    path: '/postTest',
-    data: t,
-  );
-
-  print(response);
-}
+final testQuery = cachedQuery(
+  queryKey: "getTest",
+  path: "/getTest",
+  staleTime: const Duration(seconds: 2),
+);
+final testMutate =
+    cachedMutation(mutationKey: 'postTest', apiType: "post", path: "/postTest");
