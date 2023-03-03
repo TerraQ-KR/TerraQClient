@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/screens/quest/detail/style/detail_theme.dart';
 
 class ButtonQuestDetail extends StatelessWidget {
@@ -16,11 +15,7 @@ class ButtonQuestDetail extends StatelessWidget {
       height: 40,
       child: ElevatedButton(
         onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: ColorUtils.subBlue,
-          minimumSize: const Size.fromHeight(40),
-          elevation: 0.0,
-        ),
+        style: detailTheme.elevatedButtonTheme.style,
         child: Text(
           text,
           style: detailTheme.textTheme.bodyLarge,

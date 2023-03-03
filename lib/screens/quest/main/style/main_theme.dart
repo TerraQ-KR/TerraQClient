@@ -16,4 +16,17 @@ final ThemeData questTheme = ThemeData(
       fontWeight: FontWeight.bold,
     ),
   ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      primary: ColorUtils.subBlue,
+      minimumSize: const Size.fromHeight(40),
+      elevation: 0.0,
+    ),
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    fillColor: ColorUtils.white,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(15),
+    ),
+  ),
 );

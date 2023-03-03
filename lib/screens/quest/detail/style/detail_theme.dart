@@ -23,4 +23,11 @@ final ThemeData detailTheme = ThemeData(
       fontWeight: FontWeight.w900,
     ),
   ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      primary: ColorUtils.subBlue,
+      minimumSize: const Size.fromHeight(40),
+      elevation: 0.0,
+    ),
+  ),
 );
