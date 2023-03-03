@@ -13,40 +13,34 @@ class _MyQuestScreenState extends State<MyQuestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [ColorUtils.subOrange, ColorUtils.primary]),
-          ),
-          child: Center(
-            child: Column(
-              children: [
-                const SizedBox(height: 20),
-                ToolbarQuest(),
-                Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: <Widget>[
-                        const SizedBox(height: 20),
-                        InputQuest(),
-                        const SizedBox(height: 20),
-                        InputQuest(),
-                        const SizedBox(height: 20),
-                        InputQuest(),
-                        const SizedBox(height: 20),
-                        InputQuest(),
-                        const SizedBox(height: 20),
-                        InputQuest(),
-                      ],
-                    ),
-                  ),
+      backgroundColor: Colors.transparent,
+      body: Center(
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            ToolbarQuest(),
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(height: 20),
+                    InputQuest(),
+                    const SizedBox(height: 20),
+                    InputQuest(),
+                    const SizedBox(height: 20),
+                    InputQuest(),
+                    const SizedBox(height: 20),
+                    InputQuest(),
+                    const SizedBox(height: 20),
+                    InputQuest(),
+                  ],
                 ),
-              ],
+              ),
             ),
-          )),
+          ],
+        ),
+      ),
     );
   }
 }

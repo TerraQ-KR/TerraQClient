@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_picture.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/toolbar_quest.dart';
 
@@ -13,40 +11,34 @@ class _QuestListScreenState extends State<QuestListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [ColorUtils.subOrange, ColorUtils.primary]),
-          ),
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              ToolbarQuest(),
-              Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        const SizedBox(height: 20),
-                        InputQuestPicture(),
-                        const SizedBox(height: 20),
-                        InputQuestPicture(),
-                        const SizedBox(height: 20),
-                        InputQuestPicture(),
-                        const SizedBox(height: 20),
-                        InputQuestPicture(),
-                        const SizedBox(height: 20),
-                        InputQuestPicture(),
-                      ],
-                    ),
-                  ),
+      backgroundColor: Colors.transparent,
+      body: Column(
+        children: [
+          const SizedBox(height: 20),
+          ToolbarQuest(),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(height: 20),
+                    InputQuestPicture(),
+                    const SizedBox(height: 20),
+                    InputQuestPicture(),
+                    const SizedBox(height: 20),
+                    InputQuestPicture(),
+                    const SizedBox(height: 20),
+                    InputQuestPicture(),
+                    const SizedBox(height: 20),
+                    InputQuestPicture(),
+                  ],
                 ),
               ),
-            ],
-          )),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
