@@ -1,3 +1,4 @@
+import 'package:eco_reward_app/screens/quest/detail/quest_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
@@ -83,6 +84,7 @@ class InputQuest extends StatelessWidget {
   }
 }
 
-Future<Future<Object?>> navigateToDetail(context) async {
-  return Navigator.pushNamed(context, '/quest/detail');
+Future navigateToDetail(context) async {
+  Navigator.push(context,
+      new MaterialPageRoute(builder: (context) => new QuestDetailScreen()));
 }

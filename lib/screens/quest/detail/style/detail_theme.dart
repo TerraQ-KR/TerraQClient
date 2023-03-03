@@ -25,7 +25,7 @@ final ThemeData detailTheme = ThemeData(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      primary: ColorUtils.subBlue,
+      backgroundColor: ColorUtils.subBlue,
       minimumSize: const Size.fromHeight(40),
       elevation: 0.0,
     ),

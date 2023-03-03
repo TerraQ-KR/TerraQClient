@@ -12,6 +12,7 @@ final routes = {
   '/account': (BuildContext context) => AuthRegisterScreen(),
   '/quest': (BuildContext context) => QuestTabScreen(),
   '/quest/detail': (BuildContext context) => QuestDetailScreen(),
-  '/quest/certification': (BuildContext context) => QuestCertificationScreen(),
+  '/quest/certification': (BuildContext context) =>
+      const QuestCertificationScreen(),
   '/quest/gallery': (BuildContext context) => const QuestGalleryScreen(),
 };

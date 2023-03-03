@@ -3,6 +3,8 @@ import 'package:eco_reward_app/screens/quest/main/widget/input_quest_picture.dar
 import 'package:eco_reward_app/screens/quest/detail/widget/toolbar_quest.dart';
 
 class QuestListScreen extends StatefulWidget {
+  const QuestListScreen({super.key});
+
   @override
   State<QuestListScreen> createState() => _QuestListScreenState();
 }
@@ -15,7 +17,7 @@ class _QuestListScreenState extends State<QuestListScreen> {
       body: Column(
         children: [
           const SizedBox(height: 20),
-          ToolbarQuest(),
+          const ToolbarQuest(),
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,

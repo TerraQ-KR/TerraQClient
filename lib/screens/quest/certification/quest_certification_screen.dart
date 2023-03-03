@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class QuestCertificationScreen extends StatelessWidget {
+  const QuestCertificationScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -88,7 +88,7 @@ class _QuestTabScreenState extends State<QuestTabScreen>
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      QuestListScreen(),
+                      const QuestListScreen(),
                       MyQuestScreen(),
                     ],
                   ),

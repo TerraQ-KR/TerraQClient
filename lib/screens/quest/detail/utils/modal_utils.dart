@@ -5,11 +5,12 @@ import 'package:eco_reward_app/screens/quest/detail/widget/quest_icon_box.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/button_quest_detail.dart';
 
 class ModalUtils {
+  // ignore: strict_raw_type
   Future sortMyQuest(context) async {
     showModalBottomSheet<void>(
       context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
       ),
       builder: (BuildContext context) {
         return Scaffold(
@@ -42,9 +43,10 @@ class ModalUtils {
                     text: 'Sort by Category',
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 30),
+                    padding: const EdgeInsets.only(top: 30),
                     child: ButtonQuestDetail(
                       text: 'Confirm',
+                      // ignore: no-empty-block
                       onPressed: () {},
                     ),
                   ),

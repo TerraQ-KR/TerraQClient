@@ -6,6 +6,8 @@ import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/tag_quest_foot.dart';
 
 class ContainerQuestDetail extends StatefulWidget {
+  const ContainerQuestDetail({super.key});
+
   @override
   State<ContainerQuestDetail> createState() => _ContainerQuestDetail();
 }
@@ -18,7 +20,7 @@ class _ContainerQuestDetail extends State<ContainerQuestDetail> {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(top: 100),
+            padding: const EdgeInsets.only(top: 100),
             child: Text(
               'Quest name ~~',
               style: detailTheme.textTheme.titleMedium,
@@ -26,12 +28,12 @@ class _ContainerQuestDetail extends State<ContainerQuestDetail> {
           ),
           Row(
             children: [
-              Padding(padding: EdgeInsets.all(20), child: TagQuestFoot()),
+              const Padding(padding: EdgeInsets.all(20), child: TagQuestFoot()),
               TagQuestPeople(),
             ],
           ),
           QuestInformBox(),
-          Padding(
+          const Padding(
             padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
             child: QuestDescriptionBox(),
           ),

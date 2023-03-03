@@ -18,15 +18,15 @@ final ThemeData questTheme = ThemeData(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      primary: ColorUtils.subBlue,
+      backgroundColor: ColorUtils.subBlue,
       minimumSize: const Size.fromHeight(40),
       elevation: 0.0,
     ),
   ),
-  inputDecorationTheme: InputDecorationTheme(
+  inputDecorationTheme: const InputDecorationTheme(
     fillColor: ColorUtils.white,
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(15),
+      borderRadius: BorderRadius.all(Radius.circular(15)),
     ),
   ),
 );

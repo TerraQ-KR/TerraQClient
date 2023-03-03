@@ -12,7 +12,7 @@ class QuestInformBox extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(15),
           ),
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             child: Column(
               children: [
@@ -24,6 +24,7 @@ class QuestInformBox extends StatelessWidget {
                       text: 'Date',
                     ),
                     IconButton(
+                      // ignore: no-empty-block
                       onPressed: () {},
                       icon: const Icon(Icons.navigate_next, size: 30),
                     ),
@@ -37,6 +38,7 @@ class QuestInformBox extends StatelessWidget {
                       text: 'Authentication methods',
                     ),
                     IconButton(
+                      // ignore: no-empty-block
                       onPressed: () {},
                       icon: const Icon(Icons.navigate_next, size: 30),
                     ),

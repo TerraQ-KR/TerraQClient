@@ -3,6 +3,8 @@ import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/container_quest_detail.dart';
 
 class QuestDetailScreen extends StatefulWidget {
+  const QuestDetailScreen({super.key});
+
   @override
   State<QuestDetailScreen> createState() => _QuestDetailScreen();
 }
@@ -22,7 +24,7 @@ class _QuestDetailScreen extends State<QuestDetailScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.max,
@@ -37,7 +39,7 @@ class _QuestDetailScreen extends State<QuestDetailScreen> {
                     ],
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   child: ContainerQuestDetail(),
                 ),
               ],

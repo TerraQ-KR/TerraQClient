@@ -58,5 +58,5 @@ class QuestGalleryScreen extends StatelessWidget {
 }
 
 _navigateToBefore(context) async {
-  return Navigator.pop(context);
+  Navigator.pop(context);
 }

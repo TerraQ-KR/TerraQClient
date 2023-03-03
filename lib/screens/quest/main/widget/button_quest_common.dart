@@ -1,3 +1,4 @@
+import 'package:eco_reward_app/screens/quest/certification/quest_certification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
 
@@ -20,5 +21,8 @@ class ButtonQuest extends StatelessWidget {
 }
 
 Future<void> navigateToCertification(context) async {
-  Navigator.pushNamed(context, '/quest/certification');
+  Navigator.push(
+      context,
+      new MaterialPageRoute(
+          builder: (context) => new QuestCertificationScreen()));
 }
