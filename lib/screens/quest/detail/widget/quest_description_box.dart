@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/button_quest_detail.dart';
 
 class QuestDescriptionBox extends StatelessWidget {
-  const QuestDescriptionBox({super.key});
+  final String information;
+
+  const QuestDescriptionBox({super.key, required this.information});
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +19,9 @@ class QuestDescriptionBox extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            const Text('''
-              Requirements 
-              for achieving quests 
-
-              blablabla
-
-              Quest Detail Description
-
-              Detail ~~
-
-              ~~
-              ㅇㅇㅇㅇ
-              '''),
+            Text(
+              information,
+            ),
             ButtonQuestDetail(
               text: 'Certification',
               onPressed: () => {},

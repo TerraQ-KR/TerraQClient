@@ -18,22 +18,21 @@ class _MyQuestScreenState extends State<MyQuestScreen> {
             const SizedBox(height: 20),
             ToolbarQuest(),
             Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: <Widget>[
-                    const SizedBox(height: 20),
-                    InputQuest(),
-                    const SizedBox(height: 20),
-                    InputQuest(),
-                    const SizedBox(height: 20),
-                    InputQuest(),
-                    const SizedBox(height: 20),
-                    InputQuest(),
-                    const SizedBox(height: 20),
-                    InputQuest(),
-                  ],
-                ),
+              child: ListView.builder(
+                itemCount: 5,
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    children: [
+                      InputQuest(
+                        subCategoryName: 'Saving',
+                        questName: '가전제품 플러그 뽑아두기',
+                        memo: '사용하지 않는 가전제품이라도 플러그 ~',
+                        challenger: 150,
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  );
+                },
               ),
             ),
           ],

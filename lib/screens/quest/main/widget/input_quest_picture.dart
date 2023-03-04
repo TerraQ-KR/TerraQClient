@@ -5,6 +5,22 @@ import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 
 class InputQuestPicture extends StatelessWidget {
+  final String categoryName;
+  final String subCategoryName;
+  final String questName;
+  final int reward;
+  final String memo;
+  final int timeLimit;
+
+  const InputQuestPicture({
+    Key? key,
+    required this.categoryName,
+    required this.subCategoryName,
+    required this.questName,
+    required this.reward,
+    required this.memo,
+    required this.timeLimit,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -36,10 +52,10 @@ class InputQuestPicture extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Positioned(
+                Positioned(
                   left: 90,
                   top: 10,
-                  child: TagQuest(text: 'Reuse'),
+                  child: TagQuest(text: subCategoryName),
                 ),
                 Positioned(
                   left: 170,
@@ -50,7 +66,7 @@ class InputQuestPicture extends StatelessWidget {
                   left: 90,
                   top: 35,
                   child: Text(
-                    "Quest name ~~",
+                    questName,
                     style: questTheme.textTheme.bodyLarge!.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -63,7 +79,7 @@ class InputQuestPicture extends StatelessWidget {
                     width: 250,
                     height: 20,
                     child: Text(
-                      'Quest description ~~',
+                      memo,
                       style: questTheme.textTheme.bodyLarge,
                     ),
                   ),

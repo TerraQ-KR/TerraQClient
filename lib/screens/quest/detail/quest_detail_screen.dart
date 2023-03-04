@@ -39,8 +39,13 @@ class _QuestDetailScreen extends State<QuestDetailScreen> {
                     ],
                   ),
                 ),
-                const Expanded(
-                  child: ContainerQuestDetail(),
+                Expanded(
+                  child: ContainerQuestDetail(
+                    questName: "가전제품 플러그 뽑아두기",
+                    briefing:
+                        "사용하지 않는 가전제품이라도 플러그가 꽂혀있으면 “대기전력”이 소모됩니다! 당장 사용하지 않는 제품들의 플러그를 뽑아 돈도 아끼고, 환경도 보호해주세요.",
+                    information: "메모메모 ~~~ 많이 추가해주세요 길이제한 500 ~~",
+                  ),
                 ),
               ],
             ),
