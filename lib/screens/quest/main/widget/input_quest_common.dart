@@ -39,7 +39,7 @@ class InputQuest extends StatelessWidget {
                 Positioned(
                   left: 90,
                   top: 10,
-                  child: TagQuestPeople(),
+                  child: TagQuestPeople(quest_user_count: 1000),
                 ),
                 Positioned(
                   left: 20,

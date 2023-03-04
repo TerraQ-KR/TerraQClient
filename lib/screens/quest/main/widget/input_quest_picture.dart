@@ -44,7 +44,7 @@ class InputQuestPicture extends StatelessWidget {
                 Positioned(
                   left: 170,
                   top: 10,
-                  child: TagQuestPeople(),
+                  child: TagQuestPeople(quest_user_count: 100),
                 ),
                 Positioned(
                   left: 90,
