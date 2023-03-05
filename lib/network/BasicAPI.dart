@@ -13,7 +13,7 @@ void stErrFunction(dynamic e) {
 class BasicAPI {
   late Dio dio;
 
-  final String baseUrl = "http://localhost:8080/";
+  final String baseUrl = "http://35.216.34.93:8080/api";
 
   BasicAPI() {
     BaseOptions options = BaseOptions(
