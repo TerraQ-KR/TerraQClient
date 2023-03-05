@@ -5,21 +5,15 @@ import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 
 class InputQuestPicture extends StatelessWidget {
-  final String categoryName;
   final String subCategoryName;
   final String questName;
-  final int reward;
-  final String memo;
-  final int timeLimit;
+  final String briefing;
 
   const InputQuestPicture({
     Key? key,
-    required this.categoryName,
     required this.subCategoryName,
     required this.questName,
-    required this.reward,
-    required this.memo,
-    required this.timeLimit,
+    required this.briefing,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -68,7 +62,7 @@ class InputQuestPicture extends StatelessWidget {
                   Container(
                     alignment: const Alignment(0, 0.5),
                     child: Text(
-                      memo,
+                      briefing,
                       style: questTheme.textTheme.bodyLarge,
                     ),
                   ),

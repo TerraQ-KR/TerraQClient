@@ -32,6 +32,7 @@ class QuestGalleryScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     shrinkWrap: true,
                     itemCount: 20,
+                    scrollDirection: Axis.vertical,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
