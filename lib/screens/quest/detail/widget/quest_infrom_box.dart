@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/quest_icon_box.dart';
 
 class QuestInformBox extends StatelessWidget {
+  final String startDate;
+  final String endDate;
+
+  const QuestInformBox(
+      {super.key, required this.startDate, required this.endDate});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,9 +24,9 @@ class QuestInformBox extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const QuestIconBox(
+                    QuestIconBox(
                       icon: Icons.watch,
-                      text: 'Date',
+                      text: 'Date :  $startDate ~ $endDate',
                     ),
                     IconButton(
                       // ignore: no-empty-block

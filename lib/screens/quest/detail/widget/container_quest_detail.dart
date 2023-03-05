@@ -9,12 +9,17 @@ class ContainerQuestDetail extends StatelessWidget {
   final String questName;
   final String briefing;
   final String information;
+  final String startDate;
+  final String endDate;
 
   const ContainerQuestDetail(
-      {super.key,
+      {Key? key,
       required this.questName,
       required this.briefing,
-      required this.information});
+      required this.information,
+      required this.startDate,
+      required this.endDate})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +34,16 @@ class ContainerQuestDetail extends StatelessWidget {
               style: detailTheme.textTheme.titleMedium,
             ),
           ),
-          Row(
+          const Row(
             children: [
-              const Padding(padding: EdgeInsets.all(20), child: TagQuestFoot()),
+              Padding(padding: EdgeInsets.all(20), child: TagQuestFoot()),
               TagQuestPeople(quest_user_count: 100),
             ],
           ),
-          QuestInformBox(),
+          QuestInformBox(
+            startDate: startDate,
+            endDate: endDate,
+          ),
           Padding(
             padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
             child: QuestDescriptionBox(
