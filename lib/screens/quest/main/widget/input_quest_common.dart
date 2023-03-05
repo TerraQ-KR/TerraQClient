@@ -22,44 +22,34 @@ class InputQuest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 360,
-      height: 130,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: 360,
-            height: 130,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: ColorUtils.white,
-            ),
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 165,
-                  top: 90,
-                  child: ButtonQuest(),
-                ),
-                Positioned(
-                  left: 10,
-                  top: 10,
-                  child: TagQuest(text: subCategoryName),
-                ),
-                Positioned(
-                  left: 90,
-                  top: 10,
-                  child: TagQuestPeople(quest_user_count: challenger),
-                ),
-                Positioned(
-                  left: 20,
-                  top: 40,
-                  child: SizedBox(
-                    width: 250,
-                    height: 45,
+    return Container(
+      alignment: Alignment.center,
+      height: 150,
+      child: FractionallySizedBox(
+        widthFactor: 0.6,
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: ColorUtils.white,
+              ),
+              child: Stack(
+                children: [
+                  Container(
+                    alignment: const Alignment(0.8, 0.8),
+                    child: ButtonQuest(),
+                  ),
+                  Container(
+                    alignment: const Alignment(-0.8, -0.8),
+                    child: TagQuest(text: subCategoryName),
+                  ),
+                  Container(
+                    alignment: const Alignment(-0.2, -0.8),
+                    child: TagQuestPeople(quest_user_count: challenger),
+                  ),
+                  Container(
+                    alignment: const Alignment(-0.6, -0.3),
                     child: Text(
                       questName,
                       style: questTheme.textTheme.bodyLarge!.copyWith(
@@ -67,31 +57,25 @@ class InputQuest extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-                Positioned(
-                  left: 20,
-                  top: 69,
-                  child: SizedBox(
-                    width: 250,
-                    height: 21,
+                  Container(
+                    alignment: const Alignment(-0.6, 0.1),
                     child: Text(
                       questName,
                       style: questTheme.textTheme.bodyLarge,
                     ),
                   ),
-                ),
-                Positioned(
-                  right: 10,
-                  top: 10,
-                  child: IconButton(
-                    onPressed: () => navigateToDetail(context),
-                    icon: const Icon(Icons.navigate_next, size: 45),
+                  Container(
+                    alignment: const Alignment(0.9, -0.8),
+                    child: IconButton(
+                      onPressed: () => navigateToDetail(context),
+                      icon: const Icon(Icons.navigate_next, size: 45),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -23,80 +23,68 @@ class InputQuestPicture extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 360,
+    return Container(
+      alignment: Alignment.center,
       height: 100,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: 360,
-            height: 100,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: ColorUtils.white,
-            ),
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 10,
-                  top: 15,
-                  child: Container(
-                    height: 70,
-                    width: 70,
-                    decoration: const BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
+      child: FractionallySizedBox(
+        widthFactor: 0.6,
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: ColorUtils.white,
+              ),
+              child: Stack(
+                children: [
+                  Container(
+                    alignment: const Alignment(-0.9, 0),
+                    child: Container(
+                      width: 70,
+                      height: 70,
+                      decoration: const BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                      ),
                     ),
                   ),
-                ),
-                Positioned(
-                  left: 90,
-                  top: 10,
-                  child: TagQuest(text: subCategoryName),
-                ),
-                Positioned(
-                  left: 170,
-                  top: 10,
-                  child: TagQuestPeople(quest_user_count: 100),
-                ),
-                Positioned(
-                  left: 90,
-                  top: 35,
-                  child: Text(
-                    questName,
-                    style: questTheme.textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
+                  Container(
+                    alignment: const Alignment(-0.3, -0.8),
+                    child: TagQuest(text: subCategoryName),
+                  ),
+                  Container(
+                    alignment: const Alignment(0.3, -0.8),
+                    child: TagQuestPeople(quest_user_count: 100),
+                  ),
+                  Container(
+                    alignment: const Alignment(0.2, -0.1),
+                    child: Text(
+                      questName,
+                      style: questTheme.textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                Positioned(
-                  left: 90,
-                  bottom: 15,
-                  child: SizedBox(
-                    width: 250,
-                    height: 20,
+                  Container(
+                    alignment: const Alignment(0, 0.5),
                     child: Text(
                       memo,
                       style: questTheme.textTheme.bodyLarge,
                     ),
                   ),
-                ),
-                Positioned(
-                  right: 10,
-                  top: 10,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.bookmark,
-                        color: ColorUtils.subBlue, size: 30),
+                  Container(
+                    alignment: const Alignment(0.9, -0.8),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.bookmark,
+                          color: ColorUtils.subBlue, size: 30),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
