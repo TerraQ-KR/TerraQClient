@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'test_api.dart';
+import '../custom_jobs.dart';
 
 class TestWidget extends HookWidget {
   const TestWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final testQuery = cachedQuery(
+      queryKey: "getTest",
+      path: "/getTest",
+    );
+
     if (!testQuery.hasData || testQuery.isLoading || testQuery.isRefetching) {
       return const CircularProgressIndicator();
     }
-
-    var text = testQuery.data;
 
     return Column(
       children: [
         Row(
           children: [
-            Text(text as String),
+            Text(testQuery.data as String),
             ElevatedButton(
               child: const Text("Refetch"),
               // ignore: prefer-extracting-callbacks
@@ -41,15 +44,17 @@ class testOtherScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final testQuery = cachedQuery(
+      queryKey: "getTest",
+      path: "/getTest",
+    );
     if (!testQuery.hasData || testQuery.isLoading || testQuery.isRefetching) {
       return Container();
     }
 
-    var text = testQuery.data;
-
     return Row(
       children: [
-        Text(text as String),
+        Text(testQuery.data as String),
         ElevatedButton(
           child: const Text("Refetch"),
           // ignore: prefer-extracting-callbacks
