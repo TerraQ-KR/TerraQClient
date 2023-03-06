@@ -41,7 +41,6 @@ dart_code_metrics:
     - avoid-cascade-after-if-null
     - avoid-global-state
     - avoid-ignoring-return-values
-    - prefer-moving-to-variable
     - prefer-match-file-name
     - prefer-last
     - prefer-immediate-return
