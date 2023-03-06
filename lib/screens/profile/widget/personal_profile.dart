@@ -1,12 +1,15 @@
 // ignore_for_file: camel_case_types
 
+import 'dart:math';
+
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class personalProfile extends StatelessWidget {
+class personalProfile extends HookWidget {
   final String name = "Nickname";
-  final String personalStyle = "Passionate activist";
+  final String personalTitle = "Passionate activist";
 
   const personalProfile({
     super.key,
@@ -14,34 +17,39 @@ class personalProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size deviceSize = MediaQuery.of(context).size;
+    double pixelWidth = deviceSize.width;
+
     return Padding(
-      padding: const EdgeInsets.all(15),
+      padding: EdgeInsets.all(0.025 * pixelWidth),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            height: 120,
-            width: 120,
+            height: 0.25 * pixelWidth,
+            width: 0.25 * pixelWidth,
             decoration: const BoxDecoration(
               color: ColorUtils.white,
               shape: BoxShape.circle,
               border: Border(),
             ),
           ),
-          const SizedBox(width: 20),
+          SizedBox(width: min(0.08 * pixelWidth, 25)),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(personalStyle,
-                  style: const TextStyle(
-                    fontSize: 20,
+              Text(personalTitle,
+                  style: TextStyle(
+                    fontSize: min(0.05 * pixelWidth, 15),
                     fontWeight: FontWeight.w700,
                     fontFamily: FontUtils.primary,
                   )),
-              const SizedBox(height: 5),
+              // SizedBox(height: max(0.02 * pixelWidth, 5)),
               Text(name,
-                  style: const TextStyle(
-                    fontSize: 25,
+                  style: TextStyle(
+                    fontSize: min(0.067 * pixelWidth, 32),
                     fontWeight: FontWeight.w700,
                     fontFamily: FontUtils.bold,
                   )),

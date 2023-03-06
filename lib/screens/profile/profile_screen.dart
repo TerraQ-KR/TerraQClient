@@ -1,3 +1,5 @@
+import 'package:eco_reward_app/screens/profile/widget/invite_member.dart';
+import 'package:eco_reward_app/screens/profile/widget/my_history.dart';
 import 'package:eco_reward_app/screens/profile/widget/personal_profile.dart';
 import 'package:eco_reward_app/screens/profile/widget/personal_status.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,9 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size deviceSize = MediaQuery.of(context).size;
+    double pixelHeight = deviceSize.height;
+
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -21,12 +26,29 @@ class ProfileScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: ColorUtils.white,
         ),
-        body: const Padding(
-          padding: EdgeInsets.all(25.0),
+        body: Padding(
+          padding: EdgeInsets.all(0.017 * pixelHeight),
           child: Column(
             children: [
-              personalProfile(),
-              personalStatus(),
+              const Flexible(
+                flex: 3,
+                child: personalProfile(),
+              ),
+              SizedBox(height: 0.01 * pixelHeight),
+              const Flexible(
+                flex: 3,
+                child: personalStatus(),
+              ),
+              SizedBox(height: 0.017 * pixelHeight),
+              const Flexible(
+                flex: 6,
+                child: PersonalHistory(),
+              ),
+              SizedBox(height: 0.017 * pixelHeight),
+              const Flexible(
+                flex: 4,
+                child: InviteMember(),
+              ),
             ],
           ),
         ),

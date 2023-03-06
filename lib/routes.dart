@@ -10,8 +10,8 @@ import 'package:eco_reward_app/screens/profile/profile_screen.dart';
 
 final routes = {
   '/': (BuildContext context) => const ProfileScreen(),
-  // '/login': (BuildContext context) => AuthLoginScreen(),
-  // '/account': (BuildContext context) => AuthRegisterScreen(),
-  // '/home': (BuildContext context) => const HomeScreen(),
+  '/login': (BuildContext context) => AuthLoginScreen(),
+  '/account': (BuildContext context) => AuthRegisterScreen(),
+  '/home': (BuildContext context) => const HomeScreen(),
   '/mypage': (BuildContext context) => const ProfileScreen(),
 };
