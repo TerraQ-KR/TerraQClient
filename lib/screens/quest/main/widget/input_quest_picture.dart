@@ -3,17 +3,14 @@ import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
+import 'package:eco_reward_app/screens/quest/main/models/t_quest.dart';
 
 class InputQuestPicture extends StatelessWidget {
-  final String subCategoryName;
-  final String questName;
-  final String briefing;
+  final TQuest quest;
 
   const InputQuestPicture({
     Key? key,
-    required this.subCategoryName,
-    required this.questName,
-    required this.briefing,
+    required this.quest,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -44,16 +41,17 @@ class InputQuestPicture extends StatelessWidget {
                   ),
                   Container(
                     alignment: const Alignment(-0.3, -0.8),
-                    child: TagQuest(text: subCategoryName),
+                    child: TagQuest(text: quest.categoryDto![1] ?? 'Recycle'),
                   ),
                   Container(
                     alignment: const Alignment(0.3, -0.8),
-                    child: TagQuestPeople(quest_user_count: 100),
+                    child:
+                        TagQuestPeople(quest_user_count: quest.nowChallenger!),
                   ),
                   Container(
                     alignment: const Alignment(0.2, -0.1),
                     child: Text(
-                      questName,
+                      quest.questName!,
                       style: questTheme.textTheme.bodyLarge!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -62,7 +60,7 @@ class InputQuestPicture extends StatelessWidget {
                   Container(
                     alignment: const Alignment(0, 0.5),
                     child: Text(
-                      briefing,
+                      quest.memo!,
                       style: questTheme.textTheme.bodyLarge,
                     ),
                   ),

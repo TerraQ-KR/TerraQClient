@@ -1,44 +1,25 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_picture.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/toolbar_quest.dart';
-// API
+import 'package:eco_reward_app/network/provider/api_path.dart';
+import 'package:eco_reward_app/network/provider/query_keys.dart';
+import 'package:eco_reward_app/network/custom_jobs.dart';
+import 'package:eco_reward_app/screens/quest/main/models/get_quest.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class QuestListScreen extends StatefulWidget {
+class QuestListScreen extends HookWidget {
   const QuestListScreen({super.key});
 
   @override
-  State<QuestListScreen> createState() => _QuestListScreenState();
-}
-
-class _QuestListScreenState extends State<QuestListScreen> {
-  String BasicURl = 'http://35.216.34.93:8080/api/getQuestDetailView/';
-
-  List<Map<String, dynamic>> responseData = [];
-  Future<void> fetchData() async {
-    for (int i = 0; i < 11; i++) {
-      final questID = i;
-      final response = await http.get(Uri.parse(BasicURl + questID.toString()));
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = jsonDecode(response.body);
-        if (data.isNotEmpty) {
-          setState(() {
-            responseData.add(data);
-          });
-        }
-      }
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchData();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final quest = cachedQuery(
+        queryKey: QueryKeys().questNotMyQuestList(1),
+        path: ApiPaths().questNotMyQuestList(1));
+    // ignore: prefer_if_null_operators
+    final questData = getQuestNotMyQuestList(quest.data);
+
+    final isSuccess = quest.isSuccess;
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Column(
@@ -46,25 +27,25 @@ class _QuestListScreenState extends State<QuestListScreen> {
           const SizedBox(height: 20),
           const ToolbarQuest(),
           Expanded(
-            child: ListView.builder(
-              itemCount: responseData.length,
-              itemBuilder: (BuildContext context, int index) {
-                final data = responseData[index];
-                // ignore: newline-before-return
-                return Container(
-                  margin: EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      InputQuestPicture(
-                        subCategoryName: 'Saving',
-                        questName: '${data['questName']}',
-                        briefing: '${data['briefing']}',
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
+            child: isSuccess && questData.isNotEmpty
+                ? ListView.builder(
+                    itemCount: questData.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final data = questData[index];
+                      // ignore: newline-before-return
+                      return Container(
+                        margin: EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            InputQuestPicture(
+                              quest: data,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  )
+                : const SizedBox(),
           ),
         ],
       ),
