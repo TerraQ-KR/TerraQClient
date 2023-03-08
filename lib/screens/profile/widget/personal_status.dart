@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types
 import 'dart:math';
 
+import 'package:eco_reward_app/screens/profile/icons/profile_icons.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +22,15 @@ class personalStatus extends StatelessWidget {
           flex: 1,
           child: Row(
             children: [
-              Icon(
-                Icons.co2,
-                size: min(0.05 * pixelWidth, 30),
-                color: ColorUtils.white,
+              Transform.rotate(
+                angle: -1.5707963267948966192313216916398,
+                child: Icon(
+                  ProfileIcons.carbonprint,
+                  size: min(0.05 * pixelWidth, 20),
+                  color: ColorUtils.white,
+                ),
               ),
-              SizedBox(width: 0.025 * pixelWidth),
+              SizedBox(width: 0.03 * pixelWidth),
               Text(
                 "Quest Status",
                 style: TextStyle(

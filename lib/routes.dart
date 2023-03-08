@@ -13,5 +13,5 @@ final routes = {
   '/login': (BuildContext context) => AuthLoginScreen(),
   '/account': (BuildContext context) => AuthRegisterScreen(),
   '/home': (BuildContext context) => const HomeScreen(),
-  '/mypage': (BuildContext context) => const ProfileScreen(),
+  '/mypage/test': (BuildContext context) => AuthLoginScreen(),
 };

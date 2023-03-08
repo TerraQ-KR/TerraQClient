@@ -2,14 +2,15 @@
 
 import 'dart:math';
 
+import 'package:eco_reward_app/network/custom_jobs.dart';
+import 'package:eco_reward_app/network/provider/api_paths.dart';
+import 'package:eco_reward_app/network/provider/query_keys.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
-import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class personalProfile extends HookWidget {
-  final String name = "Nickname";
-  final String personalTitle = "Passionate activist";
+  final String personalTitle = "nickname";
 
   const personalProfile({
     super.key,
@@ -19,6 +20,13 @@ class personalProfile extends HookWidget {
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
     double pixelWidth = deviceSize.width;
+
+    var profileQuery = cachedQuery(
+      queryKey: QueryKeys.memberdetail(1),
+      path: ApiPaths.memberdetail(1),
+    );
+
+    
 
     return Padding(
       padding: EdgeInsets.all(0.025 * pixelWidth),
@@ -39,21 +47,26 @@ class personalProfile extends HookWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(personalTitle,
-                  style: TextStyle(
-                    fontSize: min(0.05 * pixelWidth, 15),
-                    fontWeight: FontWeight.w700,
-                    fontFamily: FontUtils.primary,
-                  )),
-              // SizedBox(height: max(0.02 * pixelWidth, 5)),
-              Text(name,
-                  style: TextStyle(
-                    fontSize: min(0.067 * pixelWidth, 32),
-                    fontWeight: FontWeight.w700,
-                    fontFamily: FontUtils.bold,
-                  )),
-            ],
+            // children: (profileQuery.hasData &&
+            //         !profileQuery.isLoading &&
+            //         !profileQuery.isError)
+            //     ? [
+            //         Text("title",
+            //             style: TextStyle(
+            //               fontSize: min(0.05 * pixelWidth, 15),
+            //               fontWeight: FontWeight.w700,
+            //               fontFamily: FontUtils.primary,
+            //             )),
+            //         // SizedBox(height: max(0.02 * pixelWidth, 5)),
+            //         Text("",
+            //             style: TextStyle(
+            //               fontSize: min(0.067 * pixelWidth, 32),
+            //               fontWeight: FontWeight.w700,
+            //               fontFamily: FontUtils.bold,
+            //             )),
+            //       ]
+            //     : [],
+            children: ,
           )
         ],
       ),

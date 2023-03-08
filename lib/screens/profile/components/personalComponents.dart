@@ -7,12 +7,15 @@ class PersonalComponent extends StatelessWidget {
   final String navigatePath;
   final String componentText;
   final IconData componentIcon;
+  final double angle;
 
-  const PersonalComponent(
-      {super.key,
-      required this.navigatePath,
-      required this.componentText,
-      required this.componentIcon});
+  const PersonalComponent({
+    super.key,
+    required this.navigatePath,
+    required this.componentText,
+    required this.componentIcon,
+    this.angle = 0.0,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +37,12 @@ class PersonalComponent extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(
-                    componentIcon,
-                    size: 0.04 * pixelHeight,
+                  Transform.rotate(
+                    angle: angle,
+                    child: Icon(
+                      componentIcon,
+                      size: 0.04 * pixelHeight,
+                    ),
                   ),
                   SizedBox(
                     width: 0.04 * pixelWidth,

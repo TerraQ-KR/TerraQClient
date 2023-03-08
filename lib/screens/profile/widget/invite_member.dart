@@ -1,4 +1,5 @@
 import 'package:eco_reward_app/screens/profile/components/personalComponents.dart';
+import 'package:eco_reward_app/screens/profile/icons/profile_icons.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,7 @@ class InviteMember extends StatelessWidget {
               flex: 1,
               child: PersonalComponent(
                 navigatePath: "login",
-                componentIcon: Icons.call,
+                componentIcon: ProfileIcons.phone,
                 componentText: "Inquiry",
               ),
             ),
@@ -30,7 +31,7 @@ class InviteMember extends StatelessWidget {
               flex: 1,
               child: PersonalComponent(
                 navigatePath: "login",
-                componentIcon: Icons.person_add_rounded,
+                componentIcon: ProfileIcons.addGroup,
                 componentText: "Invite",
               ),
             ),
