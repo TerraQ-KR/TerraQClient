@@ -1,26 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:eco_reward_app/screens/quest/gallery/models/t_gallery.dart';
+//개수만큼 채우기 아니면 그대로
 
 class QuestImage extends StatelessWidget {
-  final String image;
+  final TGallery gallery;
 
   const QuestImage({
     Key? key,
-    required this.image,
+    required this.gallery,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Container(
-        width: 150,
-        height: 150,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          image: DecorationImage(
-            image: AssetImage(image),
-            fit: BoxFit.cover,
-          ),
-        ),
+      child: FittedBox(
+        child: Image.network(gallery.image!),
       ),
     );
   }

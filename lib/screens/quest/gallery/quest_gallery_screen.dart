@@ -1,13 +1,30 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
-// import 'package:eco_reward_app/screens/quest/gallery/widget/quest_image.dart';
+import 'package:eco_reward_app/screens/quest/gallery/widget/quest_image.dart';
+import 'package:eco_reward_app/network/provider/api_path.dart';
+import 'package:eco_reward_app/network/provider/query_keys.dart';
+import 'package:eco_reward_app/network/custom_jobs.dart';
+import 'package:eco_reward_app/screens/quest/gallery/models/get_image.dart';
 
-class QuestGalleryScreen extends StatelessWidget {
+class QuestGalleryScreen extends HookWidget {
   const QuestGalleryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final image = cachedQuery(
+      queryKey: QueryKeys().certificateImages(2),
+      path: ApiPaths().certificateImages(2),
+    );
+    final imageData = getGalleryList(image.data);
+    final imageCount = imageData.length;
+
+    int remainingImage = 8 - imageCount;
+    if (remainingImage < 0) {
+      remainingImage = 0;
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -21,32 +38,39 @@ class QuestGalleryScreen extends StatelessWidget {
           child: SafeArea(
             child: Column(
               children: [
-                IconButton(
-                  onPressed: () => _navigateToBefore(context),
-                  icon: const Icon(Icons.navigate_before,
-                      color: ColorUtils.black, size: 50),
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: const EdgeInsets.all(20),
+                  child: IconButton(
+                    onPressed: () => _navigateToBefore(context),
+                    icon: const Icon(Icons.navigate_before,
+                        color: ColorUtils.black, size: 50),
+                  ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(20),
-                  child: GridView.builder(
+                  child: GridView.count(
                     padding: const EdgeInsets.all(10),
                     shrinkWrap: true,
-                    itemCount: 20,
                     scrollDirection: Axis.vertical,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 10,
-                    ),
-                    itemBuilder: (BuildContext context, int index) {
-                      return DottedBorder(
-                        color: Colors.white,
-                        child: Container(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 10,
+                    children: [
+                      ...List.generate(
+                        imageCount,
+                        (index) => QuestImage(gallery: imageData[index]),
+                      ),
+                      ...List.generate(
+                        remainingImage,
+                        (index) => DottedBorder(
+                          child: Container(),
                           color: ColorUtils.grey05,
+                          strokeWidth: 1,
+                          radius: const Radius.circular(10),
                         ),
-                      );
-                    },
+                      ),
+                    ],
                   ),
                 ),
               ],
