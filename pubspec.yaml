@@ -38,7 +38,7 @@ dependencies:
   dotted_border: ^2.0.0+3
   tab_indicator_styler: ^2.0.0
   http: ^0.13.5
-  dio: ^5.0.1
+  dio:  ^4.0.0
   fl_query: ^0.3.1
   fl_query_hooks: ^0.3.1
 

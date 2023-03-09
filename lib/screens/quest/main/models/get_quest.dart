@@ -10,7 +10,7 @@ List<TQuest> getQuestNotMyQuestList(dataSource) {
       id: item['id'] ?? 0,
       questName: item['questName'] ?? '',
       questID: item['questID'] ?? 0,
-      categoryDto: item['categoryDto'] ?? {},
+      subCategroyName: item['categoryDto']['subCategoryName'] ?? 'sub',
       reward: item['reward'] ?? 0,
       memo: item['memo'] ?? 'null',
       timeLimit: item['timeLimit'] ?? 0,

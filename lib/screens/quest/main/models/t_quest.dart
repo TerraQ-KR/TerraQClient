@@ -2,7 +2,7 @@ class TQuest {
   final int? id;
   final String? questName;
   final int? questID;
-  final Map<String, dynamic>? categoryDto;
+  final String? subCategroyName;
   final int? reward;
   final String? memo;
   final int? timeLimit;
@@ -12,7 +12,7 @@ class TQuest {
     required this.id,
     required this.questName,
     required this.questID,
-    required this.categoryDto,
+    required this.subCategroyName,
     required this.reward,
     required this.memo,
     required this.timeLimit,

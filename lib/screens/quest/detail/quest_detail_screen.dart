@@ -1,36 +1,27 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
+import 'package:eco_reward_app/network/provider/api_path.dart';
+import 'package:eco_reward_app/network/provider/query_keys.dart';
+import 'package:eco_reward_app/network/custom_jobs.dart';
+import 'package:eco_reward_app/screens/quest/main/models/get_myquest.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/container_quest_detail.dart';
 
-class QuestDetailScreen extends StatefulWidget {
-  const QuestDetailScreen({super.key});
-
-  @override
-  State<QuestDetailScreen> createState() => _QuestDetailScreen();
-}
-
-class _QuestDetailScreen extends State<QuestDetailScreen> {
-  String BasicURl = 'http://35.216.34.93:8080/api/getMyQuestDetailView/1';
-  Map<String, dynamic> responseData = {};
-  Future<void> fetchData() async {
-    final response = await http.get(Uri.parse(BasicURl));
-    if (response.statusCode == 200) {
-      setState(() {
-        responseData = jsonDecode(response.body);
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchData();
-  }
+class QuestDetailScreen extends HookWidget {
+  final int memDoId;
+  QuestDetailScreen({required this.memDoId, super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Arguments args = ModalRoute.of(context)!.settings.arguments as Arguments;
+    // print(args.memDoId);
+    // final int detail = memDoId as int;
+    final quest = cachedQuery(
+        queryKey: QueryKeys().myQuestDetailView(memDoId),
+        path: ApiPaths().myQuestDetailView(memDoId));
+    final questData = getMyQuest(quest.data);
+    final isSuccess = quest.isSuccess;
+    // ignore: newline-before-return
     return Scaffold(
       body: Container(
           decoration: const BoxDecoration(
@@ -59,13 +50,11 @@ class _QuestDetailScreen extends State<QuestDetailScreen> {
                   ),
                 ),
                 Expanded(
-                  child: ContainerQuestDetail(
-                    questName: '${responseData['questDto']['questName']}',
-                    briefing: '${responseData['briefing']}',
-                    information: '${responseData['information']}',
-                    startDate: '${responseData['startDate']}',
-                    endDate: '${responseData['endDate']}',
-                  ),
+                  child: isSuccess
+                      ? ContainerQuestDetail(
+                          quest: questData.first,
+                        )
+                      : const SizedBox(),
                 ),
               ],
             ),

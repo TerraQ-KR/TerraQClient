@@ -4,22 +4,15 @@ import 'package:eco_reward_app/screens/quest/detail/widget/quest_description_box
 import 'package:eco_reward_app/screens/quest/detail/widget/quest_infrom_box.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/tag_quest_foot.dart';
+import 'package:eco_reward_app/screens/quest/main/models/t_my_quest.dart';
 
 class ContainerQuestDetail extends StatelessWidget {
-  final String questName;
-  final String briefing;
-  final String information;
-  final String startDate;
-  final String endDate;
+  final TMyQuest quest;
 
-  const ContainerQuestDetail(
-      {Key? key,
-      required this.questName,
-      required this.briefing,
-      required this.information,
-      required this.startDate,
-      required this.endDate})
-      : super(key: key);
+  const ContainerQuestDetail({
+    Key? key,
+    required this.quest,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +23,7 @@ class ContainerQuestDetail extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 100),
             child: Text(
-              questName,
+              quest.questName!,
               style: detailTheme.textTheme.titleMedium,
             ),
           ),
@@ -41,13 +34,13 @@ class ContainerQuestDetail extends StatelessWidget {
             ],
           ),
           QuestInformBox(
-            startDate: startDate,
-            endDate: endDate,
+            startDate: quest.startDate!,
+            endDate: quest.dueDate!,
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
             child: QuestDescriptionBox(
-              information: information,
+              information: quest.memo!,
             ),
           ),
         ],

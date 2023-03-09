@@ -5,19 +5,14 @@ import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/button_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
+import 'package:eco_reward_app/screens/quest/main/models/t_my_quest.dart';
 
 class InputQuest extends StatelessWidget {
-  final String subCategoryName;
-  final String questName;
-  final String memo;
-  final int challenger;
+  final TMyQuest quest;
 
   const InputQuest({
     Key? key,
-    required this.subCategoryName,
-    required this.questName,
-    required this.memo,
-    required this.challenger,
+    required this.quest,
   }) : super(key: key);
 
   @override
@@ -42,16 +37,16 @@ class InputQuest extends StatelessWidget {
                   ),
                   Container(
                     alignment: const Alignment(-0.8, -0.8),
-                    child: TagQuest(text: subCategoryName),
+                    child: TagQuest(text: quest.subCategoryName ?? 'Recycle'),
                   ),
                   Container(
                     alignment: const Alignment(-0.2, -0.8),
-                    child: TagQuestPeople(quest_user_count: challenger),
+                    child: TagQuestPeople(quest_user_count: 100),
                   ),
                   Container(
                     alignment: const Alignment(-0.6, -0.3),
                     child: Text(
-                      questName,
+                      quest.questName!,
                       style: questTheme.textTheme.bodyLarge!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -60,14 +55,17 @@ class InputQuest extends StatelessWidget {
                   Container(
                     alignment: const Alignment(-0.6, 0.1),
                     child: Text(
-                      questName,
+                      quest.memo!,
                       style: questTheme.textTheme.bodyLarge,
                     ),
                   ),
                   Container(
                     alignment: const Alignment(0.9, -0.8),
                     child: IconButton(
-                      onPressed: () => navigateToDetail(context),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/quest/detail',
+                            arguments: {'memDoId': quest.memDoId ?? 0});
+                      },
                       icon: const Icon(Icons.navigate_next, size: 45),
                     ),
                   ),
@@ -79,9 +77,4 @@ class InputQuest extends StatelessWidget {
       ),
     );
   }
-}
-
-Future navigateToDetail(context) async {
-  Navigator.push(context,
-      new MaterialPageRoute(builder: (context) => new QuestDetailScreen()));
 }

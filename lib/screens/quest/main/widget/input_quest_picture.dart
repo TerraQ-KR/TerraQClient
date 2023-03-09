@@ -41,7 +41,7 @@ class InputQuestPicture extends StatelessWidget {
                   ),
                   Container(
                     alignment: const Alignment(-0.3, -0.8),
-                    child: TagQuest(text: quest.categoryDto![1] ?? 'Recycle'),
+                    child: TagQuest(text: quest.subCategroyName!),
                   ),
                   Container(
                     alignment: const Alignment(0.3, -0.8),

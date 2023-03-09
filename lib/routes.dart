@@ -11,7 +11,9 @@ final routes = {
   '/login': (BuildContext context) => AuthLoginScreen(),
   '/account': (BuildContext context) => AuthRegisterScreen(),
   '/quest': (BuildContext context) => QuestTabScreen(),
-  '/quest/detail': (BuildContext context) => QuestDetailScreen(),
+  '/quest/detail': (BuildContext context) => QuestDetailScreen(
+        memDoId: ModalRoute.of(context)!.settings.arguments as int? ?? 0,
+      ),
   '/quest/certification': (BuildContext context) =>
       const QuestCertificationScreen(),
   '/quest/gallery': (BuildContext context) => const QuestGalleryScreen(),
