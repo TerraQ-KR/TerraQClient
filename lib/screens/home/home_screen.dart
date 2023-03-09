@@ -10,9 +10,9 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.fromLTRB(30, 100, 30, 50),
-        child: Column(
+        child: const Column(
           mainAxisSize: MainAxisSize.max,
-          children: const [
+          children: [
             FractionallySizedBox(
               widthFactor: 1.0,
               child: SectionHomeCategory(),
