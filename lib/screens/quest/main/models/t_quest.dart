@@ -4,7 +4,7 @@ class TQuest {
   final int? questID;
   final String? subCategroyName;
   final int? reward;
-  final String? memo;
+  final String? briefing;
   final int? timeLimit;
   final int? nowChallenger;
 
@@ -14,7 +14,7 @@ class TQuest {
     required this.questID,
     required this.subCategroyName,
     required this.reward,
-    required this.memo,
+    required this.briefing,
     required this.timeLimit,
     required this.nowChallenger,
   });

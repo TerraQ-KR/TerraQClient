@@ -14,8 +14,8 @@ class QuestGalleryScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final image = cachedQuery(
-      queryKey: QueryKeys().certificateImages(2),
-      path: ApiPaths().certificateImages(2),
+      queryKey: QueryKeys().certificateImages(1),
+      path: ApiPaths().certificateImages(1),
     );
     final imageData = getGalleryList(image.data);
     final imageCount = imageData.length;
@@ -36,7 +36,7 @@ class QuestGalleryScreen extends HookWidget {
                 colors: [ColorUtils.subOrange, ColorUtils.primary]),
           ),
           child: SafeArea(
-            child: Column(
+            child: Stack(
               children: [
                 Container(
                   alignment: Alignment.topLeft,
@@ -48,29 +48,63 @@ class QuestGalleryScreen extends HookWidget {
                   ),
                 ),
                 Container(
+                  alignment: Alignment.topCenter,
                   padding: const EdgeInsets.all(20),
-                  child: GridView.count(
-                    padding: const EdgeInsets.all(10),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 10,
-                    children: [
-                      ...List.generate(
-                        imageCount,
-                        (index) => QuestImage(gallery: imageData[index]),
+                  child: const Text(
+                    'Gallery',
+                    style: TextStyle(
+                      color: ColorUtils.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: FractionallySizedBox(
+                    widthFactor: 0.9,
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 100),
+                      padding: const EdgeInsets.only(top: 20),
+                      decoration: BoxDecoration(
+                        color: ColorUtils.white,
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                      ...List.generate(
-                        remainingImage,
-                        (index) => DottedBorder(
-                          child: Container(),
-                          color: ColorUtils.grey05,
-                          strokeWidth: 1,
-                          radius: const Radius.circular(10),
-                        ),
+                      child: Column(
+                        children: [
+                          Text(
+                            '''Out of a total N quests,
+                          Accumulated $imageCount achievements''',
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(20),
+                            child: GridView.count(
+                              padding: const EdgeInsets.all(10),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 20,
+                              mainAxisSpacing: 10,
+                              children: [
+                                ...List.generate(
+                                  imageCount,
+                                  (index) =>
+                                      QuestImage(gallery: imageData[index]),
+                                ),
+                                ...List.generate(
+                                  remainingImage,
+                                  (index) => DottedBorder(
+                                    child: Container(),
+                                    color: ColorUtils.grey07,
+                                    strokeWidth: 1,
+                                    radius: const Radius.circular(10),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ],
