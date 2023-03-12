@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/network/provider/api_path.dart';
 import 'package:eco_reward_app/network/custom_jobs.dart';
@@ -7,7 +8,7 @@ import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 import 'package:eco_reward_app/screens/quest/main/models/t_quest.dart';
 
-class InputQuestPicture extends StatefulWidget {
+class InputQuestPicture extends StatefulHookWidget {
   final TQuest quest;
 
   const InputQuestPicture({
@@ -27,10 +28,10 @@ class _InputQuestPictureState extends State<InputQuestPicture> {
       isBookmarked = !isBookmarked;
     });
 
-    final post = cachedMutation(
-        mutationKey: 'addMyQuest',
-        apiType: 'post',
-        path: ApiPaths().addMyQuest(widget.quest.questID!, widget.quest.id!));
+    // final post = cachedMutation(
+    //     mutationKey: 'addMyQuest',
+    //     apiType: 'post',
+    //     path: ApiPaths().addMyQuest(widget.quest.questID!, widget.quest.id!));
 
     // final postData = post.data;
   }
@@ -52,27 +53,16 @@ class _InputQuestPictureState extends State<InputQuestPicture> {
               child: Stack(
                 children: [
                   Container(
-                    alignment: const Alignment(-0.9, 0),
-                    child: Container(
-                      width: 70,
-                      height: 70,
-                      decoration: const BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    alignment: const Alignment(-0.3, -0.8),
+                    alignment: const Alignment(-0.8, -0.8),
                     child: TagQuest(text: widget.quest.subCategroyName!),
                   ),
                   Container(
-                    alignment: const Alignment(0.3, -0.8),
+                    alignment: const Alignment(-0.2, -0.8),
                     child: TagQuestPeople(
                         quest_user_count: widget.quest.nowChallenger!),
                   ),
                   Container(
-                    alignment: const Alignment(0.2, -0.1),
+                    alignment: const Alignment(-0.5, -0.1),
                     child: Text(
                       widget.quest.questName!,
                       style: questTheme.textTheme.bodyLarge!.copyWith(
@@ -81,9 +71,9 @@ class _InputQuestPictureState extends State<InputQuestPicture> {
                     ),
                   ),
                   Container(
-                    alignment: const Alignment(0, 0.5),
+                    alignment: const Alignment(-0.5, 0.5),
                     child: Text(
-                      widget.quest.memo!,
+                      widget.quest.briefing!,
                       style: questTheme.textTheme.bodyLarge,
                     ),
                   ),
