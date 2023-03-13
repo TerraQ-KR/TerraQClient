@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:eco_reward_app/network/BasicAPI.dart';
 import 'package:fl_query_hooks/fl_query_hooks.dart';
+import 'package:eco_reward_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fl_query/fl_query.dart';
@@ -27,17 +28,29 @@ class UseQueryWidget extends HookWidget {
           children: [
             Text(testQuery.data as String),
             ElevatedButton(
-              child: const Text("Refetch"),
+              child: const Text("SecondQuery"),
               // ignore: prefer-extracting-callbacks
-              onPressed: () async {
-                await testQuery.refetch();
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  RouteParams(
+                    path: Routes.test,
+                    queryParameters: {Routes.memberKey: "1"},
+                  ),
+                );
               },
             ), // Text
           ],
         ),
-        const testOtherScreen(),
       ],
     );
+  }
+}
+
+class Arguments {
+  late final int mid;
+  Arguments(Map<String, String> map) {
+    mid = int.parse(map[Routes.memberKey] ?? "");
   }
 }
 
@@ -48,6 +61,9 @@ class testOtherScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mid = Arguments(QueryParams(context));
+    // ignore: unused_local_variable
+
     final testQuery = cachedQuery(
       queryKey: "getTest",
       path: "/getTest",
@@ -56,9 +72,10 @@ class testOtherScreen extends HookWidget {
       return Container();
     }
 
-    return Row(
+    return Column(
       children: [
         Text(testQuery.data as String),
+        Text('${mid.mid}'),
         ElevatedButton(
           child: const Text("Refetch"),
           // ignore: prefer-extracting-callbacks
