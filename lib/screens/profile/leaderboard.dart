@@ -3,6 +3,7 @@ import 'package:eco_reward_app/network/provider/api_paths.dart';
 import 'package:eco_reward_app/network/provider/query_keys.dart';
 import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/profile/components/childAppbar.dart';
+import 'package:eco_reward_app/screens/profile/components/imageSkeleton.dart';
 import 'package:eco_reward_app/screens/profile/icons/profile_icons.dart';
 import 'package:eco_reward_app/screens/profile/model/member_profile.dart';
 import 'package:eco_reward_app/screens/profile/model/memberlist.dart';
@@ -18,8 +19,6 @@ class LeaderBoard extends HookWidget {
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
     double pixelHeight = deviceSize.height;
-
-    print(pixelHeight);
 
     var mid = Arguments(QueryParams(context)).mid;
 
@@ -90,87 +89,10 @@ class LeaderBoard extends HookWidget {
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(10)),
                   ),
-                  padding: const EdgeInsets.fromLTRB(10, 10, 40, 10),
-                  height: 90,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Stack(
-                              alignment: AlignmentDirectional.center,
-                              children: [
-                                Container(
-                                  height: 65,
-                                  width: 65,
-                                  decoration: const BoxDecoration(
-                                    color: ColorUtils.grey06,
-                                    shape: BoxShape.circle,
-                                    border: Border(),
-                                  ),
-                                ),
-                                Container(
-                                  height: 64,
-                                  width: 64,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(profile.imageUrl)),
-                                    color: ColorUtils.white,
-                                    shape: BoxShape.circle,
-                                    border: const Border(),
-                                  ),
-                                ),
-                              ]),
-                          const SizedBox(width: 15),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                profile.nickname,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: FontUtils.bold,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        color: ColorUtils.subOrange
-                                            .withOpacity(0.6),
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10))),
-                                    width: 50,
-                                    height: 17,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        color:
-                                            ColorUtils.primary.withOpacity(0.6),
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10))),
-                                    width: 50,
-                                    height: 17,
-                                  ),
-                                ],
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                      Text((memberidx + 1).toString(),
-                          style: const TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: FontUtils.bold,
-                          )),
-                    ],
+                  child: LeaderBoardComponent(
+                    isTop: true,
+                    elem: profile,
+                    index: idx + 1,
                   ),
                 ),
                 const Divider(
@@ -187,7 +109,10 @@ class LeaderBoard extends HookWidget {
                           itemCount: allMembers.length,
                           itemBuilder: (context, index) {
                             return LeaderBoardComponent(
-                                elem: allMembers[index], index: index + 1);
+                              isTop: false,
+                              elem: allMembers[index],
+                              index: index + 1,
+                            );
                           },
                           separatorBuilder: (context, index) => const Divider(
                             color: ColorUtils.grey05,
@@ -205,8 +130,14 @@ class LeaderBoard extends HookWidget {
 class LeaderBoardComponent extends StatelessWidget {
   late MemberProfile? elem;
   late int index;
+  late bool isTop;
 
-  LeaderBoardComponent({super.key, required this.elem, required this.index});
+  LeaderBoardComponent({
+    super.key,
+    required this.isTop,
+    required this.elem,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -224,27 +155,7 @@ class LeaderBoardComponent extends StatelessWidget {
         children: [
           Row(
             children: [
-              Stack(alignment: AlignmentDirectional.center, children: [
-                Container(
-                  height: 65,
-                  width: 65,
-                  decoration: const BoxDecoration(
-                    color: ColorUtils.grey06,
-                    shape: BoxShape.circle,
-                    border: Border(),
-                  ),
-                ),
-                Container(
-                  height: 64,
-                  width: 64,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: NetworkImage(elem!.imageUrl)),
-                    color: ColorUtils.white,
-                    shape: BoxShape.circle,
-                    border: const Border(),
-                  ),
-                ),
-              ]),
+              ImageSkeleton(imageUrl: elem!.imageUrl, imageSize: 64),
               const SizedBox(width: 15),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -287,8 +198,8 @@ class LeaderBoardComponent extends StatelessWidget {
             ],
           ),
           Text(index.toString(),
-              style: const TextStyle(
-                color: ColorUtils.grey05,
+              style: TextStyle(
+                color: isTop ? ColorUtils.black : ColorUtils.grey05,
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
                 fontFamily: FontUtils.bold,

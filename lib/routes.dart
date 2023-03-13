@@ -44,7 +44,7 @@ class Routes {
               if (params.isNotEmpty) {
                 return const testOtherScreen();
               }
-              return const TestWidget();
+              return TestWidget();
             case mypage:
               if (params.isNotEmpty) {
                 return const ProfileScreen();

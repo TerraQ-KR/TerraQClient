@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: Routes.RouteGenerater,
         initialRoute: RouteParams(
           path: Routes.mypage,
-          queryParameters: {Routes.memberKey: "1"},
+          queryParameters: {Routes.memberKey: "7"},
         ),
       ),
     );

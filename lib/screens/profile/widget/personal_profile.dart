@@ -2,15 +2,17 @@
 
 import 'dart:math';
 
+import 'package:dio/dio.dart';
 import 'package:eco_reward_app/network/custom_jobs.dart';
 import 'package:eco_reward_app/network/provider/api_paths.dart';
 import 'package:eco_reward_app/network/provider/query_keys.dart';
 import 'package:eco_reward_app/routes.dart';
+import 'package:eco_reward_app/screens/profile/components/imageSkeleton.dart';
 import 'package:eco_reward_app/screens/profile/model/member_profile.dart';
-import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:image_picker/image_picker.dart';
 
 class personalProfile extends HookWidget {
   final String personalTitle = "nickname";
@@ -21,6 +23,10 @@ class personalProfile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ImagePicker picker = ImagePicker();
+    // XFile? selectImage = await picker.pickImage(source: ImageSource.gallery,
+    // maxHeight: 75, maxWidth: 75, imageQuality: 30,);
+
     Size deviceSize = MediaQuery.of(context).size;
     double pixelWidth = deviceSize.width;
 
@@ -39,27 +45,9 @@ class personalProfile extends HookWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Stack(alignment: AlignmentDirectional.center, children: [
-            Container(
-              height: 0.255 * pixelWidth,
-              width: 0.255 * pixelWidth,
-              decoration: const BoxDecoration(
-                color: ColorUtils.grey06,
-                shape: BoxShape.circle,
-                border: Border(),
-              ),
-            ),
-            Container(
-              height: 0.25 * pixelWidth,
-              width: 0.25 * pixelWidth,
-              decoration: BoxDecoration(
-                image: DecorationImage(image: NetworkImage(profile.imageUrl)),
-                color: ColorUtils.white,
-                shape: BoxShape.circle,
-                border: const Border(),
-              ),
-            ),
-          ]),
+          ImageSkeleton(
+              imageUrl: profile.imageUrl, imageSize: 0.25 * pixelWidth),
+          const ImgUploader(),
           SizedBox(width: min(0.08 * pixelWidth, 25)),
           Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,5 +70,61 @@ class personalProfile extends HookWidget {
         ],
       ),
     );
+  }
+}
+
+class ImgUploader extends StatefulHookWidget {
+  const ImgUploader({super.key});
+
+  @override
+  State<ImgUploader> createState() => _ImgUploaderState();
+}
+
+class _ImgUploaderState extends State<ImgUploader> {
+  final ImagePicker _picker = ImagePicker();
+  late dynamic image;
+
+  void sendImage() async {
+    final img = await _picker.pickImage(
+      source: ImageSource.gallery,
+      maxHeight: 75,
+      maxWidth: 75,
+      imageQuality: 30,
+    );
+
+    if (img != null) {
+      setState(() {
+        image = img.path;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var mid = Arguments(QueryParams(context)).mid;
+
+    final imageMutation = cachedMutation(
+        mutationKey: "memberImage",
+        apiType: "patch",
+        path: ApiPaths.updateMemberImage(mid),
+        options: Options(
+          contentType: 'multipart/form-data',
+        ));
+
+    return IconButton(
+        // ignore: prefer-extracting-callbacks
+        onPressed: () async {
+          sendImage();
+          // ignore: unused_local_variable
+          var formData =
+              FormData.fromMap({'image': await MultipartFile.fromFile(image)});
+
+          imageMutation.mutate(
+            formData,
+            onError: (payload, variables, context) =>
+                {print("Error on image managing")},
+          );
+        },
+        icon: const Icon(Icons.camera_alt_rounded));
   }
 }

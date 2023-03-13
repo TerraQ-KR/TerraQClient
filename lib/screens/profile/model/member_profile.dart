@@ -15,7 +15,7 @@ class MemberProfile {
         title = json["title"] ?? "",
         nickname = json["nickname"],
         imageUrl = json["imageUrl"] ?? "https://via.placeholder.com/150",
-        mainBadge = json["mainBadge"],
+        mainBadge = json["mainBadge"] ?? "",
         progressQuests = json["progressQuests"],
         successQuests = json["successQuests"],
         badgeCount = json["badgeCount"];
