@@ -154,7 +154,6 @@ MutationJob customMutaionJob({
   final Duration? retryDelay,
   final Duration? cacheTime,
   required String path,
-  dynamic data,
   Map<String, dynamic>? queryParameters,
   Options? options,
   CancelToken? cancelToken,
@@ -162,26 +161,21 @@ MutationJob customMutaionJob({
   ProgressCallback? onReceiveProgress,
   Function errFunction = stErrFunction,
 }) {
-  if (mutationKeys.contains(mutationKey)) {
-    FlutterError("Use Unique mutationKey");
-  }
-  mutationKeys.add(mutationKey);
   switch (apiType) {
     case "POST":
     case "post":
       return MutationJob(
         mutationKey: mutationKey,
-        task: (key, data) {
-          return API.POST(
-            path: path,
-            data: data,
-            queryParameters: queryParameters,
-            options: options,
-            cancelToken: cancelToken,
-            onSendProgress: onSendProgress,
-            onReceiveProgress: onReceiveProgress,
-            errFunction: errFunction,
-          );
+        task: (key, data) async {
+          return await API.POST(
+              path: path,
+              data: data,
+              queryParameters: queryParameters,
+              options: options,
+              cancelToken: cancelToken,
+              onSendProgress: onSendProgress,
+              onReceiveProgress: onReceiveProgress,
+              errFunction: errFunction);
         },
         retries: retries,
         retryDelay: retryDelay,
@@ -191,17 +185,16 @@ MutationJob customMutaionJob({
     case "put":
       return MutationJob(
         mutationKey: mutationKey,
-        task: (key, data) {
-          return API.PUT(
-            path: path,
-            data: data,
-            queryParameters: queryParameters,
-            options: options,
-            cancelToken: cancelToken,
-            onSendProgress: onSendProgress,
-            onReceiveProgress: onReceiveProgress,
-            errFunction: errFunction,
-          );
+        task: (key, data) async {
+          return await API.PUT(
+              path: path,
+              data: data,
+              queryParameters: queryParameters,
+              options: options,
+              cancelToken: cancelToken,
+              onSendProgress: onSendProgress,
+              onReceiveProgress: onReceiveProgress,
+              errFunction: errFunction);
         },
         retries: retries,
         retryDelay: retryDelay,
@@ -211,20 +204,39 @@ MutationJob customMutaionJob({
     case "DELETE":
       return MutationJob(
         mutationKey: mutationKey,
-        task: (key, data) {
-          return API.DELETE(
-            path: path,
-            data: data,
-            queryParameters: queryParameters,
-            options: options,
-            cancelToken: cancelToken,
-            errFunction: errFunction,
-          );
+        task: (key, data) async {
+          return await API.DELETE(
+              path: path,
+              data: data,
+              queryParameters: queryParameters,
+              options: options,
+              cancelToken: cancelToken,
+              errFunction: errFunction);
         },
         retries: retries,
         retryDelay: retryDelay,
         cacheTime: cacheTime,
       );
+    case "patch":
+    case "PATCH":
+      return MutationJob(
+        mutationKey: mutationKey,
+        task: (key, data) async {
+          return await API.PATCH(
+              path: path,
+              data: data,
+              queryParameters: queryParameters,
+              options: options,
+              cancelToken: cancelToken,
+              onSendProgress: onSendProgress,
+              onReceiveProgress: onReceiveProgress,
+              errFunction: errFunction);
+        },
+        retries: retries,
+        retryDelay: retryDelay,
+        cacheTime: cacheTime,
+      );
+
     default:
       throw FlutterError(
           "$apiType is not a method of API. Try (put, post, delete)");
@@ -256,7 +268,6 @@ Mutation cachedMutation({
     retries: retries,
     retryDelay: retryDelay,
     cacheTime: cacheTime,
-    data: data,
     queryParameters: queryParameters,
     options: options,
     cancelToken: cancelToken,
