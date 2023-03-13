@@ -18,6 +18,11 @@ class MyQuestScreen extends HookWidget {
     // ignore: prefer_if_null_operators
     final questData = getMyQuest(quest.data);
 
+    final doneQuest = cachedQuery(
+        queryKey: QueryKeys().myQuestDoneList(1),
+        path: ApiPaths().myQuestDoneList(1));
+    final doneQuestData = getMyQuest(doneQuest.data);
+
     final isSuccess = quest.isSuccess;
 
     return Scaffold(
@@ -29,24 +34,19 @@ class MyQuestScreen extends HookWidget {
             ToolbarQuest(),
             Expanded(
               child: isSuccess
-                  ? ListView.builder(
-                      itemCount: questData.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final data = questData[index];
-                        // ignore: newline-before-return
-                        return Container(
-                          margin: EdgeInsets.all(10),
-                          child: Column(
-                            children: [
-                              InputQuest(
-                                quest: data,
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    )
-                  : const SizedBox(),
+              ? ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(height: 10),
+                  itemCount: questData.length + doneQuestData.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index < questData.length) {
+                      return InputQuest(quest: questData[index]);
+                    } else {
+                      final doneIndex = index - questData.length;
+                      return InputQuest(quest: doneQuestData[doneIndex]);
+                    }
+                  },
+                )
+              : const SizedBox(),
             ),
           ],
         ),
