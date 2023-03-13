@@ -5,33 +5,64 @@ import 'package:eco_reward_app/screens/quest/main/quest_tab_screen.dart';
 import 'package:eco_reward_app/screens/quest/detail/quest_detail_screen.dart';
 import 'package:eco_reward_app/screens/quest/certification/quest_certification_screen.dart';
 import 'package:eco_reward_app/screens/quest/gallery/quest_gallery_screen.dart';
+import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
 
-const String AuthLoginRoute = '/';
-const String AuthRegisterRoute = '/account';
-const String QuestTabRoute = '/quest';
-const String QuestDetailRoute = '/quest/detail';
-const String QuestCertificationRoute = '/quest/certification';
-const String QuestGalleryRoute = '/quest/gallery';
+class Routes {
+  static const AuthLoginRoute = '/';
+  static const AuthRegisterRoute = '/account';
+  static const QuestTabRoute = '/quest';
+  static const QuestDetailRoute = '/quest/detail';
+  static const QuestCertificationRoute = '/quest/certification';
+  static const QuestGalleryRoute = '/quest/gallery';
 
-Route<dynamic> RouteGenerater(RouteSettings settings) {
-  switch (settings.name) {
-    case AuthLoginRoute:
-      return MaterialPageRoute(builder: (context) => AuthLoginScreen());
-    case AuthRegisterRoute:
-      return MaterialPageRoute(builder: (context) => AuthRegisterScreen());
-    case QuestTabRoute:
-      return MaterialPageRoute(builder: (context) => QuestTabScreen());
-    case QuestDetailRoute:
-      final args = settings.arguments as int;
-      return MaterialPageRoute(
-          builder: (context) => QuestDetailScreen(memDoId: args));
-    case QuestCertificationRoute:
-      return MaterialPageRoute(
-          builder: (context) => const QuestCertificationScreen());
-    case QuestGalleryRoute:
-      return MaterialPageRoute(
-          builder: (context) => const QuestGalleryScreen());
-    default:
-      throw Exception('Invalid route: ${settings.name}');
+  static const questKey = 'qid';
+
+  static Route<dynamic> RouteGenerater(RouteSettings settings) {
+    Uri uri = Uri.parse(settings.name ?? '');
+    Map<String, dynamic> params = {};
+    uri.queryParameters.forEach((key, value) {
+      if (key != questKey) {
+        throw ArgumentError("Router QueryKey is invalid");
+      }
+      params[key] = int.tryParse(value) ?? value;
+    });
+
+    return MaterialPageRoute(
+        builder: (context) {
+          switch (uri.path) {
+            case AuthLoginRoute:
+              return AuthLoginScreen();
+            case AuthRegisterRoute:
+              return AuthRegisterScreen();
+            case QuestTabRoute:
+              return QuestTabScreen();
+            // case QuestDetailRoute:
+            //   final args = settings.arguments as Arguments;
+            //   return QuestDetailScreen(
+            //     qid: args.qid,
+            //   );
+            case QuestCertificationRoute:
+              return QuestCertificationScreen();
+            case QuestGalleryRoute:
+              return QuestGalleryScreen();
+            default:
+              throw Exception('Invalid route: ${settings.name}');
+          }
+        },
+        settings: RouteSettings(name: settings.name));
   }
+}
+
+Map<String, String> QueryParams(BuildContext context) {
+  String? current_route = ModalRoute.of(context)!.settings.name;
+  var uri = Uri.parse(current_route ?? "");
+
+  return uri.queryParameters;
+}
+
+String RouteParams({
+  required String path,
+  Map<String, dynamic>? queryParameters,
+}) {
+  return Uri(path: path, queryParameters: queryParameters).toString();
 }

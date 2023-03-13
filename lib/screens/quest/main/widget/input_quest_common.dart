@@ -19,6 +19,8 @@ class InputQuest extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final args = ModalRoute.of(context)!.settings.arguments as Arguments;
+
     return Container(
       alignment: Alignment.center,
       height: 150,
@@ -27,6 +29,7 @@ class InputQuest extends HookWidget {
         child: Stack(
           children: [
             Container(
+              margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 color: ColorUtils.white,
@@ -65,10 +68,11 @@ class InputQuest extends HookWidget {
                     alignment: const Alignment(0.9, -0.8),
                     child: IconButton(
                       onPressed: () {
-                        Navigator.pushNamed(
+                        Navigator.push(
                           context,
-                          QuestDetailRoute,
-                          arguments: {'memDoId': quest.memDoId!},
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  QuestDetailScreen(quest.memDoId!)),
                         );
                       },
                       icon: const Icon(Icons.navigate_next, size: 45),
@@ -83,3 +87,9 @@ class InputQuest extends HookWidget {
     );
   }
 }
+
+// class Argumnets {
+//   final int? qid;
+
+//   Argumnets(this.qid);
+// }

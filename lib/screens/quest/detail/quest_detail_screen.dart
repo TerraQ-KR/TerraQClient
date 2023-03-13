@@ -5,23 +5,22 @@ import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/network/provider/api_path.dart';
 import 'package:eco_reward_app/network/provider/query_keys.dart';
 import 'package:eco_reward_app/network/custom_jobs.dart';
-import 'package:eco_reward_app/screens/quest/main/models/get_myquest.dart';
+import 'package:eco_reward_app/screens/quest/detail/model/get_detail.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/container_quest_detail.dart';
-import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
 
 class QuestDetailScreen extends HookWidget {
-  final memDoId;
-  QuestDetailScreen({this.memDoId, super.key});
+  final int qid;
+  QuestDetailScreen(this.qid, {Key? key}) : super(key: key);
+
+  static const routeName = '/quest/detail';
 
   @override
   Widget build(BuildContext context) {
-    // Arguments args = ModalRoute.of(context)!.settings.arguments as Arguments;
-    // print(args.memDoId);
-    // final int detail = memDoId as int;
     final quest = cachedQuery(
-        queryKey: QueryKeys().myQuestDetailView(memDoId),
-        path: ApiPaths().myQuestDetailView(memDoId));
-    final questData = getMyQuest(quest.data);
+        queryKey: QueryKeys().myQuestDetailView(qid),
+        path: ApiPaths().myQuestDetailView(qid));
+
+    getDetail questData = getdetail(quest.data);
     final isSuccess = quest.isSuccess;
     // ignore: newline-before-return
     return Scaffold(
@@ -54,7 +53,10 @@ class QuestDetailScreen extends HookWidget {
                 Expanded(
                   child: isSuccess
                       ? ContainerQuestDetail(
-                          quest: questData.first,
+                          questName: questData.questName,
+                          startDate: questData.startDate,
+                          endDate: questData.dueDate,
+                          information: questData.briefing,
                         )
                       : const SizedBox(),
                 ),

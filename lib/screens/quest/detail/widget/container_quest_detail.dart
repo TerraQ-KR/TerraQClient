@@ -7,11 +7,17 @@ import 'package:eco_reward_app/screens/quest/detail/widget/tag_quest_foot.dart';
 import 'package:eco_reward_app/screens/quest/main/models/t_my_quest.dart';
 
 class ContainerQuestDetail extends StatelessWidget {
-  final TMyQuest quest;
+  final String questName;
+  final String startDate;
+  final String endDate;
+  final String information;
 
   const ContainerQuestDetail({
     Key? key,
-    required this.quest,
+    required this.questName,
+    required this.startDate,
+    required this.endDate,
+    required this.information,
   }) : super(key: key);
 
   @override
@@ -23,7 +29,7 @@ class ContainerQuestDetail extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 100),
             child: Text(
-              quest.questName!,
+              questName,
               style: detailTheme.textTheme.titleMedium,
             ),
           ),
@@ -34,13 +40,15 @@ class ContainerQuestDetail extends StatelessWidget {
             ],
           ),
           QuestInformBox(
-            startDate: quest.startDate!,
-            endDate: quest.dueDate!,
+            startDate: startDate,
+            // quest.startDate! ?? ,
+            endDate: endDate,
+            // quest.dueDate! ??
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
             child: QuestDescriptionBox(
-              information: quest.briefing!,
+              information: information,
             ),
           ),
         ],

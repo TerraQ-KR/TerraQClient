@@ -25,27 +25,27 @@ class InputQuestPicture extends StatefulHookWidget {
 }
 
 class _InputQuestPictureState extends State<InputQuestPicture> {
-  bool isBookmarked = false;
-
-  void _toggleBookmark() async {
-    setState(() {
-      isBookmarked = !isBookmarked;
-    });
-    final Response<dynamic> response = await API.POST(
-        path: ApiPaths().addMyQuest(1, 3), data: {"bookmark": isBookmarked});
-    print(response.data);
-  }
-
-  final mutationjob = MutationJob(
-      mutationKey: "test",
-      task: (key, data) async {
-        final Response<dynamic> response = await API
-            .POST(path: ApiPaths().addMyQuest(1, 3), data: {'comment': data});
-        return response;
-      });
-
   @override
   Widget build(BuildContext context) {
+    bool isBookmarked = false;
+
+    void _toggleBookmark() async {
+      setState(() {
+        isBookmarked = !isBookmarked;
+      });
+      final Response<dynamic> response = await API.POST(
+          path: ApiPaths().addMyQuest(1, 3), data: {"bookmark": isBookmarked});
+      print(response.data);
+    }
+
+    final mutationjob = MutationJob(
+        mutationKey: "test",
+        task: (key, data) async {
+          final Response<dynamic> response = await API
+              .POST(path: ApiPaths().addMyQuest(1, 3), data: {'comment': data});
+          return response;
+        });
+
     return Container(
       alignment: Alignment.center,
       height: 100,
