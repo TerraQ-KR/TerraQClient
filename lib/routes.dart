@@ -6,7 +6,7 @@ import 'package:eco_reward_app/screens/auth/auth_login_screen.dart';
 import 'package:eco_reward_app/screens/home/home_screen.dart';
 
 final routes = {
-  '/': (BuildContext context) => const TestWidget(),
+  '/': (BuildContext context) => TestWidget(),
   '/login': (BuildContext context) => AuthLoginScreen(),
   '/account': (BuildContext context) => AuthRegisterScreen(),
   '/home': (BuildContext context) => const HomeScreen(),
