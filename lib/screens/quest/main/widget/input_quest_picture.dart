@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'package:fl_query/fl_query.dart';
+import 'package:fl_query_hooks/fl_query_hooks.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/network/provider/api_path.dart';
 import 'package:eco_reward_app/network/custom_jobs.dart';
+import 'package:eco_reward_app/network/BasicAPI.dart';
 import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
@@ -27,14 +31,18 @@ class _InputQuestPictureState extends State<InputQuestPicture> {
     setState(() {
       isBookmarked = !isBookmarked;
     });
-
-    // final post = cachedMutation(
-    //     mutationKey: 'addMyQuest',
-    //     apiType: 'post',
-    //     path: ApiPaths().addMyQuest(widget.quest.questID!, widget.quest.id!));
-
-    // final postData = post.data;
+    final Response<dynamic> response = await API.POST(
+        path: ApiPaths().addMyQuest(1, 3), data: {"bookmark": isBookmarked});
+    print(response.data);
   }
+
+  final mutationjob = MutationJob(
+      mutationKey: "test",
+      task: (key, data) async {
+        final Response<dynamic> response = await API
+            .POST(path: ApiPaths().addMyQuest(1, 3), data: {'comment': data});
+        return response;
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -86,8 +94,8 @@ class _InputQuestPictureState extends State<InputQuestPicture> {
                         isBookmarked
                             ? Icons
                                 .bookmark_rounded // Use bookmark_rounded when bookmarked
-                            : Icons
-                                .bookmark_border_rounded, // Use bookmark_border_rounded when not bookmarked
+                            : Icons.bookmark_border_rounded,
+                        // Use bookmark_border_rounded when not bookmarked
                         color: ColorUtils.subBlue,
                         size: 30,
                       ),

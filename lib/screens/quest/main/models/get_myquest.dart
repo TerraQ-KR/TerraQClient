@@ -12,13 +12,13 @@ List<TMyQuest> getMyQuest(dataSource) {
       subCategoryName: item['questDto']['categoryDto']['subCategoryName'] ??
           'subCategoryName',
       reward: item['questDto']['reward'] ?? 0,
-      memo: item['questDto']['memo'] ?? 'null',
-      timeLimit: item['timeLimit'] ?? 0,
+      briefing: item['questDto']['briefing'] ?? 'null',
+      timeLimit: item['questDto']['timeLimit'] ?? 0,
       startDate: item['startDate'] ?? 'null',
       dueDate: item['dueDate'] ?? 'null',
-      leftTime: item['leftTime'] ?? 0,
-      stance: item['stance'] ?? 0,
-      achieveRate: item['achieveRate'] ?? 0,
+      // leftTime: item['leftTime'] ?? 0,
+      // stance: item['stance'] ?? 0,
+      // achieveRate: item['achieveRate'] ?? 0,
     );
   }).toList();
 }

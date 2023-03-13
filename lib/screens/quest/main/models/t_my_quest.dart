@@ -3,25 +3,25 @@ class TMyQuest {
   final String? questName;
   final String? subCategoryName;
   final int? reward;
-  final String? memo;
+  final String? briefing;
   final int? timeLimit;
   final String? startDate;
   final String? dueDate;
-  final int? leftTime;
-  final int? stance;
-  final int? achieveRate;
+  // final bool? leftTime;
+  // final bool? stance;
+  // final bool? achieveRate;
 
   TMyQuest({
     required this.memDoId,
     required this.questName,
     required this.subCategoryName,
     required this.reward,
-    required this.memo,
+    required this.briefing,
     required this.timeLimit,
     required this.startDate,
     required this.dueDate,
-    required this.leftTime,
-    required this.stance,
-    required this.achieveRate,
+    // required this.leftTime,
+    // required this.stance,
+    // required this.achieveRate,
   });
 }

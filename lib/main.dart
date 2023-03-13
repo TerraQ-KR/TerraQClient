@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:eco_reward_app/routes.dart';
+import 'package:flutter/material.dart';
+import 'package:eco_reward_app/routes.dart' as router;
 import 'package:fl_query/fl_query.dart';
 
 void main() {
@@ -15,9 +16,9 @@ class MyApp extends StatelessWidget {
       bowl: QueryBowl(),
       child: MaterialApp(
         title: 'Eco Reward',
-        routes: routes,
+        onGenerateRoute: router.RouteGenerater,
+        initialRoute: AuthLoginRoute,
       ),
     );
   }
 }
-

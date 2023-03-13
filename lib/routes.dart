@@ -6,15 +6,32 @@ import 'package:eco_reward_app/screens/quest/detail/quest_detail_screen.dart';
 import 'package:eco_reward_app/screens/quest/certification/quest_certification_screen.dart';
 import 'package:eco_reward_app/screens/quest/gallery/quest_gallery_screen.dart';
 
-final routes = {
-  '/': (BuildContext context) => AuthLoginScreen(),
-  '/login': (BuildContext context) => AuthLoginScreen(),
-  '/account': (BuildContext context) => AuthRegisterScreen(),
-  '/quest': (BuildContext context) => QuestTabScreen(),
-  '/quest/detail': (BuildContext context) => QuestDetailScreen(
-        memDoId: ModalRoute.of(context)!.settings.arguments as int? ?? 0,
-      ),
-  '/quest/certification': (BuildContext context) =>
-      const QuestCertificationScreen(),
-  '/quest/gallery': (BuildContext context) => const QuestGalleryScreen(),
-};
+const String AuthLoginRoute = '/';
+const String AuthRegisterRoute = '/account';
+const String QuestTabRoute = '/quest';
+const String QuestDetailRoute = '/quest/detail';
+const String QuestCertificationRoute = '/quest/certification';
+const String QuestGalleryRoute = '/quest/gallery';
+
+Route<dynamic> RouteGenerater(RouteSettings settings) {
+  switch (settings.name) {
+    case AuthLoginRoute:
+      return MaterialPageRoute(builder: (context) => AuthLoginScreen());
+    case AuthRegisterRoute:
+      return MaterialPageRoute(builder: (context) => AuthRegisterScreen());
+    case QuestTabRoute:
+      return MaterialPageRoute(builder: (context) => QuestTabScreen());
+    case QuestDetailRoute:
+      final args = settings.arguments as int;
+      return MaterialPageRoute(
+          builder: (context) => QuestDetailScreen(memDoId: args));
+    case QuestCertificationRoute:
+      return MaterialPageRoute(
+          builder: (context) => const QuestCertificationScreen());
+    case QuestGalleryRoute:
+      return MaterialPageRoute(
+          builder: (context) => const QuestGalleryScreen());
+    default:
+      throw Exception('Invalid route: ${settings.name}');
+  }
+}

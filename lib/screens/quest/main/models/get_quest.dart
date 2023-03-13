@@ -9,7 +9,7 @@ List<TQuest> getQuestNotMyQuestList(dataSource) {
     return TQuest(
       id: item['id'] ?? 0,
       questName: item['questName'] ?? '',
-      questID: item['questID'] ?? 0,
+      questId: item['questId'] ?? 0,
       subCategroyName: item['categoryDto']['subCategoryName'] ?? 'sub',
       reward: item['reward'] ?? 0,
       briefing: item['briefing'] ?? 'null',

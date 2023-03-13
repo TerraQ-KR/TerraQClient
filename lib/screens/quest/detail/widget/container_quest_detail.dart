@@ -40,7 +40,7 @@ class ContainerQuestDetail extends StatelessWidget {
           Padding(
             padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
             child: QuestDescriptionBox(
-              information: quest.memo!,
+              information: quest.briefing!,
             ),
           ),
         ],
