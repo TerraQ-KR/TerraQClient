@@ -13,11 +13,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return QueryBowlScope(
       bowl: QueryBowl(),
-      child: const MaterialApp(
+      child: MaterialApp(
         title: 'Eco Reward',
         // routes: routes,
         onGenerateRoute: Routes.RouteGenerater,
-        initialRoute: Routes.test,
+        initialRoute: RouteParams(
+          path: Routes.mypage,
+          queryParameters: {Routes.memberKey: "1"},
+        ),
       ),
     );
   }

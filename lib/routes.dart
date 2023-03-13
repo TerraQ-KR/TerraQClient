@@ -6,13 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:eco_reward_app/screens/auth/auth_register_screen.dart';
 import 'package:eco_reward_app/screens/auth/auth_login_screen.dart';
 import 'package:eco_reward_app/screens/home/home_screen.dart';
+
 import 'package:eco_reward_app/screens/profile/profile_screen.dart';
+import 'package:eco_reward_app/screens/profile/leaderboard.dart';
 
 class Routes {
   static const login = '/login';
   static const account = '/account';
   static const home = '/home';
   static const test = '/test';
+  static const mypage = '/mypage';
+  static const leaderboard = '/mypage/leaderboard';
 
   // query_parameter keys for Route
   static const memberKey = "mid";
@@ -41,8 +45,39 @@ class Routes {
                 return const testOtherScreen();
               }
               return const TestWidget();
+            case mypage:
+              if (params.isNotEmpty) {
+                return const ProfileScreen();
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
+              );
+            case leaderboard:
+              if (params.isNotEmpty) {
+                return const LeaderBoard();
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
+              );
             default:
-              return const Text("Error");
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
+              );
           }
         },
         settings: RouteSettings(name: settings.name));
@@ -61,4 +96,11 @@ String RouteParams({
   Map<String, dynamic>? queryParameters,
 }) {
   return Uri(path: path, queryParameters: queryParameters).toString();
+}
+
+class Arguments {
+  late final int mid;
+  Arguments(Map<String, String> map) {
+    mid = int.parse(map[Routes.memberKey] ?? "");
+  }
 }

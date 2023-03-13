@@ -1,6 +1,6 @@
 class ApiPaths {
   // Get
-  final String members = "/get-all-members";
+  static const String members = "/get-all-members";
 
   static String memberdetail(int memberId) {
     return "/get-member-detail/$memberId";

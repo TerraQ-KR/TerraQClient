@@ -1,3 +1,4 @@
+import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/profile/components/personalComponents.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +23,14 @@ class PersonalHistory extends StatelessWidget {
             Flexible(
               flex: 1,
               child: PersonalComponent(
-                  navigatePath: "/mypage/",
+                  navigatePath: Routes.leaderboard,
                   componentIcon: ProfileIcons.arrows,
-                  componentText: "My Ranking",
+                  componentText: "Leaderboard",
                   angle: -1.5707963267948966192313216916398),
+            ),
+            Divider(
+              color: ColorUtils.grey05,
+              height: 1.3,
             ),
             Flexible(
               flex: 1,
@@ -34,6 +39,10 @@ class PersonalHistory extends StatelessWidget {
                 componentIcon: Icons.shield_moon,
                 componentText: "My Badge",
               ),
+            ),
+            Divider(
+              color: ColorUtils.grey05,
+              height: 1.3,
             ),
             Flexible(
               flex: 1,

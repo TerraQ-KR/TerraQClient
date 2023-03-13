@@ -27,6 +27,10 @@ class InviteMember extends StatelessWidget {
                 componentText: "Inquiry",
               ),
             ),
+            Divider(
+              color: ColorUtils.grey05,
+              height: 1.3,
+            ),
             Flexible(
               flex: 1,
               child: PersonalComponent(
