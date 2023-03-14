@@ -1,7 +1,7 @@
-import 'package:eco_reward_app/screens/profile/widget/invite_member.dart';
-import 'package:eco_reward_app/screens/profile/widget/my_history.dart';
-import 'package:eco_reward_app/screens/profile/widget/personal_profile.dart';
-import 'package:eco_reward_app/screens/profile/widget/personal_status.dart';
+import 'package:eco_reward_app/screens/profile/widget/main/invite_member.dart';
+import 'package:eco_reward_app/screens/profile/widget/main/my_history.dart';
+import 'package:eco_reward_app/screens/profile/widget/main/personal_profile.dart';
+import 'package:eco_reward_app/screens/profile/widget/main/personal_status.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

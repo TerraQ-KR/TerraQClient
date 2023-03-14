@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import,non_constant_identifier_names
 
 import 'package:eco_reward_app/network/provider/test_screen.dart';
+import 'package:eco_reward_app/screens/profile/mybadges.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eco_reward_app/screens/auth/auth_register_screen.dart';
@@ -17,6 +18,7 @@ class Routes {
   static const test = '/test';
   static const mypage = '/mypage';
   static const leaderboard = '/mypage/leaderboard';
+  static const mybadges = '/mypage/badge';
 
   // query_parameter keys for Route
   static const memberKey = "mid";
@@ -69,6 +71,19 @@ class Routes {
                       child: const Text("return"))
                 ],
               );
+            case mybadges:
+              if (params.isNotEmpty) {
+                return const MyBadges();
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
+              );
+
             default:
               return Row(
                 children: [
