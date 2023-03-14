@@ -1,20 +1,28 @@
 // ignore_for_file: unused_import,non_constant_identifier_names
-
-import 'package:eco_reward_app/network/provider/test_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:eco_reward_app/network/provider/test_screen.dart';
 import 'package:eco_reward_app/screens/auth/auth_register_screen.dart';
 import 'package:eco_reward_app/screens/auth/auth_login_screen.dart';
+import 'package:eco_reward_app/screens/quest/main/quest_tab_screen.dart';
+import 'package:eco_reward_app/screens/quest/detail/quest_detail_screen.dart';
+import 'package:eco_reward_app/screens/quest/certification/quest_certification_screen.dart';
+import 'package:eco_reward_app/screens/quest/gallery/quest_gallery_screen.dart';
+import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
 import 'package:eco_reward_app/screens/home/home_screen.dart';
 import 'package:eco_reward_app/screens/profile/profile_screen.dart';
 
+// query_parameter keys for Route
 class Routes {
+  static const AuthLoginRoute = '/';
+  static const AuthRegisterRoute = '/account';
+  static const QuestTabRoute = '/quest';
+  static const QuestDetailRoute = '/quest/detail';
+  static const QuestCertificationRoute = '/quest/certification';
+  static const QuestGalleryRoute = '/quest/gallery';
   static const login = '/login';
   static const account = '/account';
   static const home = '/home';
   static const test = '/test';
-
-  // query_parameter keys for Route
   static const memberKey = "mid";
 
   static Route<dynamic> RouteGenerater(RouteSettings settings) {
@@ -30,10 +38,16 @@ class Routes {
     return MaterialPageRoute(
         builder: (context) {
           switch (uri.path) {
-            case login:
+            case AuthLoginRoute:
               return AuthLoginScreen();
-            case account:
+            case AuthRegisterRoute:
               return AuthRegisterScreen();
+            case QuestTabRoute:
+              return QuestTabScreen();
+            case QuestCertificationRoute:
+              return QuestCertificationScreen();
+            case QuestGalleryRoute:
+              return QuestGalleryScreen();
             case home:
               return const HomeScreen();
             case test:
@@ -42,7 +56,7 @@ class Routes {
               }
               return const TestWidget();
             default:
-              return const Text("Error");
+              throw Exception('Invalid route: ${settings.name}');
           }
         },
         settings: RouteSettings(name: settings.name));
@@ -61,4 +75,11 @@ String RouteParams({
   Map<String, dynamic>? queryParameters,
 }) {
   return Uri(path: path, queryParameters: queryParameters).toString();
+}
+
+class Arguments {
+  late final int mid;
+  Arguments(Map<String, String> map) {
+    mid = int.parse(map[Routes.memberKey] ?? "");
+  }
 }

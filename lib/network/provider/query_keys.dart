@@ -1,45 +1,43 @@
 class QueryKeys {
   final String members = "get-all-members";
 
-  static String memberdetail(int memberId) {
+  String memberdetail(int memberId) {
     return "get-member-detail/$memberId";
   }
 
-  static String memberimage(int memberId) {
-    return "get-user-image/$memberId";
+  String memberimage(int memberId) {
+      return "get-user-image/$memberId";
   }
-
-  static const getTest = "getTest";
-
-  static String getMemberCategory(int memberId) {
+  
+  String getMemberCategory(int memberId) {
     return "MemberCategory/$memberId";
   }
 
-  static String questDetailView(int questId) {
+  String questDetailView(int questId) {
     return "questDetailView/$questId";
   }
 
-  static String questNotMyQuestList(int memberId) {
+  String questNotMyQuestList(int memberId) {
     return "questNotMyQuestList/$memberId";
   }
 
-  static String certificateImages(int membeerDoId) {
+  String certificateImages(int membeerDoId) {
     return "certificateImages/$membeerDoId";
   }
 
-  static String myQuestDetailView(int memberDoId) {
+  String myQuestDetailView(int memberDoId) {
     return "myQuestDetailView/$memberDoId";
   }
 
-  static String myQuestNotYetList(int memberId) {
+  String myQuestNotYetList(int memberId) {
     return "myQuestNotYetList/$memberId";
   }
 
-  static String myQuestIngList(int memberId) {
+  String myQuestIngList(int memberId) {
     return "myQuestIngList/$memberId";
   }
 
-  static String myQuestDoneList(int memberId) {
+  String myQuestDoneList(int memberId) {
     return "myQuestDoneList/$memberId";
   }
 }
