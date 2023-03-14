@@ -4,7 +4,7 @@ import 'package:eco_reward_app/network/provider/query_keys.dart';
 import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/profile/components/childAppbar.dart';
 import 'package:eco_reward_app/screens/profile/components/imageSkeleton.dart';
-import 'package:eco_reward_app/screens/profile/icons/profile_icons.dart';
+import 'package:eco_reward_app/screens/profile/constants/profile_icons.dart';
 import 'package:eco_reward_app/screens/profile/model/member_profile.dart';
 import 'package:eco_reward_app/screens/profile/model/memberlist.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
