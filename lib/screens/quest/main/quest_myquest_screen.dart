@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/toolbar_quest.dart';
 import 'package:eco_reward_app/network/provider/api_path.dart';
@@ -12,6 +13,8 @@ class MyQuestScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    // var mid = Arguments(QueryParams(context)).mid;
+
     final quest = cachedQuery(
         queryKey: QueryKeys().myQuestIngList(1),
         path: ApiPaths().myQuestIngList(1));
@@ -34,19 +37,20 @@ class MyQuestScreen extends HookWidget {
             ToolbarQuest(),
             Expanded(
               child: isSuccess
-              ? ListView.separated(
-                  separatorBuilder: (context, index) => SizedBox(height: 10),
-                  itemCount: questData.length + doneQuestData.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (index < questData.length) {
-                      return InputQuest(quest: questData[index]);
-                    } else {
-                      final doneIndex = index - questData.length;
-                      return InputQuest(quest: doneQuestData[doneIndex]);
-                    }
-                  },
-                )
-              : const SizedBox(),
+                  ? ListView.separated(
+                      separatorBuilder: (context, index) =>
+                          SizedBox(height: 10),
+                      itemCount: questData.length + doneQuestData.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index < questData.length) {
+                          return InputQuest(quest: questData[index]);
+                        } else {
+                          final doneIndex = index - questData.length;
+                          return InputQuest(quest: doneQuestData[doneIndex]);
+                        }
+                      },
+                    )
+                  : const SizedBox(),
             ),
           ],
         ),

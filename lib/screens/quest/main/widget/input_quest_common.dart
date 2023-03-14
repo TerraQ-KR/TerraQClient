@@ -1,6 +1,5 @@
-import 'package:eco_reward_app/screens/quest/detail/quest_detail_screen.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
@@ -8,6 +7,7 @@ import 'package:eco_reward_app/screens/quest/main/widget/button_quest_common.dar
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 import 'package:eco_reward_app/screens/quest/main/models/t_my_quest.dart';
+import 'package:eco_reward_app/screens/quest/detail/quest_detail_screen.dart';
 
 class InputQuest extends HookWidget {
   final TMyQuest quest;
@@ -19,8 +19,6 @@ class InputQuest extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final args = ModalRoute.of(context)!.settings.arguments as Arguments;
-
     return Container(
       alignment: Alignment.center,
       height: 150,
@@ -67,14 +65,8 @@ class InputQuest extends HookWidget {
                   Container(
                     alignment: const Alignment(0.9, -0.8),
                     child: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  QuestDetailScreen(quest.memDoId!)),
-                        );
-                      },
+                      onPressed: () =>
+                          _navigateToQuestDetailScreen(context, quest.memDoId!),
                       icon: const Icon(Icons.navigate_next, size: 45),
                     ),
                   ),
@@ -88,8 +80,9 @@ class InputQuest extends HookWidget {
   }
 }
 
-// class Argumnets {
-//   final int? qid;
-
-//   Argumnets(this.qid);
-// }
+_navigateToQuestDetailScreen(context, id) async {
+  return Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => QuestDetailScreen(id)),
+  );
+}

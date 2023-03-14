@@ -1,5 +1,5 @@
-import 'package:eco_reward_app/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:eco_reward_app/routes.dart';
 import 'package:fl_query/fl_query.dart';
 
 void main() {

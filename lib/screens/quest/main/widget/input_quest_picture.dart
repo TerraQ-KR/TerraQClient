@@ -28,21 +28,21 @@ class _InputQuestPictureState extends State<InputQuestPicture> {
   @override
   Widget build(BuildContext context) {
     bool isBookmarked = false;
-
+    var id = widget.quest.questId ?? 1;
     void _toggleBookmark() async {
       setState(() {
         isBookmarked = !isBookmarked;
       });
+
       final Response<dynamic> response = await API.POST(
-          path: ApiPaths().addMyQuest(1, 3), data: {"bookmark": isBookmarked});
-      print(response.data);
+          path: ApiPaths().addMyQuest(1, id), data: {"bookmark": isBookmarked});
     }
 
     final mutationjob = MutationJob(
         mutationKey: "test",
         task: (key, data) async {
-          final Response<dynamic> response = await API
-              .POST(path: ApiPaths().addMyQuest(1, 3), data: {'comment': data});
+          final Response<dynamic> response =
+              await API.POST(path: ApiPaths().addMyQuest(1, id), data: data);
           return response;
         });
 

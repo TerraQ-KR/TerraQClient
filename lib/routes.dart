@@ -15,13 +15,13 @@ class Routes {
   static const QuestCertificationRoute = '/quest/certification';
   static const QuestGalleryRoute = '/quest/gallery';
 
-  static const questKey = 'qid';
+  static const memberKey = "mid";
 
   static Route<dynamic> RouteGenerater(RouteSettings settings) {
-    Uri uri = Uri.parse(settings.name ?? '');
+    Uri uri = Uri.parse(settings.name ?? "");
     Map<String, dynamic> params = {};
     uri.queryParameters.forEach((key, value) {
-      if (key != questKey) {
+      if (key != memberKey) {
         throw ArgumentError("Router QueryKey is invalid");
       }
       params[key] = int.tryParse(value) ?? value;
@@ -36,11 +36,6 @@ class Routes {
               return AuthRegisterScreen();
             case QuestTabRoute:
               return QuestTabScreen();
-            // case QuestDetailRoute:
-            //   final args = settings.arguments as Arguments;
-            //   return QuestDetailScreen(
-            //     qid: args.qid,
-            //   );
             case QuestCertificationRoute:
               return QuestCertificationScreen();
             case QuestGalleryRoute:
@@ -65,4 +60,11 @@ String RouteParams({
   Map<String, dynamic>? queryParameters,
 }) {
   return Uri(path: path, queryParameters: queryParameters).toString();
+}
+
+class Arguments {
+  late final int mid;
+  Arguments(Map<String, String> map) {
+    mid = int.parse(map[Routes.memberKey] ?? "");
+  }
 }
