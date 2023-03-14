@@ -12,15 +12,15 @@ class ButtonAuthSocial extends StatelessWidget {
         print(text);
       },
       style: ElevatedButton.styleFrom(
-        primary: Colors.yellow,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
+        backgroundColor: Colors.yellow,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
         minimumSize: const Size.fromHeight(40),
         elevation: 0.0,
       ),
       child: Padding(
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         child: Text(
           'Continue with $text',
           style: const TextStyle(

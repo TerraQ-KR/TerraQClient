@@ -6,11 +6,9 @@ class QueryKeys {
   }
 
   String memberimage(int memberId) {
-    return "get-user-image/$memberId";
+      return "get-user-image/$memberId";
   }
-
-  static const getTest = "getTest";
-
+  
   String getMemberCategory(int memberId) {
     return "MemberCategory/$memberId";
   }

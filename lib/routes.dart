@@ -1,4 +1,6 @@
+// ignore_for_file: unused_import,non_constant_identifier_names
 import 'package:flutter/material.dart';
+import 'package:eco_reward_app/network/provider/test_screen.dart';
 import 'package:eco_reward_app/screens/auth/auth_register_screen.dart';
 import 'package:eco_reward_app/screens/auth/auth_login_screen.dart';
 import 'package:eco_reward_app/screens/quest/main/quest_tab_screen.dart';
@@ -6,7 +8,10 @@ import 'package:eco_reward_app/screens/quest/detail/quest_detail_screen.dart';
 import 'package:eco_reward_app/screens/quest/certification/quest_certification_screen.dart';
 import 'package:eco_reward_app/screens/quest/gallery/quest_gallery_screen.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
+import 'package:eco_reward_app/screens/home/home_screen.dart';
+import 'package:eco_reward_app/screens/profile/profile_screen.dart';
 
+// query_parameter keys for Route
 class Routes {
   static const AuthLoginRoute = '/';
   static const AuthRegisterRoute = '/account';
@@ -14,7 +19,10 @@ class Routes {
   static const QuestDetailRoute = '/quest/detail';
   static const QuestCertificationRoute = '/quest/certification';
   static const QuestGalleryRoute = '/quest/gallery';
-
+  static const login = '/login';
+  static const account = '/account';
+  static const home = '/home';
+  static const test = '/test';
   static const memberKey = "mid";
 
   static Route<dynamic> RouteGenerater(RouteSettings settings) {
@@ -40,6 +48,13 @@ class Routes {
               return QuestCertificationScreen();
             case QuestGalleryRoute:
               return QuestGalleryScreen();
+            case home:
+              return const HomeScreen();
+            case test:
+              if (params.isNotEmpty) {
+                return const testOtherScreen();
+              }
+              return const TestWidget();
             default:
               throw Exception('Invalid route: ${settings.name}');
           }
