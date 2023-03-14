@@ -40,7 +40,7 @@ class ProfileScreen extends HookWidget {
                 flex: 3,
                 child: personalStatus(),
               ),
-              SizedBox(height: 0.007 * pixelHeight),
+              SizedBox(height: 0.017 * pixelHeight),
               const Flexible(
                 flex: 6,
                 child: PersonalHistory(),

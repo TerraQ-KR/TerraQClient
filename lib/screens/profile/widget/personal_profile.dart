@@ -9,6 +9,7 @@ import 'package:eco_reward_app/network/provider/query_keys.dart';
 import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/profile/components/imageSkeleton.dart';
 import 'package:eco_reward_app/screens/profile/model/member_profile.dart';
+import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -40,15 +41,21 @@ class personalProfile extends HookWidget {
     MemberProfile profile = memberProfile(profileQuery.data);
 
     return Padding(
-      padding: EdgeInsets.all(0.025 * pixelWidth),
+      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          ImageSkeleton(
-              imageUrl: profile.imageUrl, imageSize: 0.25 * pixelWidth),
-          const ImgUploader(),
-          SizedBox(width: min(0.08 * pixelWidth, 25)),
+          Stack(
+            children: [
+              ImageSkeleton(
+                  imageUrl: profile.imageUrl, imageSize: 0.28 * pixelWidth),
+              Transform.translate(
+                  offset: Offset(0.15 * pixelWidth, 0.12 * pixelWidth),
+                  child: const ImgUploader()),
+            ],
+          ),
+          SizedBox(width: min(0.06 * pixelWidth, 10)),
           Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -82,9 +89,13 @@ class ImgUploader extends StatefulHookWidget {
 
 class _ImgUploaderState extends State<ImgUploader> {
   final ImagePicker _picker = ImagePicker();
-  late dynamic image;
+  XFile? image;
+  @override
+  void initState() {
+    super.initState();
+  }
 
-  void sendImage() async {
+  Future<void> sendImage() async {
     final img = await _picker.pickImage(
       source: ImageSource.gallery,
       maxHeight: 75,
@@ -94,7 +105,8 @@ class _ImgUploaderState extends State<ImgUploader> {
 
     if (img != null) {
       setState(() {
-        image = img.path;
+        image = img;
+        print(image!.path);
       });
     }
   }
@@ -102,6 +114,11 @@ class _ImgUploaderState extends State<ImgUploader> {
   @override
   Widget build(BuildContext context) {
     var mid = Arguments(QueryParams(context)).mid;
+
+    var profileQuery = cachedQuery(
+      queryKey: QueryKeys.memberdetail(mid),
+      path: ApiPaths.memberdetail(mid),
+    );
 
     final imageMutation = cachedMutation(
         mutationKey: "memberImage",
@@ -111,20 +128,30 @@ class _ImgUploaderState extends State<ImgUploader> {
           contentType: 'multipart/form-data',
         ));
 
-    return IconButton(
+    return ElevatedButton(
         // ignore: prefer-extracting-callbacks
         onPressed: () async {
-          sendImage();
+          await sendImage();
           // ignore: unused_local_variable
-          var formData =
-              FormData.fromMap({'image': await MultipartFile.fromFile(image)});
+          if (image != null) {
+            var formData = FormData.fromMap({
+              'file': MultipartFile.fromFile(
+                image!.path,
+              )
+            });
 
-          imageMutation.mutate(
-            formData,
-            onError: (payload, variables, context) =>
-                {print("Error on image managing")},
-          );
+            imageMutation.mutate(
+              formData,
+              onData: (payload, variables, context) => profileQuery.refetch(),
+            );
+          }
         },
-        icon: const Icon(Icons.camera_alt_rounded));
+        style: ElevatedButton.styleFrom(
+          shape: const CircleBorder(),
+          backgroundColor: ColorUtils.white,
+          foregroundColor: ColorUtils.black,
+          padding: const EdgeInsets.all(10),
+        ),
+        child: const Icon(Icons.camera_alt_rounded, size: 18));
   }
 }

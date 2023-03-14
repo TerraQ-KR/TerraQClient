@@ -64,10 +64,10 @@ class ApiPaths {
 
   // Patch??
   static String updateMemberImage(int memberId) {
-    return "update-member-image/$memberId";
+    return "/update-member-image/$memberId";
   }
 
   static String updateCertificateImage(int memberDoId) {
-    return "uploadCertificateImage/$memberDoId";
+    return "/uploadCertificateImage/$memberDoId";
   }
 }
