@@ -4,7 +4,6 @@ import 'package:eco_reward_app/screens/quest/detail/widget/quest_description_box
 import 'package:eco_reward_app/screens/quest/detail/widget/quest_infrom_box.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/tag_quest_foot.dart';
-import 'package:eco_reward_app/screens/quest/main/models/t_my_quest.dart';
 
 class ContainerQuestDetail extends StatelessWidget {
   final String questName;
@@ -41,9 +40,7 @@ class ContainerQuestDetail extends StatelessWidget {
           ),
           QuestInformBox(
             startDate: startDate,
-            // quest.startDate! ?? ,
             endDate: endDate,
-            // quest.dueDate! ??
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(0, 20, 0, 20),

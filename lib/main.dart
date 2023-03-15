@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Eco Reward',
         onGenerateRoute: Routes.RouteGenerater,
-        initialRoute: Routes.AuthLoginRoute,
+        initialRoute: Routes.QuestTabRoute,
       ),
     );
   }

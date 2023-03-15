@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/screens/quest/detail/style/detail_theme.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/quest_infrom_box.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/tag_quest_foot.dart';
-import 'package:eco_reward_app/screens/quest/main/models/t_my_quest.dart';
 
 class ContainerQuestDetailDone extends StatelessWidget {
   final String questName;
@@ -40,17 +38,39 @@ class ContainerQuestDetailDone extends StatelessWidget {
           ),
           QuestInformBox(
             startDate: startDate,
-            // quest.startDate! ?? ,
             endDate: endDate,
-            // quest.dueDate! ??
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-            child: DottedBorder(
-              child: Container(),
-              color: ColorUtils.grey07,
-              strokeWidth: 1,
-              radius: const Radius.circular(10),
+            child: FractionallySizedBox(
+              widthFactor: 0.9,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  // ignore: prefer-const-border-radius
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    Text(
+                      'Certificate Image',
+                    ),
+                    Container(
+                      height: 200,
+                      width: 200,
+                      margin: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        // ignore: prefer-const-border-radius
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      alignment: Alignment.center,
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
             ),
           ),
         ],

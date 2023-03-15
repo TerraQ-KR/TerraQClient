@@ -48,13 +48,13 @@ class Routes {
               return QuestCertificationScreen();
             case QuestGalleryRoute:
               return QuestGalleryScreen();
-            case home:
-              return const HomeScreen();
-            case test:
-              if (params.isNotEmpty) {
-                return const testOtherScreen();
-              }
-              return TestWidget();
+            // case home:
+            //   return const HomeScreen();
+            // case test:
+            //   if (params.isNotEmpty) {
+            //     return const testOtherScreen();
+            //   }
+            //   return TestWidget();
             default:
               throw Exception('Invalid route: ${settings.name}');
           }

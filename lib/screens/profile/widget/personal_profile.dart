@@ -22,11 +22,9 @@ class personalProfile extends HookWidget {
     double pixelWidth = deviceSize.width;
 
     var profileQuery = cachedQuery(
-      queryKey: QueryKeys.memberdetail(1),
+      queryKey: 'get-memeber-detail/1',
       path: ApiPaths.memberdetail(1),
     );
-
-    
 
     return Padding(
       padding: EdgeInsets.all(0.025 * pixelWidth),
@@ -66,7 +64,7 @@ class personalProfile extends HookWidget {
             //             )),
             //       ]
             //     : [],
-            children: ,
+            // children: ,
           )
         ],
       ),
