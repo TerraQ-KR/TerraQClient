@@ -23,11 +23,6 @@ class CategoryComponent extends HookWidget {
 
     List<CategoryModel?> categorys = categoryList(catergoryQuery.data);
 
-    for (var e in categorys) {
-      print(e!.name);
-      print(e.icon);
-    }
-
     return ListView.separated(
       itemBuilder: (context, index) {
         return Row(

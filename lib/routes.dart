@@ -2,6 +2,7 @@
 
 import 'package:eco_reward_app/network/provider/test_screen.dart';
 import 'package:eco_reward_app/screens/profile/mybadges.dart';
+import 'package:eco_reward_app/screens/profile/myreport.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eco_reward_app/screens/auth/auth_register_screen.dart';
@@ -19,6 +20,7 @@ class Routes {
   static const mypage = '/mypage';
   static const leaderboard = '/mypage/leaderboard';
   static const mybadges = '/mypage/badge';
+  static const myreport = '/mypage/report';
 
   // query_parameter keys for Route
   static const memberKey = "mid";
@@ -61,7 +63,7 @@ class Routes {
               );
             case leaderboard:
               if (params.isNotEmpty) {
-                return const LeaderBoard();
+                return LeaderBoard();
               }
               return Row(
                 children: [
@@ -74,6 +76,18 @@ class Routes {
             case mybadges:
               if (params.isNotEmpty) {
                 return const MyBadges();
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
+              );
+            case myreport:
+              if (params.isNotEmpty) {
+                return const MyReport();
               }
               return Row(
                 children: [

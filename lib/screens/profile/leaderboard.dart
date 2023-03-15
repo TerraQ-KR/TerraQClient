@@ -12,8 +12,17 @@ import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-class LeaderBoard extends HookWidget {
+class LeaderBoard extends StatefulHookWidget {
   const LeaderBoard({super.key});
+
+  @override
+  State<LeaderBoard> createState() => _LeaderBoardState();
+}
+
+enum SortedOrder { Reward, Success }
+
+class _LeaderBoardState extends State<LeaderBoard> {
+  SortedOrder order = SortedOrder.Reward;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +57,87 @@ class LeaderBoard extends HookWidget {
       }
     }
 
+    sortBottomModal(List<MemberProfile?> allMembers) {
+      return showModalBottomSheet(
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(25),
+          ),
+        ),
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    decoration: const BoxDecoration(
+                      color: ColorUtils.grey05,
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    height: 6,
+                    width: 80,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                child: const Text(
+                  "Please select the sort order",
+                  style: TextStyle(
+                      fontFamily: FontUtils.bold,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              RadioListTile(
+                title: const Text("Sorted by Reward",
+                    style: TextStyle(
+                        fontFamily: FontUtils.primary,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700)),
+                value: SortedOrder.Reward,
+                groupValue: order,
+                onChanged: (SortedOrder? value) => setState(() {
+                  order = value!;
+                  Navigator.pop(context);
+                }),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              RadioListTile(
+                title: const Text("Sorted by Success",
+                    style: TextStyle(
+                        fontFamily: FontUtils.primary,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700)),
+                value: SortedOrder.Success,
+                groupValue: order,
+                onChanged: (SortedOrder? value) => setState(() {
+                  order = value!;
+                  Navigator.pop(context);
+                }),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -67,12 +157,14 @@ class LeaderBoard extends HookWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        sortBottomModal(allMembers);
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
                         backgroundColor: ColorUtils.white,
                         foregroundColor: ColorUtils.black,
-                        padding: const EdgeInsets.all(18),
+                        padding: const EdgeInsets.all(10),
                       ),
                       child: const Icon(
                         ProfileIcons.sort_alt_up,
@@ -175,13 +267,17 @@ class LeaderBoardComponent extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        decoration: BoxDecoration(
-                            color: ColorUtils.subOrange.withOpacity(0.6),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10))),
-                        width: 50,
-                        height: 17,
-                      ),
+                          alignment: Alignment.center,
+                          decoration: const BoxDecoration(
+                              color: ColorUtils.subOrange,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          width: 70,
+                          height: 17,
+                          child: Text(
+                              "${elem!.reward.toDouble().toString()} kg",
+                              style: const TextStyle(
+                                  color: ColorUtils.white, fontSize: 13))),
                       const SizedBox(width: 10),
                       Container(
                         decoration: BoxDecoration(

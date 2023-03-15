@@ -47,7 +47,7 @@ class PersonalHistory extends StatelessWidget {
             Flexible(
               flex: 1,
               child: PersonalComponent(
-                navigatePath: "/mypage/",
+                navigatePath: Routes.myreport,
                 componentIcon: ProfileIcons.graph,
                 componentText: "Report",
               ),

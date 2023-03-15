@@ -30,6 +30,7 @@ class personalProfile extends HookWidget {
 
     Size deviceSize = MediaQuery.of(context).size;
     double pixelWidth = deviceSize.width;
+    double pixelHeight = deviceSize.height;
 
     var mid = Arguments(QueryParams(context)).mid;
 
@@ -50,9 +51,7 @@ class personalProfile extends HookWidget {
             children: [
               ImageSkeleton(
                   imageUrl: profile.imageUrl, imageSize: 0.28 * pixelWidth),
-              Transform.translate(
-                  offset: Offset(0.15 * pixelWidth, 0.12 * pixelWidth),
-                  child: const ImgUploader()),
+              const ImgUploader(),
             ],
           ),
           SizedBox(width: min(0.06 * pixelWidth, 10)),

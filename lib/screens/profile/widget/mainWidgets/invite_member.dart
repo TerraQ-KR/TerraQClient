@@ -1,11 +1,11 @@
-import 'package:eco_reward_app/routes.dart';
+
 import 'package:eco_reward_app/screens/profile/components/personalComponents.dart';
+import 'package:eco_reward_app/screens/profile/constants/profile_icons.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:eco_reward_app/screens/profile/constants/profile_icons.dart';
 
-class PersonalHistory extends StatelessWidget {
-  const PersonalHistory({
+class InviteMember extends StatelessWidget {
+  const InviteMember({
     super.key,
   });
 
@@ -23,21 +23,9 @@ class PersonalHistory extends StatelessWidget {
             Flexible(
               flex: 1,
               child: PersonalComponent(
-                  navigatePath: Routes.leaderboard,
-                  componentIcon: ProfileIcons.arrows,
-                  componentText: "Leaderboard",
-                  angle: -1.5707963267948966192313216916398),
-            ),
-            Divider(
-              color: ColorUtils.grey05,
-              height: 1.3,
-            ),
-            Flexible(
-              flex: 1,
-              child: PersonalComponent(
-                navigatePath: Routes.mybadges,
-                componentIcon: Icons.shield_moon,
-                componentText: "My Badges",
+                navigatePath: "login",
+                componentIcon: ProfileIcons.phone,
+                componentText: "Inquiry",
               ),
             ),
             Divider(
@@ -47,9 +35,9 @@ class PersonalHistory extends StatelessWidget {
             Flexible(
               flex: 1,
               child: PersonalComponent(
-                navigatePath: "/mypage/",
-                componentIcon: ProfileIcons.graph,
-                componentText: "Report",
+                navigatePath: "login",
+                componentIcon: ProfileIcons.addGroup,
+                componentText: "Invite",
               ),
             ),
             SizedBox(height: 10),
