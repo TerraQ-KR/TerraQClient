@@ -54,7 +54,7 @@ class Routes {
               if (params.isNotEmpty) {
                 return const testOtherScreen();
               }
-              return const TestWidget();
+              return TestWidget();
             default:
               throw Exception('Invalid route: ${settings.name}');
           }

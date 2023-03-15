@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
+import 'package:eco_reward_app/screens/quest/main/widget/input_quest_done.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/toolbar_quest.dart';
 import 'package:eco_reward_app/network/provider/api_path.dart';
 import 'package:eco_reward_app/network/provider/query_keys.dart';
@@ -46,7 +47,8 @@ class MyQuestScreen extends HookWidget {
                           return InputQuest(quest: questData[index]);
                         } else {
                           final doneIndex = index - questData.length;
-                          return InputQuest(quest: doneQuestData[doneIndex]);
+                          return InputQuestDone(
+                              quest: doneQuestData[doneIndex]);
                         }
                       },
                     )
