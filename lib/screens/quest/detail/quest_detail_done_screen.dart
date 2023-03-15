@@ -53,6 +53,7 @@ class QuestDetailDoneScreen extends HookWidget {
                 Expanded(
                   child: isSuccess
                       ? ContainerQuestDetailDone(
+                          id: questData.questId,
                           questName: questData.questName,
                           startDate: questData.startDate,
                           endDate: questData.dueDate,

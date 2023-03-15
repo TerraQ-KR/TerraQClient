@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:eco_reward_app/screens/quest/detail/style/detail_theme.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/quest_infrom_box.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/tag_quest_foot.dart';
+import 'package:eco_reward_app/network/provider/api_path.dart';
+import 'package:eco_reward_app/network/provider/query_keys.dart';
+import 'package:eco_reward_app/network/custom_jobs.dart';
+import 'package:eco_reward_app/screens/quest/gallery/models/get_image.dart';
 
 class ContainerQuestDetailDone extends HookWidget {
+  final int id;
   final String questName;
   final String startDate;
   final String endDate;
 
   const ContainerQuestDetailDone({
     Key? key,
+    required this.id,
     required this.questName,
     required this.startDate,
     required this.endDate,
@@ -20,6 +25,21 @@ class ContainerQuestDetailDone extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final detailImg = [];
+    // int detailImgCount = 0;
+    final img = cachedQuery(
+      queryKey: QueryKeys().certificateImages(1),
+      path: ApiPaths().certificateImages(1),
+    );
+    final imageData = getGalleryList(img.data);
+    // final imageCount = imageData.length;
+    // for (var i = 0; i < imageCount; i++) {
+    //   if (imageData[i].id == id) {
+    //     detailImg.add(imageData[i].image);
+    //     detailImgCount++;
+    //   }
+    // }
+
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
@@ -61,14 +81,14 @@ class ContainerQuestDetailDone extends HookWidget {
                       height: 200,
                       width: 200,
                       margin: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        // ignore: prefer-const-border-radius
-                        borderRadius: BorderRadius.circular(15),
-                      ),
                       alignment: Alignment.center,
+                      child: FittedBox(
+                        fit: BoxFit.fill,
+                        child: Image.network(
+                          imageData[0].image!,
+                        ),
+                      ),
                     ),
-                    const SizedBox(height: 20),
                   ],
                 ),
               ),
@@ -77,43 +97,5 @@ class ContainerQuestDetailDone extends HookWidget {
         ],
       ),
     );
-  }
-}
-
-class ImgUploader extends StatefulHookWidget {
-  const ImgUploader({Key? key}) : super(key: key);
-
-  @override
-  State<ImgUploader> createState() => _ImgUploaderState();
-}
-
-class _ImgUploaderState extends State<ImgUploader> {
-  final ImagePicker _picker = ImagePicker();
-  PickedFile? image;
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  Future<void> sendImage() async {
-    final img = await _picker.pickImage(
-      source: ImageSource.gallery,
-      maxHeight: 75,
-      maxWidth: 75,
-      imageQuality: 30,
-    );
-
-    if (img != null) {
-      setState(() {
-        image = img as PickedFile?;
-        print(image!.path);
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
   }
 }
