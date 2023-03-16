@@ -23,7 +23,7 @@ class InputQuestDone extends HookWidget {
       alignment: Alignment.center,
       height: 150,
       child: FractionallySizedBox(
-        widthFactor: 0.6,
+        widthFactor: 0.9,
         child: Stack(
           children: [
             Container(

@@ -50,7 +50,7 @@ class _InputQuestPictureState extends State<InputQuestPicture> {
       alignment: Alignment.center,
       height: 100,
       child: FractionallySizedBox(
-        widthFactor: 0.6,
+        widthFactor: 0.9,
         child: Stack(
           children: [
             Container(
