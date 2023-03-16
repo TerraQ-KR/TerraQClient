@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/button_quest_detail.dart';
+import 'package:eco_reward_app/screens/quest/certification/utils/certificate_modal.dart';
 
 class QuestDescriptionBox extends StatelessWidget {
   final String information;
@@ -23,9 +24,8 @@ class QuestDescriptionBox extends StatelessWidget {
               information,
             ),
             ButtonQuestDetail(
-              text: 'Certification',
-              onPressed: () => {},
-            ),
+                text: 'Certification',
+                onPressed: () => CertificateModal().regulation(context)),
             const SizedBox(height: 20),
           ],
         ),

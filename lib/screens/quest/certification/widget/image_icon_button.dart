@@ -14,6 +14,8 @@ class ImageIconButton extends StatelessWidget {
       onPressed: onPressed,
       child: Icon(
         icon,
+        color: Colors.white,
+        size: 50,
       ),
     );
   }

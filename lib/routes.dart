@@ -5,7 +5,6 @@ import 'package:eco_reward_app/screens/auth/auth_register_screen.dart';
 import 'package:eco_reward_app/screens/auth/auth_login_screen.dart';
 import 'package:eco_reward_app/screens/quest/main/quest_tab_screen.dart';
 import 'package:eco_reward_app/screens/quest/detail/quest_detail_screen.dart';
-import 'package:eco_reward_app/screens/quest/certification/quest_certification_screen.dart';
 import 'package:eco_reward_app/screens/quest/gallery/quest_gallery_screen.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
 import 'package:eco_reward_app/screens/home/home_screen.dart';
@@ -17,7 +16,6 @@ class Routes {
   static const AuthRegisterRoute = '/account';
   static const QuestTabRoute = '/quest';
   static const QuestDetailRoute = '/quest/detail';
-  static const QuestCertificationRoute = '/quest/certification';
   static const QuestGalleryRoute = '/quest/gallery';
   static const login = '/login';
   static const account = '/account';
@@ -44,8 +42,6 @@ class Routes {
               return AuthRegisterScreen();
             case QuestTabRoute:
               return QuestTabScreen();
-            case QuestCertificationRoute:
-              return QuestCertificationScreen();
             case QuestGalleryRoute:
               return QuestGalleryScreen();
             // case home:

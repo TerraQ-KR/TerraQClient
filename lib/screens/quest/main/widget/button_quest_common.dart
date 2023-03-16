@@ -1,6 +1,7 @@
-import 'package:eco_reward_app/screens/quest/certification/quest_certification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
+import 'package:eco_reward_app/screens/quest/certification/utils/certificate_modal.dart';
+import 'package:eco_reward_app/screens/quest/certification/quest_image_screen.dart';
 
 class ButtonQuest extends StatelessWidget {
   @override
@@ -9,7 +10,7 @@ class ButtonQuest extends StatelessWidget {
       width: 185,
       height: 30,
       child: ElevatedButton(
-        onPressed: () => navigateToCertification(context),
+        onPressed: () => CertificateModal().regulation(context),
         style: questTheme.elevatedButtonTheme.style,
         child: Text(
           'Certification',
@@ -21,8 +22,6 @@ class ButtonQuest extends StatelessWidget {
 }
 
 Future<void> navigateToCertification(context) async {
-  Navigator.push(
-      context,
-      new MaterialPageRoute(
-          builder: (context) => new QuestCertificationScreen()));
+  Navigator.push(context,
+      new MaterialPageRoute(builder: (context) => new QuestImageScreen()));
 }

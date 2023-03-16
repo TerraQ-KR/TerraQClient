@@ -32,6 +32,7 @@ class QuestGalleryScreen extends HookWidget {
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Container(
+          height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
