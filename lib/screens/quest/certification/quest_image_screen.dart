@@ -20,19 +20,21 @@ class QuestImageScreen extends StatefulHookWidget {
 }
 
 class _QuestImageScreen extends State<QuestImageScreen> {
-  File? _image;
+  XFile? _image;
   final picker = ImagePicker();
+  Future<void> getImage() async {
+    final image = await picker.pickImage(
+      source: ImageSource.camera,
+      maxHeight: 75,
+      maxWidth: 75,
+      imageQuality: 30,
+    );
 
-  // ignore: strict_raw_type
-  Future getImage(ImageSource imageSource) async {
-    try {
-      final image = await picker.pickImage(source: imageSource);
-
+    if (image != null) {
       setState(() {
-        _image = File(image!.path);
+        _image = image;
+        print(_image!.path);
       });
-    } catch (e) {
-      print(e);
     }
   }
 
@@ -67,62 +69,63 @@ class _QuestImageScreen extends State<QuestImageScreen> {
     );
 
     return Scaffold(
-        backgroundColor: ColorUtils.black,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                    onPressed: () => _navigateToBefore(context),
-                    icon: const Icon(Icons.navigate_before,
-                        color: ColorUtils.white, size: 50),
+      backgroundColor: ColorUtils.black,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                  onPressed: () => _navigateToBefore(context),
+                  icon: const Icon(Icons.navigate_before,
+                      color: ColorUtils.white, size: 50),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.2),
+                child: const Text(
+                  'Quest Name',
+                  style: TextStyle(
+                    color: ColorUtils.white,
+                    fontSize: 25,
+                    fontFamily: FontUtils.primary,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-                Container(
-                  alignment: Alignment(0.8, 0),
-                  child: const Text(
-                    'Quest Name',
-                    style: TextStyle(
-                      color: ColorUtils.white,
-                      fontSize: 18,
-                      fontFamily: FontUtils.primary,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 25, bottom: 50),
-              child: showImage(),
-            ),
-            ImageIconButton(
-              icon: Icons.circle_outlined,
-              // ignore: prefer-extracting-callbacks
-              onPressed: () {
-                getImage(ImageSource.camera);
+              ),
+            ],
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 25, bottom: 50),
+            child: showImage(),
+          ),
+          ImageIconButton(
+            icon: Icons.circle_outlined,
+            // ignore: prefer-extracting-callbacks
+            onPressed: () async {
+              await getImage();
+              // ignore: unused_local_variable
+              if (_image != null) {
+                var formData = FormData.fromMap({
+                  'file': MultipartFile.fromFile(
+                    _image!.path,
+                  )
+                });
 
-                if (_image != null) {
-                  var formData = FormData.fromMap({
-                    'file': MultipartFile.fromFile(
-                      _image!.path,
-                    )
-                  });
-
-                  imageMutation.mutate(
-                    formData,
-                    onData: (payload, variables, context) =>
-                        imageQuery.refetch(),
-                  );
-                }
-              },
-            ),
-          ],
-        ));
+                imageMutation.mutate(
+                  formData,
+                  onData: (payload, variables, context) => imageQuery.refetch(),
+                );
+              }
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
 

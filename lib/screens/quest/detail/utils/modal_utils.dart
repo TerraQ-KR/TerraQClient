@@ -17,6 +17,7 @@ class ModalUtils {
           resizeToAvoidBottomInset: false,
           body: SingleChildScrollView(
             child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.3,
               child: Column(
                 children: [
                   const Padding(
