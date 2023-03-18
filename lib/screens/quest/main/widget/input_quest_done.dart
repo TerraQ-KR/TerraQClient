@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
-import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/button_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
@@ -36,7 +35,9 @@ class InputQuestDone extends HookWidget {
                 children: [
                   Container(
                     alignment: const Alignment(0.8, 0.8),
-                    child: ButtonQuest(),
+                    child: ButtonQuest(
+                      onPressed: () => _showDialog(context),
+                    ),
                   ),
                   Container(
                     alignment: const Alignment(-0.8, -0.8),
@@ -44,7 +45,8 @@ class InputQuestDone extends HookWidget {
                   ),
                   Container(
                     alignment: const Alignment(-0.2, -0.8),
-                    child: TagQuestPeople(quest_user_count: 100),
+                    child:
+                        TagQuestPeople(quest_user_count: quest.challenger ?? 0),
                   ),
                   Container(
                     alignment: const Alignment(-0.6, -0.3),
@@ -84,5 +86,27 @@ _navigateToQuestDetailScreen(context, id) async {
   return Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => QuestDetailDoneScreen(id)),
+  );
+}
+
+void _showDialog(context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("This quest is already certified.",
+            style: questTheme.textTheme.bodyLarge!.copyWith(
+              fontWeight: FontWeight.bold,
+            )),
+        actions: [
+          TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
   );
 }

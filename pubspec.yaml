@@ -39,7 +39,8 @@ dependencies:
   flutter_hooks: ^0.18.5+1
   fl_query_hooks: 0.3.1
   flutter_layout_grid: 2.0.1
-  image_picker: ^0.8.4+4
+  image_picker: ^0.8.7
+
   # permission_handler: ^5.0.1+1
 
 dev_dependencies:

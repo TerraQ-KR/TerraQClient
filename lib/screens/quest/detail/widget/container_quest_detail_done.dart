@@ -14,6 +14,8 @@ class ContainerQuestDetailDone extends HookWidget {
   final String questName;
   final String startDate;
   final String endDate;
+  final int reward;
+  final int challenger;
 
   const ContainerQuestDetailDone({
     Key? key,
@@ -21,6 +23,8 @@ class ContainerQuestDetailDone extends HookWidget {
     required this.questName,
     required this.startDate,
     required this.endDate,
+    required this.reward,
+    required this.challenger,
   }) : super(key: key);
 
   @override
@@ -51,10 +55,14 @@ class ContainerQuestDetailDone extends HookWidget {
               style: detailTheme.textTheme.titleMedium,
             ),
           ),
-          const Row(
+          Row(
             children: [
-              Padding(padding: EdgeInsets.all(20), child: TagQuestFoot()),
-              TagQuestPeople(quest_user_count: 100),
+              Padding(
+                  padding: EdgeInsets.all(20),
+                  child: TagQuestFoot(
+                    reward: reward.toString(),
+                  )),
+              TagQuestPeople(quest_user_count: challenger),
             ],
           ),
           QuestInformBox(

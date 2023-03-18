@@ -5,6 +5,7 @@ class TMyQuest {
   final int? reward;
   final String? briefing;
   final int? timeLimit;
+  final int? challenger;
   final String? startDate;
   final String? dueDate;
   // final bool? leftTime;
@@ -18,6 +19,7 @@ class TMyQuest {
     required this.reward,
     required this.briefing,
     required this.timeLimit,
+    required this.challenger,
     required this.startDate,
     required this.dueDate,
     // required this.leftTime,

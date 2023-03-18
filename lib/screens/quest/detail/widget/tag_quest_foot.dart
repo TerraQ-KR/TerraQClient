@@ -3,7 +3,9 @@ import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/screens/quest/detail/style/detail_theme.dart';
 
 class TagQuestFoot extends StatelessWidget {
-  const TagQuestFoot({super.key});
+  final reward;
+
+  const TagQuestFoot({required this.reward, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class TagQuestFoot extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Icon(Icons.assist_walker, size: 20),
-          Text("500Km",
+          Text("$reward Kg",
               textAlign: TextAlign.center,
               style: detailTheme.textTheme.bodyMedium),
         ],

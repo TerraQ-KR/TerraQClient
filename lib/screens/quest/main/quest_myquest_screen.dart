@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_done.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/toolbar_quest.dart';
@@ -9,8 +8,17 @@ import 'package:eco_reward_app/network/custom_jobs.dart';
 import 'package:eco_reward_app/screens/quest/main/models/get_myquest.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-class MyQuestScreen extends HookWidget {
+class MyQuestScreen extends StatefulHookWidget {
   const MyQuestScreen({super.key});
+
+  @override
+  State<MyQuestScreen> createState() => _MyQuestScreenState();
+}
+
+enum SortedOrder { Date, Category }
+
+class _MyQuestScreenState extends State<MyQuestScreen> {
+  SortedOrder order = SortedOrder.Category;
 
   @override
   Widget build(BuildContext context) {

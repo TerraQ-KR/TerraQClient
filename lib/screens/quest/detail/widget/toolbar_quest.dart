@@ -45,10 +45,7 @@ class _ToolbarQuest extends State<ToolbarQuest> {
                 icon: Icons.search,
                 onPressed: () => {},
               ),
-              QuestIconButton(
-                icon: Icons.sort,
-                onPressed: () => ModalUtils().sortMyQuest(context),
-              ),
+              ModalUtils(),
               QuestIconButton(
                 icon: Icons.alarm,
                 onPressed: () => {},

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/network/provider/api_path.dart';
 import 'package:eco_reward_app/network/provider/query_keys.dart';
@@ -57,6 +56,8 @@ class QuestDetailDoneScreen extends HookWidget {
                           questName: questData.questName,
                           startDate: questData.startDate,
                           endDate: questData.dueDate,
+                          reward: questData.reward,
+                          challenger: questData.challenger,
                         )
                       : const SizedBox(),
                 ),

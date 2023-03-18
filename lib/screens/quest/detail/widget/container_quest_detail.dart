@@ -10,6 +10,8 @@ class ContainerQuestDetail extends StatelessWidget {
   final String startDate;
   final String endDate;
   final String information;
+  final int reward;
+  final int challenger;
 
   const ContainerQuestDetail({
     Key? key,
@@ -17,6 +19,8 @@ class ContainerQuestDetail extends StatelessWidget {
     required this.startDate,
     required this.endDate,
     required this.information,
+    required this.reward,
+    required this.challenger,
   }) : super(key: key);
 
   @override
@@ -32,10 +36,14 @@ class ContainerQuestDetail extends StatelessWidget {
               style: detailTheme.textTheme.titleMedium,
             ),
           ),
-          const Row(
+          Row(
             children: [
-              Padding(padding: EdgeInsets.all(20), child: TagQuestFoot()),
-              TagQuestPeople(quest_user_count: 100),
+              Padding(
+                  padding: EdgeInsets.all(20),
+                  child: TagQuestFoot(
+                    reward: reward.toString(),
+                  )),
+              TagQuestPeople(quest_user_count: challenger),
             ],
           ),
           QuestInformBox(
