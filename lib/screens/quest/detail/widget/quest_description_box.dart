@@ -25,11 +25,20 @@ class QuestDescriptionBox extends StatelessWidget {
             ),
             ButtonQuestDetail(
                 text: 'Certification',
-                onPressed: () => CertificateModal().regulation(context)),
+                onPressed: () =>
+                    _navigateToCertificateScreen(context, information)),
             const SizedBox(height: 20),
           ],
         ),
       ),
     );
   }
+}
+
+_navigateToCertificateScreen(context, information) async {
+  return Navigator.push(
+    context,
+    MaterialPageRoute(
+        builder: (context) => CertificateModal(information: information)),
+  );
 }

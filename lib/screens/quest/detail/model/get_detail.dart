@@ -5,6 +5,7 @@ class getDetail {
   String subCategoryName = '';
   int reward = 0;
   String briefing = '';
+  String information = '';
   int challenger = 0;
   String startDate = '';
   String dueDate = '';
@@ -19,6 +20,7 @@ class getDetail {
             json["questDto"]['categoryDto']['subCategoryName'] ?? "",
         reward = json["questDto"]['reward'] ?? 0,
         briefing = json["questDto"]['briefing'] ?? "",
+        information = json["questDto"]['information'] ?? "",
         challenger = json["questDto"]['challenger'] ?? 0,
         startDate = json["startDate"] ?? "",
         dueDate = json["dueDate"] ?? "";

@@ -7,6 +7,7 @@ import 'package:eco_reward_app/screens/quest/main/quest_tab_screen.dart';
 import 'package:eco_reward_app/screens/quest/detail/quest_detail_screen.dart';
 import 'package:eco_reward_app/screens/quest/gallery/quest_gallery_screen.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
+import 'package:eco_reward_app/screens/quest/certification/utils/certificate_modal.dart';
 import 'package:eco_reward_app/screens/home/home_screen.dart';
 import 'package:eco_reward_app/screens/profile/profile_screen.dart';
 
@@ -17,6 +18,7 @@ class Routes {
   static const QuestTabRoute = '/quest';
   static const QuestDetailRoute = '/quest/detail';
   static const QuestGalleryRoute = '/quest/gallery';
+  static const QuestCertificateRoute = '/quest/certificate';
   static const login = '/login';
   static const account = '/account';
   static const home = '/home';
@@ -44,6 +46,8 @@ class Routes {
               return QuestTabScreen();
             case QuestGalleryRoute:
               return QuestGalleryScreen();
+            case QuestCertificateRoute:
+              return CertificateModal();
             // case home:
             //   return const HomeScreen();
             // case test:
