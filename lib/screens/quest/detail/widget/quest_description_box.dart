@@ -20,13 +20,19 @@ class QuestDescriptionBox extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            Text(
-              information,
+            Container(
+              margin: const EdgeInsets.all(30),
+              child: Text(
+                information,
+              ),
             ),
-            ButtonQuestDetail(
-                text: 'Certification',
-                onPressed: () =>
-                    _navigateToCertificateScreen(context, information)),
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: ButtonQuestDetail(
+                  text: 'Certification',
+                  onPressed: () =>
+                      _navigateToCertificateScreen(context, information)),
+            ),
             const SizedBox(height: 20),
           ],
         ),

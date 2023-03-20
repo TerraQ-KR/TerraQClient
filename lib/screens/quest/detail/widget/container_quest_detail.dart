@@ -50,8 +50,9 @@ class ContainerQuestDetail extends StatelessWidget {
             startDate: startDate,
             endDate: endDate,
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.5,
+            margin: const EdgeInsets.only(top: 20),
             child: QuestDescriptionBox(
               information: information,
             ),

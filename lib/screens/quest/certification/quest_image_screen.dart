@@ -1,12 +1,15 @@
 import 'dart:io';
+import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:day/day.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:eco_reward_app/network/custom_jobs.dart';
 import 'package:eco_reward_app/network/provider/api_paths.dart';
 import 'package:eco_reward_app/network/provider/query_keys.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:eco_reward_app/screens/quest/gallery/models/get_image.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:eco_reward_app/screens/quest/certification/widget/image_icon_button.dart';
@@ -22,6 +25,12 @@ class QuestImageScreen extends StatefulHookWidget {
 class _QuestImageScreen extends State<QuestImageScreen> {
   XFile? _image;
   final picker = ImagePicker();
+  final now = Day();
+  @override
+  void initState() {
+    super.initState();
+  }
+
   Future<void> getImage() async {
     final image = await picker.pickImage(
       source: ImageSource.camera,
@@ -45,7 +54,8 @@ class _QuestImageScreen extends State<QuestImageScreen> {
         height: MediaQuery.of(context).size.width,
         child: Center(
             child: _image == null
-                ? const Text('No image selected.')
+                ? Text(
+                    '${now.month()} ${now.date()}th ${now.hour()}:${now.minute()}')
                 : Image.file(File(_image!.path))));
   }
 
@@ -59,7 +69,7 @@ class _QuestImageScreen extends State<QuestImageScreen> {
       path: ApiPaths.certificateImages(1),
     );
 
-    var images = imageQuery.data;
+    final images = getGalleryList(imageQuery.data);
 
     final imageMutation = cachedMutation(
       mutationKey: 'certificateImage',
@@ -88,7 +98,7 @@ class _QuestImageScreen extends State<QuestImageScreen> {
                 margin: EdgeInsets.only(
                     left: MediaQuery.of(context).size.width * 0.2),
                 child: const Text(
-                  'Quest Name',
+                  'Certificate Image',
                   style: TextStyle(
                     color: ColorUtils.white,
                     fontSize: 25,
@@ -120,6 +130,11 @@ class _QuestImageScreen extends State<QuestImageScreen> {
                   formData,
                   onData: (payload, variables, context) => imageQuery.refetch(),
                 );
+                // ignore: use_build_context_synchronously
+
+                Timer(Duration(milliseconds: 3000), () {
+                  Navigator.pop(context);
+                });
               }
             },
           ),

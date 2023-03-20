@@ -56,7 +56,7 @@ class QuestDetailScreen extends HookWidget {
                           startDate: questData.startDate,
                           endDate: questData.dueDate,
                           information: questData.briefing,
-                          reward: questData.reward,
+                          reward: questData.reward.toInt(),
                           challenger: questData.challenger,
                         )
                       : const SizedBox(),

@@ -3,7 +3,7 @@ class getDetail {
   String questName = '';
   int questId = 0;
   String subCategoryName = '';
-  int reward = 0;
+  double reward = 0;
   String briefing = '';
   String information = '';
   int challenger = 0;

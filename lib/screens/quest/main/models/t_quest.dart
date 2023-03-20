@@ -3,7 +3,7 @@ class TQuest {
   final String? questName;
   final int? questId;
   final String? subCategroyName;
-  final int? reward;
+  final double? reward;
   final String? briefing;
   final int? timeLimit;
   final int? nowChallenger;
