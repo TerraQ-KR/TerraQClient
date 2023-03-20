@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image/image.dart' as img;
 import 'package:day/day.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -32,16 +33,24 @@ class _QuestImageScreen extends State<QuestImageScreen> {
   }
 
   Future<void> getImage() async {
-    final image = await picker.pickImage(
+    final certificateImage = await picker.pickImage(
       source: ImageSource.camera,
-      maxHeight: 75,
-      maxWidth: 75,
       imageQuality: 30,
     );
 
-    if (image != null) {
+    if (certificateImage != null) {
+      final bytes = await certificateImage.readAsBytes();
+      final decodeImage = img.decodeImage(bytes);
+      final now = DateTime.now();
+      final timeText =
+          '${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-${now.second}';
+      img.drawString(decodeImage!, font: img.arial24, x: 100, y: 10, timeText);
+      var encodeImage = img.encodeJpg(decodeImage, quality: 100);
+      var finalImage = File(certificateImage.path)
+        ..writeAsBytesSync(encodeImage);
+
       setState(() {
-        _image = image;
+        _image = XFile(finalImage.path);
         print(_image!.path);
       });
     }
@@ -53,10 +62,19 @@ class _QuestImageScreen extends State<QuestImageScreen> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.width,
         child: Center(
-            child: _image == null
+            child: _image == null ||
+                    _image!.path.isEmpty ||
+                    !File(_image!.path).existsSync()
                 ? Text(
                     '${now.month()} ${now.date()}th ${now.hour()}:${now.minute()}')
-                : Image.file(File(_image!.path))));
+                : Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: FileImage(File(_image!.path)),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )));
   }
 
   @override
@@ -132,7 +150,8 @@ class _QuestImageScreen extends State<QuestImageScreen> {
                 );
                 // ignore: use_build_context_synchronously
 
-                Timer(Duration(milliseconds: 3000), () {
+                // ignore: prefer-extracting-callbacks
+                Timer(const Duration(milliseconds: 3000), () {
                   Navigator.pop(context);
                 });
               }
