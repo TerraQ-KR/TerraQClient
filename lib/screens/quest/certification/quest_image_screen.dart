@@ -1,19 +1,15 @@
 import 'dart:io';
 import 'dart:async';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
 import 'package:day/day.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:eco_reward_app/network/custom_jobs.dart';
-import 'package:eco_reward_app/network/provider/api_paths.dart';
-import 'package:eco_reward_app/network/provider/query_keys.dart';
-import 'package:eco_reward_app/screens/quest/gallery/models/get_image.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:eco_reward_app/screens/quest/certification/widget/image_icon_button.dart';
+import 'package:eco_reward_app/screens/quest/certification/quest_certification_screen.dart';
 
 class QuestImageScreen extends StatefulHookWidget {
   const QuestImageScreen({Key? key}) : super(key: key);
@@ -82,20 +78,6 @@ class _QuestImageScreen extends State<QuestImageScreen> {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-    var imageQuery = cachedQuery(
-      queryKey: QueryKeys().certificateImages(1),
-      path: ApiPaths.certificateImages(1),
-    );
-
-    final images = getGalleryList(imageQuery.data);
-
-    final imageMutation = cachedMutation(
-      mutationKey: 'certificateImage',
-      apiType: 'patch',
-      path: ApiPaths.updateCertificateImage(1),
-      options: Options(contentType: 'multipart/form-data'),
-    );
-
     return Scaffold(
       backgroundColor: ColorUtils.black,
       body: Column(
@@ -133,27 +115,13 @@ class _QuestImageScreen extends State<QuestImageScreen> {
           ),
           ImageIconButton(
             icon: Icons.circle_outlined,
+
             // ignore: prefer-extracting-callbacks
             onPressed: () async {
               await getImage();
-              // ignore: unused_local_variable
+
               if (_image != null) {
-                var formData = FormData.fromMap({
-                  'file': MultipartFile.fromFile(
-                    _image!.path,
-                  )
-                });
-
-                imageMutation.mutate(
-                  formData,
-                  onData: (payload, variables, context) => imageQuery.refetch(),
-                );
-                // ignore: use_build_context_synchronously
-
-                // ignore: prefer-extracting-callbacks
-                Timer(const Duration(milliseconds: 3000), () {
-                  Navigator.pop(context);
-                });
+                _navigateToConfirmScreen(context, _image);
               }
             },
           ),
@@ -165,4 +133,12 @@ class _QuestImageScreen extends State<QuestImageScreen> {
 
 _navigateToBefore(context) async {
   return Navigator.pop(context);
+}
+
+_navigateToConfirmScreen(context, image) async {
+  return Navigator.push(
+    context,
+    MaterialPageRoute(
+        builder: (context) => QuestCertificationScreen(image: image)),
+  );
 }
