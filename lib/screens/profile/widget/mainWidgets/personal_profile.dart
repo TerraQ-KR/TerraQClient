@@ -79,6 +79,7 @@ class personalProfile extends HookWidget {
   }
 }
 
+// ignore: prefer-single-widget-per-file
 class ImgUploader extends StatefulHookWidget {
   const ImgUploader({super.key});
 

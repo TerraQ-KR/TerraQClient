@@ -9,24 +9,17 @@ class MyBadges extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size deviceSize = MediaQuery.of(context).size;
-    double pixelHeight = deviceSize.height;
-
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [ColorUtils.primary, ColorUtils.subBlue],
-        ),
+        color: ColorUtils.white,
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: ChildAppBar(context, "Badges"),
-        body: Padding(
-          padding: EdgeInsets.all(0.017 * pixelHeight),
-          child: const CategoryComponent(),
+        appBar: ChildAppBar(
+          context,
+          "Badges",
         ),
+        body: const CategoryComponent(),
       ),
     );
   }

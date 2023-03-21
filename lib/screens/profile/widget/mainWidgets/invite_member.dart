@@ -1,4 +1,3 @@
-
 import 'package:eco_reward_app/screens/profile/components/personalComponents.dart';
 import 'package:eco_reward_app/screens/profile/constants/profile_icons.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
@@ -24,8 +23,8 @@ class InviteMember extends StatelessWidget {
               flex: 1,
               child: PersonalComponent(
                 navigatePath: "login",
-                componentIcon: ProfileIcons.phone,
-                componentText: "Inquiry",
+                componentIcon: ProfileIcons.addGroup,
+                componentText: "Invite",
               ),
             ),
             Divider(
@@ -36,8 +35,8 @@ class InviteMember extends StatelessWidget {
               flex: 1,
               child: PersonalComponent(
                 navigatePath: "login",
-                componentIcon: ProfileIcons.addGroup,
-                componentText: "Invite",
+                componentIcon: ProfileIcons.phone,
+                componentText: "Inquiry",
               ),
             ),
             SizedBox(height: 10),

@@ -28,7 +28,7 @@ class ProfileScreen extends HookWidget {
           backgroundColor: ColorUtils.white,
         ),
         body: Padding(
-          padding: EdgeInsets.all(0.017 * pixelHeight),
+          padding: const EdgeInsets.all(12),
           child: Column(
             children: [
               const Flexible(

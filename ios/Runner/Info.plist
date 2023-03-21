@@ -53,5 +53,12 @@
 		<string></string>
 		<key>NSMicrophoneUsageDescription</key>
 		<string></string>
+	<key>LSApplicationQueriesSchemes</key>
+  	<array>
+    <string>https</string>
+    <string>http</string>
+	<string>sms</string>
+  	<string>tel</string>
+  </array>
 </dict>
 </plist>

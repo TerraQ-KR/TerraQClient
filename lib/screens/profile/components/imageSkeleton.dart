@@ -27,7 +27,9 @@ class ImageSkeleton extends StatelessWidget {
         height: imageSize,
         width: imageSize,
         decoration: BoxDecoration(
-          image: DecorationImage(image: NetworkImage(imageUrl)),
+          image: imageUrl == ""
+              ? null
+              : DecorationImage(image: NetworkImage(imageUrl)),
           color: ColorUtils.white,
           shape: BoxShape.circle,
           border: const Border(),

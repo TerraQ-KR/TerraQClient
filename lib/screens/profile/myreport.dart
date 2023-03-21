@@ -1,20 +1,24 @@
+// ignore_for_file: unused_local_variable
+
+import 'package:eco_reward_app/network/custom_jobs.dart';
+import 'package:eco_reward_app/network/provider/api_paths.dart';
+import 'package:eco_reward_app/network/provider/query_keys.dart';
 import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/profile/components/childAppbar.dart';
+import 'package:eco_reward_app/screens/profile/constants/profile_icons.dart';
+import 'package:eco_reward_app/screens/profile/model/report.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
+import 'package:eco_reward_app/utils/font_utils.dart';
+import 'package:eco_reward_app/utils/list_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-class MyReport extends StatelessWidget {
+class MyReport extends HookWidget {
   const MyReport({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Size deviceSize = MediaQuery.of(context).size;
-    double pixelHeight = deviceSize.height;
-    double pixelWidth = deviceSize.width;
-
-    var mid = Arguments(QueryParams(context)).mid;
-
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -25,42 +29,488 @@ class MyReport extends StatelessWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: ChildAppBar(context, "Report"),
+        appBar: ChildAppBar(
+          context,
+          "Report",
+        ),
         body: Container(
-          margin: EdgeInsets.all(0.017 * pixelHeight),
+          margin: const EdgeInsets.all(12),
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             color: ColorUtils.white,
           ),
           child: Container(
-              margin: EdgeInsets.all(0.034 * pixelHeight),
-              child: Row(
+              margin: const EdgeInsets.all(20),
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    children: [
-                      CircularPercentIndicator(
-                        radius: 0.3 * pixelWidth,
-                        lineWidth: 20.0,
-                        animation: true,
-                        percent: 30 / 100,
-                        center: const Text(
-                          "30 %",
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w600,
-                              color: ColorUtils.black),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        WeeklyReport(),
+                        SizedBox(
+                          height: 30,
                         ),
-                        backgroundColor: ColorUtils.grey06,
-                        circularStrokeCap: CircularStrokeCap.round,
-                        progressColor: ColorUtils.subBlue,
-                      ),
-                    ],
-                  )
+                        MonthlyReport(),
+                      ],
+                    ),
+                  ),
                 ],
               )),
         ),
       ),
+    );
+  }
+}
+
+// ignore: prefer-single-widget-per-file
+class WeeklyReport extends HookWidget {
+  const WeeklyReport({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Size deviceSize = MediaQuery.of(context).size;
+    double pixelWidth = deviceSize.width;
+
+    var mid = Arguments(QueryParams(context)).mid;
+
+    var weekQuery = cachedQuery(
+      queryKey: QueryKeys.weeklyReport(mid),
+      path: ApiPaths.weeklyReport(mid),
+    );
+    var monthQuery = cachedQuery(
+      queryKey: QueryKeys.monthlyReport(mid),
+      path: ApiPaths.monthlyReport(mid),
+    );
+
+    Report weekly = report(weekQuery.data);
+    Report monthly = report(monthQuery.data);
+
+    late List<double> weeklyStatistics;
+    List<String> categoreys = ["House", "Consumption", "Food", "Transport"];
+    late List<double> temp;
+    late double sumOfWeek;
+
+    if (weekQuery.hasData && !weekQuery.isLoading && !weekQuery.isError) {
+      weeklyStatistics = [
+        weekly.homeReward,
+        weekly.consumptionReward,
+        weekly.foodReward,
+        weekly.transportReward
+      ];
+
+      sumOfWeek = weekly.homeReward +
+          weekly.consumptionReward +
+          weekly.foodReward +
+          weekly.transportReward;
+
+      temp = [
+        weekly.homeReward,
+        weekly.consumptionReward,
+        weekly.foodReward,
+        weekly.transportReward
+      ];
+
+      temp.sort();
+
+      return Column(
+        children: [
+          const Text(
+            "Weekly Report",
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              fontFamily: FontUtils.primary,
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          CircularPercentIndicator(
+            radius: 120,
+            lineWidth: 20.0,
+            animation: true,
+            percent: weekly.doneQuest / weekly.totalQuest,
+            center: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Transform.translate(
+                  offset: const Offset(5, 0),
+                  child: const Icon(
+                    ProfileIcons.clap_hands_svgrepo_com,
+                    size: 95,
+                    color: ColorUtils.subOrange,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "${(weekly.doneQuest / weekly.totalQuest * 100).toInt().toString()}%",
+                  style: const TextStyle(
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.bold,
+                      color: ColorUtils.black),
+                ),
+              ],
+            ),
+            backgroundColor: ColorUtils.grey05,
+            progressColor: ColorUtils.subBlue,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const Row(
+            children: [
+              Text(
+                "Decreased by",
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                " 10 kg ",
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: ColorUtils.subBlue,
+                ),
+              ),
+              Icon(
+                Icons.arrow_downward_rounded,
+                size: 18,
+                color: ColorUtils.subBlue,
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(15),
+                margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: ColorUtils.grey05,
+                ),
+                width: pixelWidth - 64,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.energy_savings_leaf),
+                        const SizedBox(width: 10),
+                        Text(
+                            "${categoreys.safe(weeklyStatistics.indexOf(temp.first)).toString()} achivement not enough!",
+                            style: const TextStyle(
+                              fontFamily: FontUtils.primary,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "This week's carbon footprint reduction is ${sumOfWeek.toString()}. Completed ${weekly.doneQuest} out of a total of ${weekly.totalQuest} quests.\n\nThis week (~~) the average category achievement rate of others is the same as ~~. Out of ${weekly.doneQuest}, the ${categoreys.safe(weeklyStatistics.indexOf(temp.first)).toString()} category is insufficient. ~~'s efforts can make ~~ as clean as ~~! Next week ${categoreys.safe(weeklyStatistics.indexOf(temp.first)).toString()} let's achieve more categories!",
+                      style: const TextStyle(
+                        fontFamily: FontUtils.primary,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+        ],
+      );
+    }
+
+    return Column(
+      children: [
+        const Text(
+          "Weekly Report",
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            fontFamily: FontUtils.primary,
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        CircularPercentIndicator(
+          radius: 120,
+          lineWidth: 20.0,
+          animation: true,
+          percent: weekly.doneQuest / weekly.totalQuest,
+          center: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                ProfileIcons.clap_hands_svgrepo_com,
+                size: 95,
+                color: ColorUtils.subOrange,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Text(
+                "${(weekly.doneQuest / weekly.totalQuest * 100).toInt().toString()}%",
+                style: const TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                    color: ColorUtils.black),
+              ),
+            ],
+          ),
+          backgroundColor: ColorUtils.grey05,
+          progressColor: ColorUtils.subBlue,
+        ),
+      ],
+    );
+  }
+}
+
+// ignore: prefer-single-widget-per-file
+class MonthlyReport extends HookWidget {
+  const MonthlyReport({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Size deviceSize = MediaQuery.of(context).size;
+    double pixelWidth = deviceSize.width;
+
+    var mid = Arguments(QueryParams(context)).mid;
+
+    var weekQuery = cachedQuery(
+      queryKey: QueryKeys.weeklyReport(mid),
+      path: ApiPaths.weeklyReport(mid),
+    );
+    var monthQuery = cachedQuery(
+      queryKey: QueryKeys.monthlyReport(mid),
+      path: ApiPaths.monthlyReport(mid),
+    );
+
+    Report monthly = report(monthQuery.data);
+
+    late List<double> monthlyStatistics;
+    List<String> categoreys = ["House", "Consumption", "Food", "Transport"];
+    late List<double> temp;
+    late double percent;
+
+    if (monthQuery.hasData && !monthQuery.isLoading && !monthQuery.isError) {
+      monthlyStatistics = [
+        monthly.homeReward,
+        monthly.consumptionReward,
+        monthly.foodReward,
+        monthly.transportReward
+      ];
+
+      percent = ((monthly.foodReward +
+              monthly.homeReward +
+              monthly.transportReward +
+              monthly.consumptionReward) /
+          20.8);
+
+      temp = [
+        monthly.homeReward,
+        monthly.consumptionReward,
+        monthly.foodReward,
+        monthly.transportReward
+      ];
+
+      temp.sort();
+
+      return Column(
+        children: [
+          const Text(
+            "Monthly Report",
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              fontFamily: FontUtils.primary,
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Transform.translate(
+            offset: const Offset(-10, -5),
+            child: Container(
+              alignment: FractionalOffset(
+                  ((monthly.foodReward +
+                          monthly.homeReward +
+                          monthly.transportReward +
+                          monthly.consumptionReward) /
+                      20.8),
+                  1 -
+                      ((monthly.foodReward +
+                              monthly.homeReward +
+                              monthly.transportReward +
+                              monthly.consumptionReward) /
+                          20.8)),
+              width: pixelWidth - 64,
+              child: const FractionallySizedBox(
+                child: Icon(
+                  ProfileIcons.carbonprint,
+                  size: 20,
+                  color: ColorUtils.subBlue,
+                ),
+              ),
+            ),
+          ),
+          LinearPercentIndicator(
+            padding: EdgeInsets.zero,
+            percent: percent,
+            lineHeight: 20,
+            backgroundColor: ColorUtils.grey05,
+            progressColor: ColorUtils.subBlue,
+            width: pixelWidth - 64,
+            animation: true,
+            animationDuration: 1000,
+            barRadius: const Radius.circular(10),
+          ),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [Text("20.8 kg")],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const Row(
+            children: [
+              Text(
+                "Decreased by",
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                " 10 kg ",
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: ColorUtils.subBlue,
+                ),
+              ),
+              Icon(
+                Icons.arrow_downward_rounded,
+                size: 18,
+                color: ColorUtils.subBlue,
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(15),
+                margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: ColorUtils.grey05,
+                ),
+                width: pixelWidth - 64,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.energy_savings_leaf),
+                        const SizedBox(width: 10),
+                        Text(
+                            "${categoreys.safe(monthlyStatistics.indexOf(temp.first)).toString()} achivement not enough!",
+                            style: const TextStyle(
+                              fontFamily: FontUtils.primary,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "This week's carbon footprint reduction is ${percent.toString()}. Completed ${monthly.doneQuest} out of a total of ${monthly.totalQuest} quests.\n\nThis week (~~) the average category achievement rate of others is the same as ~~. Out of ${monthly.doneQuest}, the ${categoreys.safe(monthlyStatistics.indexOf(temp.first)).toString()} category is insufficient. ~~'s efforts can make ~~ as clean as ~~! Next week ${categoreys.safe(monthlyStatistics.indexOf(temp.first)).toString()} let's achieve more categories!",
+                      style: const TextStyle(
+                        fontFamily: FontUtils.primary,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+        ],
+      );
+    }
+
+    return Column(
+      children: [
+        const Text(
+          "Monthly Report",
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            fontFamily: FontUtils.primary,
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Transform.translate(
+          offset: const Offset(-10, -5),
+          child: Container(
+            alignment: FractionalOffset(
+                ((monthly.foodReward +
+                        monthly.homeReward +
+                        monthly.transportReward +
+                        monthly.consumptionReward) /
+                    20.8),
+                1 -
+                    ((monthly.foodReward +
+                            monthly.homeReward +
+                            monthly.transportReward +
+                            monthly.consumptionReward) /
+                        20.8)),
+            width: pixelWidth - 64,
+            child: const FractionallySizedBox(
+              child: Icon(
+                ProfileIcons.carbonprint,
+                size: 20,
+                color: ColorUtils.subBlue,
+              ),
+            ),
+          ),
+        ),
+        LinearPercentIndicator(
+          padding: EdgeInsets.zero,
+          percent: 0,
+          lineHeight: 20,
+          backgroundColor: ColorUtils.grey05,
+          progressColor: ColorUtils.subBlue,
+          width: pixelWidth - 64,
+          animation: true,
+          animationDuration: 1000,
+          barRadius: const Radius.circular(10),
+        ),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [Text("20.8 kg")],
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+      ],
     );
   }
 }

@@ -111,7 +111,7 @@ class Status extends StatelessWidget {
               )),
           Text(state,
               style: TextStyle(
-                fontSize: pixelWidth * 0.4,
+                fontSize: pixelWidth * 0.5,
                 fontWeight: FontWeight.w500,
                 fontFamily: FontUtils.bold,
               ))

@@ -42,4 +42,16 @@ class QueryKeys {
   static String myQuestDoneList(int memberId) {
     return "myQuestDoneList/$memberId";
   }
+
+  static String myBadge(int memberId) {
+    return "getMyBadge/$memberId";
+  }
+
+  static String monthlyReport(int memberId) {
+    return "getMonthlyReport/$memberId";
+  }
+
+  static String weeklyReport(int memberId) {
+    return "getWeeklyReport/$memberId";
+  }
 }

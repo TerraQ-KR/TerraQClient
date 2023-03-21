@@ -43,7 +43,20 @@ class _LeaderBoardState extends State<LeaderBoard> {
       path: ApiPaths.members,
     );
 
-    List<MemberProfile?> allMembers = memberList(membersQuery.data);
+    List<MemberProfile?> allMembers = [];
+
+    switch (order) {
+      case SortedOrder.Reward:
+        allMembers = memberList(membersQuery.data);
+        break;
+      case SortedOrder.Success:
+        allMembers = memberList(membersQuery.data);
+        allMembers.sort((a, b) => b!.successQuests.compareTo(a!.successQuests));
+        break;
+      default:
+        allMembers = memberList(membersQuery.data);
+        break;
+    }
 
     int memberidx = 0;
     int idx = 0;
@@ -57,7 +70,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
       }
     }
 
-    sortBottomModal(List<MemberProfile?> allMembers) {
+    sortBottomModal() {
       return showModalBottomSheet(
         context: context,
         shape: const RoundedRectangleBorder(
@@ -148,9 +161,12 @@ class _LeaderBoardState extends State<LeaderBoard> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: ChildAppBar(context, "LeaderBoard"),
+        appBar: ChildAppBar(
+          context,
+          "LeaderBoard",
+        ),
         body: Padding(
-            padding: EdgeInsets.all(0.017 * pixelHeight),
+            padding: const EdgeInsets.all(12),
             child: Column(
               children: [
                 Row(
@@ -158,7 +174,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        sortBottomModal(allMembers);
+                        sortBottomModal();
                       },
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
@@ -280,13 +296,16 @@ class LeaderBoardComponent extends StatelessWidget {
                                   color: ColorUtils.white, fontSize: 13))),
                       const SizedBox(width: 10),
                       Container(
-                        decoration: BoxDecoration(
-                            color: ColorUtils.primary.withOpacity(0.6),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10))),
-                        width: 50,
-                        height: 17,
-                      ),
+                          alignment: Alignment.center,
+                          decoration: const BoxDecoration(
+                              color: ColorUtils.primary,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          width: 70,
+                          height: 17,
+                          child: Text("# ${elem!.successQuests.toString()}",
+                              style: const TextStyle(
+                                  color: ColorUtils.white, fontSize: 13))),
                     ],
                   )
                 ],

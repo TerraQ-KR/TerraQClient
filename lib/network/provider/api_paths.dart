@@ -44,6 +44,18 @@ class ApiPaths {
     return "/getMyQuestDoneList/$memberId";
   }
 
+  static String myBadge(int memberId) {
+    return "/getMyBadge/$memberId";
+  }
+
+  static String monthlyReport(int memberId) {
+    return "/getMonthlyReport/$memberId";
+  }
+
+  static String weeklyReport(int memberId) {
+    return "/getWeeklyReport/$memberId";
+  }
+
   // Post
   static const String createMember = "/create-member";
   static const String login = "/login";
@@ -69,5 +81,9 @@ class ApiPaths {
 
   static String updateCertificateImage(int memberDoId) {
     return "/uploadCertificateImage/$memberDoId";
+  }
+
+  static String updateMainBadge(int memberId) {
+    return "/updateMainBadge/$memberId";
   }
 }

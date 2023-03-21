@@ -1,4 +1,5 @@
 class CategoryModel {
+  int cid = -1;
   String name = "";
   String icon = "";
 
@@ -6,6 +7,7 @@ class CategoryModel {
 
   CategoryModel.fromJson(Map<String, dynamic> json)
       : name = json["name"],
+        cid = json["id"],
         icon = json["icon"];
 }
 
