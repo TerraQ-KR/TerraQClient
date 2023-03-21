@@ -1,18 +1,33 @@
 // ignore_for_file: camel_case_types
 import 'dart:math';
 
-import 'package:eco_reward_app/screens/profile/icons/profile_icons.dart';
+import 'package:eco_reward_app/network/custom_jobs.dart';
+import 'package:eco_reward_app/network/provider/api_paths.dart';
+import 'package:eco_reward_app/network/provider/query_keys.dart';
+import 'package:eco_reward_app/routes.dart';
+import 'package:eco_reward_app/screens/profile/constants/profile_icons.dart';
+import 'package:eco_reward_app/screens/profile/model/member_profile.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class personalStatus extends StatelessWidget {
+class personalStatus extends HookWidget {
   const personalStatus({super.key});
 
   @override
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
     double pixelWidth = deviceSize.width;
+
+    var mid = Arguments(QueryParams(context)).mid;
+
+    var profileQuery = cachedQuery(
+      queryKey: QueryKeys.memberdetail(mid),
+      path: ApiPaths.memberdetail(mid),
+    );
+
+    MemberProfile profile = memberProfile(profileQuery.data);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,13 +67,13 @@ class personalStatus extends StatelessWidget {
                 color: ColorUtils.white,
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Status(amount: "99", state: "Progress"),
-                  Status(amount: "3", state: "Success"),
-                  Status(amount: "2", state: "Badge"),
+                  Status(amount: profile.progressQuests, state: "Progress"),
+                  Status(amount: profile.successQuests, state: "Success"),
+                  Status(amount: profile.badgeCount, state: "Badge"),
                 ],
               ),
             ))
@@ -69,7 +84,7 @@ class personalStatus extends StatelessWidget {
 
 // ignore: prefer-single-widget-per-file
 class Status extends StatelessWidget {
-  final String amount;
+  final int amount;
   final String state;
 
   const Status({
@@ -88,7 +103,7 @@ class Status extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(amount,
+          Text(amount.toString(),
               style: TextStyle(
                 fontSize: pixelWidth,
                 fontWeight: FontWeight.w700,
@@ -96,7 +111,7 @@ class Status extends StatelessWidget {
               )),
           Text(state,
               style: TextStyle(
-                fontSize: pixelWidth * 0.4,
+                fontSize: pixelWidth * 0.5,
                 fontWeight: FontWeight.w500,
                 fontFamily: FontUtils.bold,
               ))

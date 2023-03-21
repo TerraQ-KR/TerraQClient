@@ -35,7 +35,7 @@ class BasicAPI {
   BasicAPI() {
     BaseOptions options = BaseOptions(
       baseUrl: baseUrl,
-      connectTimeout: 3000,
+      connectTimeout: 5000,
       receiveTimeout: 3000,
     );
     dio = Dio(options);
@@ -129,7 +129,7 @@ class BasicAPI {
 
   dynamic DELETE({
     required String path,
-    required String data,
+    required dynamic data,
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
@@ -154,7 +154,7 @@ class BasicAPI {
 
   dynamic PATCH({
     required String path,
-    required String data,
+    required dynamic data,
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,

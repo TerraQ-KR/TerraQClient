@@ -15,13 +15,12 @@ class MyApp extends StatelessWidget {
       bowl: QueryBowl(),
       child: MaterialApp(
         title: 'Eco Reward',
-        onGenerateRoute: Routes.RouteGenerater,
-        initialRoute: Routes.AuthLoginRoute,
-      child: const MaterialApp(
-        title: 'Eco Reward',
         // routes: routes,
         onGenerateRoute: Routes.RouteGenerater,
-        initialRoute: Routes.test,
+        initialRoute: RouteParams(
+          path: Routes.mypage,
+          queryParameters: {Routes.memberKey: "7"},
+        ),
       ),
     );
   }

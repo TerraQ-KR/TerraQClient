@@ -1,7 +1,7 @@
-import 'package:eco_reward_app/screens/profile/widget/invite_member.dart';
-import 'package:eco_reward_app/screens/profile/widget/my_history.dart';
-import 'package:eco_reward_app/screens/profile/widget/personal_profile.dart';
-import 'package:eco_reward_app/screens/profile/widget/personal_status.dart';
+import 'package:eco_reward_app/screens/profile/widget/mainWidgets/personal_profile.dart';
+import 'package:eco_reward_app/screens/profile/widget/mainWidgets/invite_member.dart';
+import 'package:eco_reward_app/screens/profile/widget/mainWidgets/my_history.dart';
+import 'package:eco_reward_app/screens/profile/widget/mainWidgets/personal_status.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -28,7 +28,7 @@ class ProfileScreen extends HookWidget {
           backgroundColor: ColorUtils.white,
         ),
         body: Padding(
-          padding: EdgeInsets.all(0.017 * pixelHeight),
+          padding: const EdgeInsets.all(12),
           child: Column(
             children: [
               const Flexible(
@@ -40,7 +40,7 @@ class ProfileScreen extends HookWidget {
                 flex: 3,
                 child: personalStatus(),
               ),
-              SizedBox(height: 0.007 * pixelHeight),
+              SizedBox(height: 0.017 * pixelHeight),
               const Flexible(
                 flex: 6,
                 child: PersonalHistory(),

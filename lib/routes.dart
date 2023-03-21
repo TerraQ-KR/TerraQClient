@@ -1,4 +1,8 @@
 // ignore_for_file: unused_import,non_constant_identifier_names
+
+import 'package:eco_reward_app/network/provider/test_screen.dart';
+import 'package:eco_reward_app/screens/profile/mybadges.dart';
+import 'package:eco_reward_app/screens/profile/myreport.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/network/provider/test_screen.dart';
 import 'package:eco_reward_app/screens/auth/auth_register_screen.dart';
@@ -9,7 +13,9 @@ import 'package:eco_reward_app/screens/quest/certification/quest_certification_s
 import 'package:eco_reward_app/screens/quest/gallery/quest_gallery_screen.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
 import 'package:eco_reward_app/screens/home/home_screen.dart';
+
 import 'package:eco_reward_app/screens/profile/profile_screen.dart';
+import 'package:eco_reward_app/screens/profile/leaderboard.dart';
 
 // query_parameter keys for Route
 class Routes {
@@ -23,6 +29,12 @@ class Routes {
   static const account = '/account';
   static const home = '/home';
   static const test = '/test';
+  static const mypage = '/mypage';
+  static const leaderboard = '/mypage/leaderboard';
+  static const mybadges = '/mypage/badge';
+  static const myreport = '/mypage/report';
+
+  // query_parameter keys for Route
   static const memberKey = "mid";
 
   static Route<dynamic> RouteGenerater(RouteSettings settings) {
@@ -54,9 +66,65 @@ class Routes {
               if (params.isNotEmpty) {
                 return const testOtherScreen();
               }
-              return const TestWidget();
+              return TestWidget();
+            case mypage:
+              if (params.isNotEmpty) {
+                return const ProfileScreen();
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
+              );
+            case leaderboard:
+              if (params.isNotEmpty) {
+                return LeaderBoard();
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
+              );
+            case mybadges:
+              if (params.isNotEmpty) {
+                return const MyBadges();
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
+              );
+            case myreport:
+              if (params.isNotEmpty) {
+                return const MyReport();
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
+              );
+
             default:
-              throw Exception('Invalid route: ${settings.name}');
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
+              );
           }
         },
         settings: RouteSettings(name: settings.name));
