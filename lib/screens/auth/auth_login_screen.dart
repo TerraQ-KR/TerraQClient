@@ -69,9 +69,8 @@ class AuthLoginScreen extends StatelessWidget {
                 ],
               ),
               TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/account');
-                },
+                // ignore: prefer-extracting-callbacks
+                onPressed: () => navigateToHomeScreen(context),
                 child: Text(
                   "Don't have an account? Sign Up",
                   style: Theme.of(context).textTheme.bodySmall,
@@ -92,4 +91,15 @@ class AuthLoginScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> validateAndNavigate(BuildContext context, key) async {
+  final FormState? form = key.currentState;
+  if (form!.validate()) {
+    Navigator.pushNamed(context, '/quest');
+  }
+}
+
+Future<void> navigateToHomeScreen(BuildContext context) async {
+  Navigator.pushNamed(context, '/account');
 }

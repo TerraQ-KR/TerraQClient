@@ -9,6 +9,7 @@ class ValidateUtils {
         return 'Please enter a valid email.';
       }
     }
+    return null;
   }
 
   String? validatePassword(value) {
@@ -21,6 +22,8 @@ class ValidateUtils {
         return 'Password must be greater than 8 characters.';
       }
     }
+    // ignore: newline-before-return
+    return null;
   }
 
   String? validateConfirmPassword(value, password) {
@@ -29,11 +32,13 @@ class ValidateUtils {
     } else if (value != password) {
       return 'Password does not match.';
     }
+    return null;
   }
 
   String? validateName(value) {
     if (value.isEmpty) {
       return 'User name cannot be empty.';
     }
+    return null;
   }
 }
