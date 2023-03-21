@@ -13,9 +13,8 @@ final InterceptorsWrapper custrom_interceptor = InterceptorsWrapper(
     return handler.next(response);
   },
   onError: (error, handler) async {
-    // print(
-    //     'ERROR[${error.response?.statusCode}] => PATH: ${error.requestOptions.path}');
-    print(error);
+    print(
+        'ERROR[${error.response?.statusCode}] => PATH: ${error.requestOptions.path}');
 
     return handler.next(error);
   },

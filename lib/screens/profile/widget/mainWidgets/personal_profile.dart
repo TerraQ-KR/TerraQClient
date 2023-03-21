@@ -24,7 +24,7 @@ class personalProfile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ImagePicker picker = ImagePicker();
+    ImagePicker picker = ImagePicker();
     // XFile? selectImage = await picker.pickImage(source: ImageSource.gallery,
     // maxHeight: 75, maxWidth: 75, imageQuality: 30,);
 
@@ -135,7 +135,7 @@ class _ImgUploaderState extends State<ImgUploader> {
           // ignore: unused_local_variable
           if (image != null) {
             var formData = FormData.fromMap({
-              'file': MultipartFile.fromFile(
+              'file': await MultipartFile.fromFile(
                 image!.path,
               )
             });

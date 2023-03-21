@@ -35,7 +35,7 @@ class BasicAPI {
   BasicAPI() {
     BaseOptions options = BaseOptions(
       baseUrl: baseUrl,
-      connectTimeout: 3000,
+      connectTimeout: 5000,
       receiveTimeout: 3000,
     );
     dio = Dio(options);
