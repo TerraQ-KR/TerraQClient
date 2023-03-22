@@ -16,13 +16,13 @@ class MyQuestScreen extends HookWidget {
     // var mid = Arguments(QueryParams(context)).mid;
 
     final quest = cachedQuery(
-        queryKey: QueryKeys().myQuestIngList(1),
+        queryKey: QueryKeys.myQuestIngList(1),
         path: ApiPaths().myQuestIngList(1));
     // ignore: prefer_if_null_operators
     final questData = getMyQuest(quest.data);
 
     final doneQuest = cachedQuery(
-        queryKey: QueryKeys().myQuestDoneList(1),
+        queryKey: QueryKeys.myQuestDoneList(1),
         path: ApiPaths().myQuestDoneList(1));
     final doneQuestData = getMyQuest(doneQuest.data);
 
@@ -34,12 +34,12 @@ class MyQuestScreen extends HookWidget {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            ToolbarQuest(),
+            const ToolbarQuest(),
             Expanded(
               child: isSuccess
                   ? ListView.separated(
                       separatorBuilder: (context, index) =>
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                       itemCount: questData.length + doneQuestData.length,
                       itemBuilder: (BuildContext context, int index) {
                         if (index < questData.length) {

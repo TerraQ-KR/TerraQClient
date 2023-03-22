@@ -10,14 +10,14 @@ import 'package:eco_reward_app/screens/quest/detail/widget/container_quest_detai
 
 class QuestDetailScreen extends HookWidget {
   final int qid;
-  QuestDetailScreen(this.qid, {Key? key}) : super(key: key);
+  const QuestDetailScreen(this.qid, {Key? key}) : super(key: key);
 
   static const routeName = '/quest/detail';
 
   @override
   Widget build(BuildContext context) {
     final quest = cachedQuery(
-        queryKey: QueryKeys().myQuestDetailView(qid),
+        queryKey: QueryKeys.myQuestDetailView(qid),
         path: ApiPaths().myQuestDetailView(qid));
 
     getDetail questData = getdetail(quest.data);

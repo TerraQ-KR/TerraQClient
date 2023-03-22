@@ -16,7 +16,7 @@ class QuestListScreen extends HookWidget {
     // var mid = Arguments(QueryParams(context)).mid;
 
     final quest = cachedQuery(
-        queryKey: QueryKeys().questNotMyQuestList(1),
+        queryKey: QueryKeys.questNotMyQuestList(1),
         path: ApiPaths().questNotMyQuestList(1));
     // ignore: prefer_if_null_operators
     final questData = getQuestNotMyQuestList(quest.data);
@@ -37,7 +37,7 @@ class QuestListScreen extends HookWidget {
                       final data = questData[index];
                       // ignore: newline-before-return
                       return Container(
-                        margin: EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
                         child: Column(
                           children: [
                             InputQuestPicture(
