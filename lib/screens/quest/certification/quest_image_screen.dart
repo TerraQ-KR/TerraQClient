@@ -12,7 +12,10 @@ import 'package:eco_reward_app/screens/quest/certification/widget/image_icon_but
 import 'package:eco_reward_app/screens/quest/certification/quest_certification_screen.dart';
 
 class QuestImageScreen extends StatefulHookWidget {
-  const QuestImageScreen({Key? key}) : super(key: key);
+  final String questName;
+  final double reward;
+  const QuestImageScreen(this.questName, this.reward, {Key? key})
+      : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -38,9 +41,15 @@ class _QuestImageScreen extends State<QuestImageScreen> {
       final bytes = await certificateImage.readAsBytes();
       final decodeImage = img.decodeImage(bytes);
       final now = DateTime.now();
-      final timeText =
-          '${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-${now.second}';
-      img.drawString(decodeImage!, font: img.arial24, x: 100, y: 10, timeText);
+      final timeText = '${now.year}-${now.month}-${now.day}';
+      final rewardText = '${widget.reward.toString()}kg';
+      img.drawString(decodeImage!, font: img.arial24, x: 100, y: 400, timeText);
+      img.drawString(
+          decodeImage, font: img.arial24, x: 100, y: 450, rewardText);
+      img.drawString(
+          decodeImage, font: img.arial24, x: 100, y: 350, widget.questName);
+      img.drawString(decodeImage, font: img.arial24, x: 450, y: 10, 'TerraQ');
+
       var encodeImage = img.encodeJpg(decodeImage, quality: 100);
       var finalImage = File(certificateImage.path)
         ..writeAsBytesSync(encodeImage);

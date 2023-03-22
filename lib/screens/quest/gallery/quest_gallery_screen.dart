@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:dotted_border/dotted_border.dart';
-import 'package:eco_reward_app/routes.dart';
+import 'package:eco_reward_app/style/default_theme.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/screens/quest/gallery/widget/quest_image.dart';
 import 'package:eco_reward_app/network/provider/api_path.dart';
@@ -53,14 +53,13 @@ class QuestGalleryScreen extends HookWidget {
                 ),
                 Container(
                   alignment: Alignment.topCenter,
-                  padding: const EdgeInsets.all(20),
-                  child: const Text(
+                  padding: const EdgeInsets.all(40),
+                  child: Text(
                     'Gallery',
-                    style: TextStyle(
-                      color: ColorUtils.black,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
                 ),
                 Center(

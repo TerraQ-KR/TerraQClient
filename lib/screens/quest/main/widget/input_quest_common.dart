@@ -37,8 +37,8 @@ class InputQuest extends HookWidget {
                   Container(
                     alignment: const Alignment(0.8, 0.8),
                     child: ButtonQuest(
-                      onPressed: () => _navigateToCertificateScreen(
-                          context, quest.briefing!),
+                      onPressed: () => _navigateToCertificateScreen(context,
+                          quest.questName, quest.reward, quest.briefing!),
                     ),
                   ),
                   Container(
@@ -91,10 +91,11 @@ _navigateToQuestDetailScreen(context, id) async {
   );
 }
 
-_navigateToCertificateScreen(context, information) async {
+_navigateToCertificateScreen(context, questName, reward, information) async {
   return Navigator.push(
     context,
     MaterialPageRoute(
-        builder: (context) => CertificateModal(information: information)),
+        builder: (context) => CertificateModal(
+            questName: questName, reward: reward, information: information)),
   );
 }

@@ -5,9 +5,15 @@ import 'package:eco_reward_app/screens/quest/detail/widget/button_quest_detail.d
 import 'package:eco_reward_app/screens/quest/certification/quest_image_screen.dart';
 
 class CertificateModal extends StatelessWidget {
-  final information;
+  final String questName;
+  final double reward;
+  final String information;
 
-  const CertificateModal({this.information});
+  const CertificateModal(
+      {super.key,
+      required this.questName,
+      required this.reward,
+      required this.information});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +26,8 @@ class CertificateModal extends StatelessWidget {
               padding: const EdgeInsets.only(top: 20, right: 20),
               child: IconButton(
                   onPressed: () => _navigateToBefore(context),
-                  icon: Icon(Icons.close, color: ColorUtils.black, size: 30)),
+                  icon: const Icon(Icons.close,
+                      color: ColorUtils.black, size: 30)),
             ),
             const Padding(
               padding: EdgeInsets.only(top: 40),
@@ -36,7 +43,7 @@ class CertificateModal extends StatelessWidget {
               ),
             ),
             Text(information,
-                style: TextStyle(
+                style: const TextStyle(
                   color: ColorUtils.black,
                   fontSize: 14,
                   fontFamily: FontUtils.primary,
@@ -46,7 +53,7 @@ class CertificateModal extends StatelessWidget {
               padding: const EdgeInsets.only(top: 30),
               child: ButtonQuestDetail(
                 text: 'Confirm',
-                onPressed: () => _navigateToImage(context),
+                onPressed: () => _navigateToImage(context, questName, reward),
               ),
             ),
           ],
@@ -56,10 +63,14 @@ class CertificateModal extends StatelessWidget {
   }
 }
 
-_navigateToImage(context) async {
+_navigateToImage(context, questName, reward) async {
   return Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => const QuestImageScreen()),
+    MaterialPageRoute(
+        builder: (context) => QuestImageScreen(
+              questName,
+              reward,
+            )),
   );
 }
 

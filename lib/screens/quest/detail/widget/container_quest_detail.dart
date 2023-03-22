@@ -54,6 +54,8 @@ class ContainerQuestDetail extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.5,
             margin: const EdgeInsets.only(top: 20),
             child: QuestDescriptionBox(
+              questName: questName,
+              reward: reward,
               information: information,
             ),
           ),

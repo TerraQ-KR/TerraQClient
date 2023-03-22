@@ -24,7 +24,7 @@ class ButtonQuest extends StatelessWidget {
   }
 }
 
-Future<void> navigateToCertification(context) async {
-  Navigator.push(context,
-      new MaterialPageRoute(builder: (context) => new QuestImageScreen()));
-}
+// Future<void> navigateToCertification(context) async {
+//   Navigator.push(context,
+//       new MaterialPageRoute(builder: (context) => new QuestImageScreen()));
+// }

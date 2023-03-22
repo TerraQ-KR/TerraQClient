@@ -1,16 +1,19 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter/services.dart';
+import 'package:eco_reward_app/screens/quest/main/quest_tab_screen.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:eco_reward_app/network/custom_jobs.dart';
 import 'package:eco_reward_app/network/provider/api_paths.dart';
 import 'package:eco_reward_app/network/provider/query_keys.dart';
-import 'package:eco_reward_app/screens/quest/gallery/models/get_image.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/button_quest_detail.dart';
+
+import '../main/style/main_theme.dart';
 
 class QuestCertificationScreen extends StatefulHookWidget {
   final XFile? image;
@@ -62,7 +65,6 @@ class _QuestCertificationScreen extends State<QuestCertificationScreen> {
       path: ApiPaths.updateCertificateImage(1),
       options: Options(contentType: 'multipart/form-data'),
     );
-    final images = getGalleryList(imageQuery.data);
 
     return Scaffold(
       backgroundColor: ColorUtils.black,
@@ -103,6 +105,8 @@ class _QuestCertificationScreen extends State<QuestCertificationScreen> {
               text: 'Upload',
               // ignore: prefer-extracting-callbacks
               onPressed: () async {
+                await imageQuery.refetch();
+
                 try {
                   final formData = FormData.fromMap({
                     'file': await MultipartFile.fromFile(
@@ -115,6 +119,8 @@ class _QuestCertificationScreen extends State<QuestCertificationScreen> {
                     onData: (payload, variables, context) =>
                         imageQuery.refetch(),
                   );
+                  _showDialog(context);
+                  // ignore: prefer-extracting-callbacks
                 } catch (e) {
                   print(e);
                 }
@@ -129,3 +135,30 @@ class _QuestCertificationScreen extends State<QuestCertificationScreen> {
 _navigateToBefore(context) async {
   return Navigator.pop(context);
 }
+
+void _showDialog(context) => showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("This quest is certified.",
+              style: questTheme.textTheme.bodyLarge!.copyWith(
+                fontWeight: FontWeight.bold,
+              )),
+          actions: [
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Timer(
+                    const Duration(seconds: 3),
+                    () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const QuestTabScreen(),
+                          ),
+                        ));
+              },
+            ),
+          ],
+        );
+      },
+    );

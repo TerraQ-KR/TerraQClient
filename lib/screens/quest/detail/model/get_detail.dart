@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class getDetail {
   int memDoId = 0;
   String questName = '';
@@ -9,6 +11,7 @@ class getDetail {
   int challenger = 0;
   String startDate = '';
   String dueDate = '';
+  List<dynamic> images = [];
 
   getDetail();
 
@@ -23,7 +26,8 @@ class getDetail {
         information = json["questDto"]['information'] ?? "",
         challenger = json["questDto"]['challenger'] ?? 0,
         startDate = json["startDate"] ?? "",
-        dueDate = json["dueDate"] ?? "";
+        dueDate = json["dueDate"] ?? "",
+        images = json["certificateImages"] ?? [];
 }
 
 getDetail getdetail(Object? json) {

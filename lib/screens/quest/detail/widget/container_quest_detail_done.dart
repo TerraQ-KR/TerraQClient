@@ -4,10 +4,6 @@ import 'package:eco_reward_app/screens/quest/detail/style/detail_theme.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/quest_infrom_box.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/tag_quest_foot.dart';
-import 'package:eco_reward_app/network/provider/api_path.dart';
-import 'package:eco_reward_app/network/provider/query_keys.dart';
-import 'package:eco_reward_app/network/custom_jobs.dart';
-import 'package:eco_reward_app/screens/quest/gallery/models/get_image.dart';
 
 class ContainerQuestDetailDone extends HookWidget {
   final int id;
@@ -16,6 +12,7 @@ class ContainerQuestDetailDone extends HookWidget {
   final String endDate;
   final int reward;
   final int challenger;
+  final List<dynamic> images;
 
   const ContainerQuestDetailDone({
     Key? key,
@@ -25,25 +22,11 @@ class ContainerQuestDetailDone extends HookWidget {
     required this.endDate,
     required this.reward,
     required this.challenger,
+    required this.images,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // final detailImg = [];
-    // int detailImgCount = 0;
-    final img = cachedQuery(
-      queryKey: QueryKeys().certificateImages(1),
-      path: ApiPaths().certificateImages(1),
-    );
-    final imageData = getGalleryList(img.data);
-    // final imageCount = imageData.length;
-    // for (var i = 0; i < imageCount; i++) {
-    //   if (imageData[i].id == id) {
-    //     detailImg.add(imageData[i].image);
-    //     detailImgCount++;
-    //   }
-    // }
-
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
@@ -82,20 +65,26 @@ class ContainerQuestDetailDone extends HookWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
-                    Text(
+                    const Text(
                       'Certificate Image',
                     ),
-                    Container(
-                      height: 200,
-                      width: 200,
-                      margin: const EdgeInsets.all(20),
-                      alignment: Alignment.center,
-                      child: FittedBox(
-                        fit: BoxFit.fill,
-                        child: Image.network(
-                          imageData[0].image!,
-                        ),
-                      ),
+                    // ignore: avoid-shrink-wrap-in-lists
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: images.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          height: 200,
+                          width: 200,
+                          margin: const EdgeInsets.all(20),
+                          alignment: Alignment.center,
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child:
+                                Image.network(images.elementAt(index)['image']),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

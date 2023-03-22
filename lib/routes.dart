@@ -18,7 +18,6 @@ class Routes {
   static const QuestTabRoute = '/quest';
   static const QuestDetailRoute = '/quest/detail';
   static const QuestGalleryRoute = '/quest/gallery';
-  static const QuestCertificateRoute = '/quest/certificate';
   static const login = '/login';
   static const account = '/account';
   static const home = '/home';
@@ -46,8 +45,6 @@ class Routes {
               return QuestTabScreen();
             case QuestGalleryRoute:
               return QuestGalleryScreen();
-            case QuestCertificateRoute:
-              return CertificateModal();
             // case home:
             //   return const HomeScreen();
             // case test:
