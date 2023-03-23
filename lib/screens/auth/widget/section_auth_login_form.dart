@@ -1,9 +1,11 @@
+import 'package:eco_reward_app/network/custom_jobs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import '../utils/validate_auth_utils.dart';
 import 'button_auth_common.dart';
 import 'input_auth_common.dart';
 
-class SectionAuthLoginForm extends StatefulWidget {
+class SectionAuthLoginForm extends StatefulHookWidget {
   const SectionAuthLoginForm({Key? key}) : super(key: key);
 
   @override
@@ -13,11 +15,14 @@ class SectionAuthLoginForm extends StatefulWidget {
 
 class _SectionAuthLoginFormState extends State<SectionAuthLoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String _email = '';
-  String _password = '';
+  String email = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
+    final mutateLogin =
+        cachedMutation(mutationKey: "LOGIN", apiType: "POST", path: '/login');
+
     return Form(
         key: _formKey,
         child: Column(children: <Widget>[
@@ -28,7 +33,7 @@ class _SectionAuthLoginFormState extends State<SectionAuthLoginForm> {
             // ignore: prefer-extracting-callbacks
             onChanged: (value) {
               setState(() {
-                _email = value;
+                email = value;
               });
             },
           ),
@@ -40,22 +45,23 @@ class _SectionAuthLoginFormState extends State<SectionAuthLoginForm> {
             // ignore: prefer-extracting-callbacks
             onChanged: (value) {
               setState(() {
-                _password = value;
+                password = value;
               });
             },
           ),
           const SizedBox(height: 25),
           ButtonAuthCommon(
             text: 'LOGIN',
-            onPressed: () => validateAndNavigate(context, _formKey),
+            // ignore: prefer-extracting-callbacks
+            onPressed: () async {
+              try {
+                mutateLogin.mutate({'email': email, 'password': password},
+                    onData: ((payload, variables, context) => print(payload)));
+              } catch (e) {
+                print(e);
+              }
+            },
           )
         ]));
-  }
-}
-
-Future<void> validateAndNavigate(BuildContext context, key) async {
-  final FormState? form = key.currentState;
-  if (form!.validate()) {
-    Navigator.pushNamed(context, '/home');
   }
 }

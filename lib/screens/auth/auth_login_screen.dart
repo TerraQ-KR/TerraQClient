@@ -18,7 +18,7 @@ class AuthLoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'EcoReward',
+                  'TerraQ',
                   style: defaultTheme.textTheme.titleLarge,
                 ),
                 const SizedBox(height: 80),
