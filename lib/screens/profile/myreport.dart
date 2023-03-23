@@ -218,7 +218,7 @@ class WeeklyReport extends HookWidget {
                       height: 10,
                     ),
                     Text(
-                      "This week's carbon footprint reduction is ${sumOfWeek.toString()}. Completed ${weekly.doneQuest} out of a total of ${weekly.totalQuest} quests.\n\nThis week (~~) the average category achievement rate of others is the same as ~~. Out of ${weekly.doneQuest}, the ${categoreys.safe(weeklyStatistics.indexOf(temp.first)).toString()} category is insufficient. ~~'s efforts can make ~~ as clean as ~~! Next week ${categoreys.safe(weeklyStatistics.indexOf(temp.first)).toString()} let's achieve more categories!",
+                      "This week's carbon footprint reduction is ${sumOfWeek.toString()}. Completed ${weekly.doneQuest} out of a total of ${weekly.totalQuest} quests.\n\nThis week the average category achievement rate of others is the same as ~~. Out of ${weekly.doneQuest}, the ${categoreys.safe(weeklyStatistics.indexOf(temp.first)).toString()} category is insufficient. ~~'s efforts can make ~~ as clean as ~~! Next week ${categoreys.safe(weeklyStatistics.indexOf(temp.first)).toString()} let's achieve more categories!",
                       style: const TextStyle(
                         fontFamily: FontUtils.primary,
                         fontWeight: FontWeight.w700,
@@ -380,22 +380,22 @@ class MonthlyReport extends HookWidget {
           const SizedBox(
             height: 10,
           ),
-          const Row(
+          Row(
             children: [
-              Text(
-                "Decreased by",
+              const Text(
+                "Decreased by ",
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                 ),
               ),
               Text(
-                " 10 kg ",
-                style: TextStyle(
+                "${(monthly.foodReward + monthly.homeReward + monthly.transportReward + monthly.consumptionReward).toString()} kg ",
+                style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   color: ColorUtils.subBlue,
                 ),
               ),
-              Icon(
+              const Icon(
                 Icons.arrow_downward_rounded,
                 size: 18,
                 color: ColorUtils.subBlue,

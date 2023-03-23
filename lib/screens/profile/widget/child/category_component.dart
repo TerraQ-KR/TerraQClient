@@ -1,5 +1,3 @@
-// ignore_for_file: prefer-single-widget-per-file
-
 import 'package:eco_reward_app/network/custom_jobs.dart';
 import 'package:eco_reward_app/network/provider/api_paths.dart';
 import 'package:eco_reward_app/network/provider/query_keys.dart';
@@ -104,15 +102,48 @@ class _CategoryComponentState extends State<CategoryComponent>
       "https://storage.googleapis.com/eco-reward-bucket/icon/restaurant_menu_white_36dp.png",
     ];
 
-    var badgesQuery = cachedQuery(
+    final badgesQuery = cachedQuery(
       queryKey: QueryKeys.myBadge(mid),
       path: ApiPaths.myBadge(mid),
     );
+    var badgeCateIndex = 0;
+    var colorIndex = 0;
     if (!badgesQuery.isLoading && !badgesQuery.isError && badgesQuery.hasData) {
       final List<BadgeModel?> badgeLists = badgeList(badgesQuery.data);
+
       for (var badges in badgeLists) {
         if (badges!.choice) {
           hasMainBadge = true;
+          switch (badges.badge.category.name) {
+            case "House":
+              badgeCateIndex = 0;
+              break;
+            case "Consumption":
+              badgeCateIndex = 1;
+              break;
+            case "Transport":
+              badgeCateIndex = 2;
+              break;
+            case "Food":
+              badgeCateIndex = 3;
+              break;
+          }
+          switch (badges.badge.achieverate.toInt()) {
+            case 30:
+              colorIndex = 0;
+              break;
+            case 50:
+              colorIndex = 1;
+              break;
+            case 70:
+              colorIndex = 2;
+              break;
+            case 100:
+              colorIndex = 3;
+              break;
+            default:
+              break;
+          }
         }
       }
     }
@@ -124,7 +155,7 @@ class _CategoryComponentState extends State<CategoryComponent>
           children: [
             Expanded(
               flex: 4,
-              child: Stack(children: [
+              child: Stack(alignment: Alignment.center, children: [
                 Stack(
                   alignment: Alignment.bottomRight,
                   children: [
@@ -174,12 +205,31 @@ class _CategoryComponentState extends State<CategoryComponent>
                     )
                   ],
                 ),
-                Container(
-                    decoration: const BoxDecoration(
-                      color: ColorUtils.black,
-                      shape: BoxShape.circle,
-                    ),
-                    margin: const EdgeInsets.all(30))
+                hasMainBadge
+                    ? Container(
+                        decoration: const BoxDecoration(
+                          color: ColorUtils.white,
+                          shape: BoxShape.circle,
+                          border: Border.fromBorderSide(
+                            BorderSide(color: ColorUtils.grey03, width: 3),
+                          ),
+                        ),
+                        padding: const EdgeInsets.all(20),
+                        child: Image(
+                          image: NetworkImage(cateIcons[badgeCateIndex]),
+                          color: cate_colorList[categorys[badgeCateIndex]]![
+                              colorIndex],
+                        ))
+                    : Container(
+                        decoration: const BoxDecoration(
+                          color: ColorUtils.white,
+                          shape: BoxShape.circle,
+                          border: Border.fromBorderSide(
+                            BorderSide(color: ColorUtils.grey03, width: 3),
+                          ),
+                        ),
+                        margin: const EdgeInsets.all(20),
+                      )
               ]),
             ),
             Container(
@@ -234,46 +284,5 @@ class _CategoryComponentState extends State<CategoryComponent>
         ),
       ),
     );
-  }
-}
-
-class MainBadge extends StatefulHookWidget {
-  const MainBadge({super.key});
-
-  @override
-  State<MainBadge> createState() => _MainBadgeState();
-}
-
-class _MainBadgeState extends State<MainBadge> {
-  @override
-  Widget build(BuildContext context) {
-    var mid = Arguments(QueryParams(context)).mid;
-
-    final badgeUpdateMutation = cachedMutation(
-      mutationKey: "patchBadge",
-      apiType: "patch",
-      path: ApiPaths.updateMainBadge(mid),
-    );
-
-    final badgeCreateMutation = cachedMutation(
-      mutationKey: "createBadge",
-      apiType: "POST",
-      path: ApiPaths.createMainBadge,
-    );
-
-    return ElevatedButton(
-        // ignore: prefer-extracting-callbacks
-        onPressed: () async {
-          badgeUpdateMutation.mutate(7, onData: ((payload, variables, context) {
-            print("Success update");
-          }));
-        },
-        style: ElevatedButton.styleFrom(
-          shape: const CircleBorder(),
-          backgroundColor: ColorUtils.white,
-          foregroundColor: ColorUtils.black,
-          padding: const EdgeInsets.all(10),
-        ),
-        child: const Icon(Icons.camera_alt_rounded, size: 18));
   }
 }

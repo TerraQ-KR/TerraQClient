@@ -1,4 +1,4 @@
-// ignore_for_file: prefer-single-widget-per-file
+// ignore_for_file: prefer-single-widget-per-file, prefer-extracting-callbacks,avoid-nested-conditional-expressions
 
 import 'package:eco_reward_app/network/custom_jobs.dart';
 import 'package:eco_reward_app/network/provider/api_paths.dart';
@@ -9,41 +9,34 @@ import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-class CategoryBadges extends HookWidget {
-  final colorList = [
+final cate_colorList = {
+  "House": [
+    const Color.fromARGB(255, 255, 215, 215),
+    const Color.fromARGB(255, 255, 183, 183),
+    const Color.fromARGB(255, 255, 153, 153),
     const Color.fromARGB(255, 255, 123, 123),
-    const Color.fromARGB(255, 113, 216, 103),
+  ],
+  "Consumption": [
+    const Color.fromARGB(255, 173, 216, 173),
+    const Color.fromARGB(255, 153, 216, 153),
+    const Color.fromARGB(255, 133, 216, 133),
+    const Color.fromARGB(255, 113, 216, 113),
+  ],
+  "Transport": [
+    const Color.fromARGB(255, 255, 243, 200),
+    const Color.fromARGB(255, 254, 232, 156),
+    const Color.fromARGB(255, 253, 222, 112),
     const Color.fromARGB(255, 252, 212, 68),
-    const Color.fromARGB(255, 88, 179, 253)
-  ];
+  ],
+  "Food": [
+    const Color.fromARGB(255, 202, 231, 255),
+    const Color.fromARGB(255, 164, 213, 255),
+    const Color.fromARGB(255, 126, 196, 254),
+    const Color.fromARGB(255, 88, 179, 253),
+  ]
+};
 
-  final cate_colorList = {
-    "House": [
-      const Color.fromARGB(255, 255, 215, 215),
-      const Color.fromARGB(255, 255, 183, 183),
-      const Color.fromARGB(255, 255, 153, 153),
-      const Color.fromARGB(255, 255, 123, 123),
-    ],
-    "Consumption": [
-      const Color.fromARGB(255, 173, 216, 173),
-      const Color.fromARGB(255, 153, 216, 153),
-      const Color.fromARGB(255, 133, 216, 133),
-      const Color.fromARGB(255, 113, 216, 113),
-    ],
-    "Transport": [
-      const Color.fromARGB(255, 255, 243, 200),
-      const Color.fromARGB(255, 254, 232, 156),
-      const Color.fromARGB(255, 253, 222, 112),
-      const Color.fromARGB(255, 252, 212, 68),
-    ],
-    "Food": [
-      const Color.fromARGB(255, 202, 231, 255),
-      const Color.fromARGB(255, 164, 213, 255),
-      const Color.fromARGB(255, 126, 196, 254),
-      const Color.fromARGB(255, 88, 179, 253),
-    ]
-  };
-
+class CategoryBadges extends HookWidget {
   late Color color;
   late String category;
   late List<String> badges;
@@ -103,6 +96,7 @@ class CategoryBadges extends HookWidget {
                     Expanded(
                       child: BadgeComponent(
                         // ignore: prefer-first
+                        index: 0,
                         badge: badges[0],
                         achived: gotBadges[0],
                         membergetId: gotBadges[0]
@@ -124,6 +118,7 @@ class CategoryBadges extends HookWidget {
                     Expanded(
                       child: BadgeComponent(
                         badge: badges[2],
+                        index: 2,
                         achived: gotBadges[2],
                         membergetId: gotBadges[2]
                             ? matchedBadges[
@@ -146,6 +141,7 @@ class CategoryBadges extends HookWidget {
                       child: BadgeComponent(
                         badge: badges[1],
                         achived: gotBadges[1],
+                        index: 1,
                         membergetId: gotBadges[1]
                             ? matchedBadges[
                                 matchedBadgesNames.indexOf(badges[1])]
@@ -163,6 +159,7 @@ class CategoryBadges extends HookWidget {
                     ),
                     Expanded(
                       child: BadgeComponent(
+                        index: 3,
                         badge: badges[3],
                         achived: gotBadges[3],
                         membergetId: gotBadges[3]
@@ -198,8 +195,9 @@ class CategoryBadges extends HookWidget {
   }
 }
 
-class BadgeComponent extends StatelessWidget {
+class BadgeComponent extends HookWidget {
   int membergetId = -1;
+  late int index;
   late String badgeName;
   late bool achived;
   late bool editMode;
@@ -216,6 +214,7 @@ class BadgeComponent extends StatelessWidget {
     required this.needCreate,
     required this.imageUrl,
     required this.iconColor,
+    required this.index,
   }) {
     List<String> temp = badge.split(" ");
     badgeName = temp.length == 1
@@ -228,46 +227,88 @@ class BadgeComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var mid = Arguments(QueryParams(context)).mid;
+
+    final badgeUpdateMutation = cachedMutation(
+      mutationKey: "patchBadge",
+      apiType: "patch",
+      path: ApiPaths.updateMainBadge(mid),
+    );
+
+    final badgeCreateMutation = cachedMutation(
+      mutationKey: "createBadge",
+      apiType: "POST",
+      path: ApiPaths.createMainBadge,
+    );
+
+    final badgesQuery = cachedQuery(
+      queryKey: QueryKeys.myBadge(mid),
+      path: ApiPaths.myBadge(mid),
+    );
+
+    final percent = ["30", "50", "70", "100"];
+
     return Column(
       children: [
         Expanded(
-          child: Container(
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: ColorUtils.grey03,
-                width: 3,
-              ),
-              color: achived ? Colors.transparent : ColorUtils.grey03,
-              shape: BoxShape.circle,
-            ),
-            child: editMode && achived
-                ? InkWell(
-                    onTap: () {
-                      print(imageUrl);
-                    },
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Image(
-                          image: NetworkImage(imageUrl),
-                          color: iconColor,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  border: const Border.fromBorderSide(
+                    BorderSide(color: ColorUtils.grey03, width: 3),
+                  ),
+                  color: achived ? Colors.transparent : ColorUtils.grey03,
+                  shape: BoxShape.circle,
+                ),
+                child: editMode && achived
+                    ? InkWell(
+                        onTap: () async {
+                          needCreate
+                              ? badgeCreateMutation.mutate(
+                                  membergetId,
+                                  onData: (payload, variables, context) =>
+                                      {badgesQuery.refetch()},
+                                )
+                              : badgeUpdateMutation.mutate(
+                                  membergetId,
+                                  onData: (payload, variables, context) =>
+                                      {badgesQuery.refetch()},
+                                );
+                        },
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image(
+                              image: NetworkImage(imageUrl),
+                              color: iconColor,
+                            ),
+                            Icon(
+                              Icons.check_circle,
+                              color: ColorUtils.grey07.withOpacity(0.8),
+                              size: 60,
+                            ),
+                          ],
                         ),
-                        Icon(
-                          Icons.check_circle,
-                          color: ColorUtils.grey07.withOpacity(0.8),
-                          size: 100,
-                        ),
-                      ],
-                    ),
-                  )
-                // ignore: avoid-nested-conditional-expressions
-                : achived
-                    ? Image(
-                        image: NetworkImage(imageUrl),
-                        color: iconColor,
                       )
-                    : null,
+                    : achived
+                        ? Image(
+                            image: NetworkImage(imageUrl),
+                            color: iconColor,
+                          )
+                        : null,
+              ),
+              !achived
+                  ? Text("${percent[index]}%",
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: ColorUtils.grey05,
+                      ))
+                  : const Text(""),
+            ],
           ),
         ),
         Text(badgeName,

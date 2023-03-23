@@ -80,7 +80,7 @@ class _InviteMemberState extends State<InviteMember> {
                           )
                         ],
                       ),
-                      Icon(Icons.arrow_forward_ios_rounded,
+                      Icon(Icons.copy,
                           size: 0.03 * pixelHeight, color: ColorUtils.grey05)
                     ],
                   ),
