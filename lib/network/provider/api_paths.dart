@@ -67,6 +67,8 @@ class ApiPaths {
 
   static const String createQeust = "/create-quest";
 
+  static const String createMainBadge = "/createMainBadge";
+
   // Put
   static String updateMember(int memberId) {
     return "/update-member/$memberId";

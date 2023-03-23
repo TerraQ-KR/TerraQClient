@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
         // routes: routes,
         onGenerateRoute: Routes.RouteGenerater,
         initialRoute: RouteParams(
-          path: Routes.AuthLoginRoute,
-        ),
+            path: Routes.mypage,
+            queryParameters: {Routes.memberKey: 1.toString()}),
       ),
     );
   }
