@@ -10,15 +10,53 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CategoryBadges extends HookWidget {
+  final colorList = [
+    const Color.fromARGB(255, 255, 123, 123),
+    const Color.fromARGB(255, 113, 216, 103),
+    const Color.fromARGB(255, 252, 212, 68),
+    const Color.fromARGB(255, 88, 179, 253)
+  ];
+
+  final cate_colorList = {
+    "House": [
+      const Color.fromARGB(255, 255, 215, 215),
+      const Color.fromARGB(255, 255, 183, 183),
+      const Color.fromARGB(255, 255, 153, 153),
+      const Color.fromARGB(255, 255, 123, 123),
+    ],
+    "Consumption": [
+      const Color.fromARGB(255, 173, 216, 173),
+      const Color.fromARGB(255, 153, 216, 153),
+      const Color.fromARGB(255, 133, 216, 133),
+      const Color.fromARGB(255, 113, 216, 113),
+    ],
+    "Transport": [
+      const Color.fromARGB(255, 255, 243, 200),
+      const Color.fromARGB(255, 254, 232, 156),
+      const Color.fromARGB(255, 253, 222, 112),
+      const Color.fromARGB(255, 252, 212, 68),
+    ],
+    "Food": [
+      const Color.fromARGB(255, 202, 231, 255),
+      const Color.fromARGB(255, 164, 213, 255),
+      const Color.fromARGB(255, 126, 196, 254),
+      const Color.fromARGB(255, 88, 179, 253),
+    ]
+  };
+
   late Color color;
   late String category;
   late List<String> badges;
+  late bool editmode;
+  late bool needcreate;
 
   CategoryBadges({
     super.key,
     required this.category,
     required this.color,
     required this.badges,
+    required this.editmode,
+    required this.needcreate,
   });
 
   @override
@@ -32,12 +70,19 @@ class CategoryBadges extends HookWidget {
 
     final List<BadgeModel?> badgeLists = badgeList(badgesQuery.data);
 
+    var matchedBadgesNames = [];
     var matchedBadges = [];
+    var badgeimages = [];
     if (!badgesQuery.isError && !badgesQuery.isLoading) {
       // ignore: unused_local_variable
+      var gotBadges = [false, false, false, false];
+
       for (var index = 0; index < badgeLists.length; index++) {
         if (badgeLists[index]!.badge.category.name == category) {
-          matchedBadges.add(badgeLists[index]!.badge.badgeName);
+          matchedBadgesNames.add(badgeLists[index]!.badge.badgeName);
+          matchedBadges.add(badgeLists[index]!.mgId);
+          badgeimages.add(badgeLists[index]!.badge.category.icon);
+          gotBadges[index] = true;
         }
       }
 
@@ -59,8 +104,18 @@ class CategoryBadges extends HookWidget {
                       child: BadgeComponent(
                         // ignore: prefer-first
                         badge: badges[0],
-                        achived: matchedBadges.contains(badges[0]),
-                        imageUrl: category,
+                        achived: gotBadges[0],
+                        membergetId: gotBadges[0]
+                            ? matchedBadges[
+                                matchedBadgesNames.indexOf(badges[0])]
+                            : -1,
+                        // ignore: prefer-first
+                        imageUrl: gotBadges[0]
+                            ? badgeimages[matchedBadgesNames.indexOf(badges[0])]
+                            : category,
+                        editMode: editmode,
+                        needCreate: needcreate,
+                        iconColor: cate_colorList[category]![0],
                       ),
                     ),
                     const SizedBox(
@@ -69,8 +124,17 @@ class CategoryBadges extends HookWidget {
                     Expanded(
                       child: BadgeComponent(
                         badge: badges[2],
-                        achived: matchedBadges.contains(badges[2]),
-                        imageUrl: category,
+                        achived: gotBadges[2],
+                        membergetId: gotBadges[2]
+                            ? matchedBadges[
+                                matchedBadgesNames.indexOf(badges[2])]
+                            : -1,
+                        imageUrl: gotBadges[2]
+                            ? badgeimages[matchedBadgesNames.indexOf(badges[2])]
+                            : category,
+                        editMode: editmode,
+                        needCreate: needcreate,
+                        iconColor: cate_colorList[category]![2],
                       ),
                     ),
                   ],
@@ -81,8 +145,17 @@ class CategoryBadges extends HookWidget {
                     Expanded(
                       child: BadgeComponent(
                         badge: badges[1],
-                        achived: matchedBadges.contains(badges[1]),
-                        imageUrl: category,
+                        achived: gotBadges[1],
+                        membergetId: gotBadges[1]
+                            ? matchedBadges[
+                                matchedBadgesNames.indexOf(badges[1])]
+                            : -1,
+                        imageUrl: gotBadges[1]
+                            ? badgeimages[matchedBadgesNames.indexOf(badges[1])]
+                            : category,
+                        editMode: editmode,
+                        iconColor: cate_colorList[category]![1],
+                        needCreate: needcreate,
                       ),
                     ),
                     const SizedBox(
@@ -91,8 +164,17 @@ class CategoryBadges extends HookWidget {
                     Expanded(
                       child: BadgeComponent(
                         badge: badges[3],
-                        achived: matchedBadges.contains(badges[3]),
-                        imageUrl: category,
+                        achived: gotBadges[3],
+                        membergetId: gotBadges[3]
+                            ? matchedBadges[
+                                matchedBadgesNames.indexOf(badges[3])]
+                            : -1,
+                        imageUrl: gotBadges[3]
+                            ? badgeimages[matchedBadgesNames.indexOf(badges[3])]
+                            : category,
+                        editMode: editmode,
+                        needCreate: needcreate,
+                        iconColor: cate_colorList[category]![3],
                       ),
                     ),
                   ],
@@ -111,55 +193,29 @@ class CategoryBadges extends HookWidget {
           ),
           padding: const EdgeInsets.all(20),
           margin: const EdgeInsets.all(15),
-          child: Row(
-            children: [
-              Expanded(
-                  child: Column(
-                children: [
-                  Expanded(
-                    child: BadgeComponent(
-                      // ignore: prefer-first
-                      badge: badges[0],
-                      achived: false,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Expanded(
-                    child: BadgeComponent(badge: badges[1], achived: false),
-                  ),
-                ],
-              )),
-              Expanded(
-                  child: Column(
-                children: [
-                  Expanded(
-                    child: BadgeComponent(badge: badges[2], achived: false),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Expanded(
-                    child: BadgeComponent(badge: badges[3], achived: false),
-                  ),
-                ],
-              ))
-            ],
-          ),
+          child: null,
         ));
   }
 }
 
 class BadgeComponent extends StatelessWidget {
+  int membergetId = -1;
   late String badgeName;
   late bool achived;
+  late bool editMode;
+  late bool needCreate;
+  late String imageUrl;
+  late Color iconColor;
 
   BadgeComponent({
     super.key,
+    required this.membergetId,
     required String badge,
     required this.achived,
-    String? imageUrl,
+    required this.editMode,
+    required this.needCreate,
+    required this.imageUrl,
+    required this.iconColor,
   }) {
     List<String> temp = badge.split(" ");
     badgeName = temp.length == 1
@@ -176,10 +232,42 @@ class BadgeComponent extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
+              border: Border.all(
+                color: ColorUtils.grey03,
+                width: 3,
+              ),
+              color: achived ? Colors.transparent : ColorUtils.grey03,
               shape: BoxShape.circle,
-              color: ColorUtils.grey05.withOpacity(0.5),
             ),
+            child: editMode && achived
+                ? InkWell(
+                    onTap: () {
+                      print(imageUrl);
+                    },
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Image(
+                          image: NetworkImage(imageUrl),
+                          color: iconColor,
+                        ),
+                        Icon(
+                          Icons.check_circle,
+                          color: ColorUtils.grey07.withOpacity(0.8),
+                          size: 100,
+                        ),
+                      ],
+                    ),
+                  )
+                // ignore: avoid-nested-conditional-expressions
+                : achived
+                    ? Image(
+                        image: NetworkImage(imageUrl),
+                        color: iconColor,
+                      )
+                    : null,
           ),
         ),
         Text(badgeName,
