@@ -66,7 +66,7 @@ class ContainerQuestDetailDone extends HookWidget {
                   children: [
                     const SizedBox(height: 20),
                     const Text(
-                      'Certificate Image',
+                      'Certified Image',
                     ),
                     // ignore: avoid-shrink-wrap-in-lists
                     ListView.builder(

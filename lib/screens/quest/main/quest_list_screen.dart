@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_picture.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/toolbar_quest.dart';
 import 'package:eco_reward_app/network/provider/api_path.dart';
@@ -12,11 +13,11 @@ class QuestListScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var mid = Arguments(QueryParams(context)).mid;
+    var mid = Arguments(QueryParams(context)).mid;
 
     final quest = cachedQuery(
-        queryKey: QueryKeys().questNotMyQuestList(1),
-        path: ApiPaths().questNotMyQuestList(1));
+        queryKey: QueryKeys().questNotMyQuestList(mid),
+        path: ApiPaths().questNotMyQuestList(mid));
     // ignore: prefer_if_null_operators
     final questData = getQuestNotMyQuestList(quest.data);
 

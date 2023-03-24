@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
     return QueryBowlScope(
       bowl: QueryBowl(),
       child: const MaterialApp(
-        title: 'Eco Reward',
+        title: 'TerraQ',
         onGenerateRoute: Routes.RouteGenerater,
-        initialRoute: Routes.QuestTabRoute,
+        initialRoute: Routes.home,
       ),
     );
   }
