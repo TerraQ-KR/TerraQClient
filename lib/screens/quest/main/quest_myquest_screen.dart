@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/toolbar_quest.dart';
-import 'package:eco_reward_app/network/provider/api_path.dart';
+import 'package:eco_reward_app/network/provider/api_paths.dart';
 import 'package:eco_reward_app/network/provider/query_keys.dart';
 import 'package:eco_reward_app/network/custom_jobs.dart';
 import 'package:eco_reward_app/screens/quest/main/models/get_myquest.dart';
@@ -13,18 +13,18 @@ class MyQuestScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var mid = Arguments(QueryParams(context)).mid;
+    var mid = Arguments(QueryParams(context)).mid;
 
-    final quest = cachedQuery(
-        queryKey: QueryKeys.myQuestIngList(1),
-        path: ApiPaths().myQuestIngList(1));
+    var quest = cachedQuery(
+        queryKey: QueryKeys.myQuestIngList(mid),
+        path: ApiPaths.myQuestIngList(mid));
     // ignore: prefer_if_null_operators
-    final questData = getMyQuest(quest.data);
+    var questData = getMyQuest(quest.data);
 
-    final doneQuest = cachedQuery(
-        queryKey: QueryKeys.myQuestDoneList(1),
-        path: ApiPaths().myQuestDoneList(1));
-    final doneQuestData = getMyQuest(doneQuest.data);
+    var doneQuest = cachedQuery(
+        queryKey: QueryKeys.myQuestDoneList(mid),
+        path: ApiPaths.myQuestDoneList(mid));
+    var doneQuestData = getMyQuest(doneQuest.data);
 
     final isSuccess = quest.isSuccess;
 

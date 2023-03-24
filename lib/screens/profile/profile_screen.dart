@@ -53,13 +53,13 @@ class ProfileScreen extends HookWidget {
             ],
           ),
         ),
-        bottomNavigationBar: NavigationBar(
-          destinations: const [
-            Text("Navigator"),
-            Text(" "),
-          ],
-          backgroundColor: ColorUtils.white,
-        ),
+        // bottomNavigationBar: NavigationBar(
+        //   destinations: const [
+        //     Text("Navigator"),
+        //     Text(" "),
+        //   ],
+        //   backgroundColor: ColorUtils.white,
+        // ),
       ),
     );
   }
