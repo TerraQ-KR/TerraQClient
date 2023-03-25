@@ -25,77 +25,75 @@ class _QuestTabScreenState extends State<QuestTabScreen>
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [ColorUtils.subOrange, ColorUtils.primary]),
-        ),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          resizeToAvoidBottomInset: false,
-          body: Container(
-            margin: const EdgeInsets.only(top: 50),
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.centerLeft,
-                  margin: const EdgeInsets.only(bottom: 20),
-                  child: IconButton(
-                    onPressed: () => _navigateToBefore(context),
-                    icon: const Icon(Icons.navigate_before,
-                        color: ColorUtils.black, size: 50),
-                  ),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [ColorUtils.subOrange, ColorUtils.primary]),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        resizeToAvoidBottomInset: false,
+        body: Container(
+          margin: const EdgeInsets.only(top: 50),
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                margin: const EdgeInsets.only(bottom: 20),
+                child: IconButton(
+                  onPressed: () => _navigateToBefore(context),
+                  icon: const Icon(Icons.navigate_before,
+                      color: ColorUtils.black, size: 50),
                 ),
-                FractionallySizedBox(
-                  widthFactor: 0.9,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: ColorUtils.white,
-                    ),
-                    child: TabBar(
-                      tabs: [
-                        Container(
-                          height: 45,
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Quest',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
+              ),
+              FractionallySizedBox(
+                widthFactor: 0.9,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: ColorUtils.white,
+                  ),
+                  child: TabBar(
+                    tabs: [
+                      Container(
+                        height: 45,
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Quest',
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
-                        Container(
-                          height: 45,
-                          alignment: Alignment.center,
-                          child: Text(
-                            'My Quest',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                        ),
-                      ],
-                      controller: _tabController,
-                      indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: ColorUtils.subBlue,
                       ),
-                      indicatorSize: TabBarIndicatorSize.tab,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: TabBarView(
-                    controller: _tabController,
-                    // ignore: prefer_const_literals_to_create_immutables
-                    children: [
-                      const QuestListScreen(),
-                      MyQuestScreen(),
+                      Container(
+                        height: 45,
+                        alignment: Alignment.center,
+                        child: Text(
+                          'My Quest',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ),
                     ],
+                    controller: _tabController,
+                    indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: ColorUtils.subBlue,
+                    ),
+                    indicatorSize: TabBarIndicatorSize.tab,
                   ),
                 ),
-              ],
-            ),
+              ),
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  // ignore: prefer_const_literals_to_create_immutables
+                  children: [
+                    const QuestListScreen(),
+                    const MyQuestScreen(),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

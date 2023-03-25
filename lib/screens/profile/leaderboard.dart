@@ -22,54 +22,16 @@ class LeaderBoard extends StatefulHookWidget {
 enum SortedOrder { Reward, Success }
 
 class _LeaderBoardState extends State<LeaderBoard> {
-  SortedOrder order = SortedOrder.Reward;
+  late SortedOrder order;
+
+  @override
+  initState() {
+    super.initState();
+    order = SortedOrder.Reward;
+  }
 
   @override
   Widget build(BuildContext context) {
-    Size deviceSize = MediaQuery.of(context).size;
-    double pixelHeight = deviceSize.height;
-
-    var mid = Arguments(QueryParams(context)).mid;
-
-    var profileQuery = cachedQuery(
-      queryKey: QueryKeys.memberdetail(mid),
-      path: ApiPaths.memberdetail(mid),
-    );
-
-    MemberProfile profile = memberProfile(profileQuery.data);
-
-    var membersQuery = cachedQuery(
-      queryKey: QueryKeys.members,
-      path: ApiPaths.members,
-    );
-
-    List<MemberProfile?> allMembers = [];
-
-    switch (order) {
-      case SortedOrder.Reward:
-        allMembers = memberList(membersQuery.data);
-        break;
-      case SortedOrder.Success:
-        allMembers = memberList(membersQuery.data);
-        allMembers.sort((a, b) => b!.successQuests.compareTo(a!.successQuests));
-        break;
-      default:
-        allMembers = memberList(membersQuery.data);
-        break;
-    }
-
-    int memberidx = 0;
-    int idx = 0;
-    if (allMembers != []) {
-      for (var mem in allMembers) {
-        if (mem!.memberid == profile.memberid) {
-          memberidx = idx;
-          break;
-        }
-        idx++;
-      }
-    }
-
     sortBottomModal() {
       return showModalBottomSheet(
         context: context,
@@ -151,6 +113,139 @@ class _LeaderBoardState extends State<LeaderBoard> {
       );
     }
 
+    Size deviceSize = MediaQuery.of(context).size;
+    double pixelHeight = deviceSize.height;
+
+    var mid = Arguments(QueryParams(context)).mid;
+
+    var profileQuery = cachedQuery(
+      queryKey: QueryKeys.memberdetail(mid),
+      path: ApiPaths.memberdetail(mid),
+    );
+
+    MemberProfile profile = memberProfile(profileQuery.data);
+
+    var membersQuery = cachedQuery(
+      queryKey: QueryKeys.members,
+      path: ApiPaths.members,
+    );
+
+    List<MemberProfile?> allMembers = [];
+
+    if (membersQuery.hasData &&
+        !membersQuery.isError &&
+        !membersQuery.isLoading &&
+        profileQuery.hasData &&
+        !profileQuery.isError &&
+        !profileQuery.isLoading) {
+      switch (order) {
+        case SortedOrder.Reward:
+          allMembers = memberList(membersQuery.data);
+          break;
+        case SortedOrder.Success:
+          allMembers = memberList(membersQuery.data);
+          allMembers
+              .sort((a, b) => b!.successQuests.compareTo(a!.successQuests));
+          break;
+        default:
+          allMembers = memberList(membersQuery.data);
+          break;
+      }
+
+      int memberidx = 0;
+      int idx = 0;
+      if (allMembers != []) {
+        for (var mem in allMembers) {
+          if (mem!.memberid == profile.memberid) {
+            memberidx = idx;
+            break;
+          }
+          idx++;
+        }
+      }
+
+      return Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [ColorUtils.primary, ColorUtils.subBlue],
+          ),
+        ),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: ChildAppBar(
+            context,
+            "LeaderBoard",
+          ),
+          body: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          sortBottomModal();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          backgroundColor: ColorUtils.white,
+                          foregroundColor: ColorUtils.black,
+                          padding: const EdgeInsets.all(10),
+                        ),
+                        child: const Icon(
+                          ProfileIcons.sort_alt_up,
+                          color: ColorUtils.black,
+                          size: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 0.017 * pixelHeight),
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: ColorUtils.white,
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(10)),
+                    ),
+                    child: LeaderBoardComponent(
+                      isTop: true,
+                      elem: profile,
+                      index: idx + 1,
+                    ),
+                  ),
+                  const Divider(
+                    color: ColorUtils.grey10,
+                    height: 0.1,
+                  ),
+                  Flexible(
+                      child: Container(
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.vertical(
+                                  bottom: Radius.circular(10))),
+                          child: ListView.separated(
+                            itemCount: allMembers.length,
+                            itemBuilder: (context, index) {
+                              return LeaderBoardComponent(
+                                isTop: false,
+                                elem: allMembers[index],
+                                index: index + 1,
+                              );
+                            },
+                            separatorBuilder: (context, index) => const Divider(
+                              color: ColorUtils.grey05,
+                              height: 0,
+                            ),
+                          )))
+                ],
+              )),
+        ),
+      );
+    }
+
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -173,9 +268,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
-                        sortBottomModal();
-                      },
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
                         backgroundColor: ColorUtils.white,
@@ -197,36 +290,11 @@ class _LeaderBoardState extends State<LeaderBoard> {
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(10)),
                   ),
-                  child: LeaderBoardComponent(
-                    isTop: true,
-                    elem: profile,
-                    index: idx + 1,
-                  ),
                 ),
                 const Divider(
                   color: ColorUtils.grey10,
                   height: 0.1,
                 ),
-                Flexible(
-                    child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.vertical(
-                                bottom: Radius.circular(10))),
-                        child: ListView.separated(
-                          itemCount: allMembers.length,
-                          itemBuilder: (context, index) {
-                            return LeaderBoardComponent(
-                              isTop: false,
-                              elem: allMembers[index],
-                              index: index + 1,
-                            );
-                          },
-                          separatorBuilder: (context, index) => const Divider(
-                            color: ColorUtils.grey05,
-                            height: 0,
-                          ),
-                        )))
               ],
             )),
       ),

@@ -14,11 +14,11 @@ class QuestGalleryScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var mid = Arguments(QueryParams(context)).mid;
+    var mid = Arguments(QueryParams(context)).mid;
 
     final image = cachedQuery(
-      queryKey: QueryKeys().certificateImages(1),
-      path: ApiPaths().certificateImages(1),
+      queryKey: QueryKeys.certificateImages(mid),
+      path: ApiPaths().certificateImages(mid),
     );
     final imageData = getGalleryList(image.data);
     final imageCount = imageData.length;
@@ -96,10 +96,10 @@ class QuestGalleryScreen extends HookWidget {
                                 ...List.generate(
                                   remainingImage,
                                   (index) => DottedBorder(
-                                    child: Container(),
                                     color: ColorUtils.grey07,
                                     strokeWidth: 1,
                                     radius: const Radius.circular(10),
+                                    child: Container(),
                                   ),
                                 ),
                               ],

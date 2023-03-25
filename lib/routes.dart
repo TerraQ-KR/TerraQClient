@@ -5,6 +5,7 @@ import 'package:eco_reward_app/screens/profile/mybadges.dart';
 import 'package:eco_reward_app/screens/profile/myreport.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/network/provider/test_screen.dart';
+import 'package:eco_reward_app/screens/home/home_navigatorbar.dart';
 import 'package:eco_reward_app/screens/auth/auth_register_screen.dart';
 import 'package:eco_reward_app/screens/auth/auth_login_screen.dart';
 import 'package:eco_reward_app/screens/quest/main/quest_tab_screen.dart';
@@ -19,12 +20,7 @@ import 'package:eco_reward_app/screens/profile/leaderboard.dart';
 
 // query_parameter keys for Route
 class Routes {
-  static const AuthLoginRoute = '/';
-  static const AuthRegisterRoute = '/account';
-  static const QuestTabRoute = '/quest';
-  static const QuestDetailRoute = '/quest/detail';
-  static const QuestCertificationRoute = '/quest/certification';
-  static const QuestGalleryRoute = '/quest/gallery';
+  static const start = '/';
   static const login = '/login';
   static const account = '/account';
   static const home = '/home';
@@ -33,6 +29,10 @@ class Routes {
   static const leaderboard = '/mypage/leaderboard';
   static const mybadges = '/mypage/badge';
   static const myreport = '/mypage/report';
+  static const quest = '/quest';
+  static const questdetail = '/quest/detail';
+  static const questcertification = '/quest/certification';
+  static const questgallery = '/quest/gallery';
 
   // query_parameter keys for Route
   static const memberKey = "mid";
@@ -50,15 +50,27 @@ class Routes {
     return MaterialPageRoute(
         builder: (context) {
           switch (uri.path) {
-            case AuthLoginRoute:
+            case start:
+              return BottomNavigatorbar();
+            case login:
               return AuthLoginScreen();
-            case AuthRegisterRoute:
+            case account:
               return AuthRegisterScreen();
-            case QuestTabRoute:
-              return QuestTabScreen();
-            case QuestCertificationRoute:
+            case quest:
+              if (params.isNotEmpty) {
+                return const QuestTabScreen();
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
+              );
+            case questcertification:
               return QuestCertificationScreen();
-            case QuestGalleryRoute:
+            case questgallery:
               return QuestGalleryScreen();
             case home:
               return const HomeScreen();

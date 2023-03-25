@@ -2,7 +2,7 @@ class TMyQuest {
   final int? memDoId;
   final String? questName;
   final String? subCategoryName;
-  final int? reward;
+  final double? reward;
   final String? briefing;
   final int? timeLimit;
   final String? startDate;
