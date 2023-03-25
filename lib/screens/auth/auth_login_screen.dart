@@ -22,7 +22,7 @@ class AuthLoginScreen extends StatelessWidget {
                   style: defaultTheme.textTheme.titleLarge,
                 ),
                 const SizedBox(height: 80),
-                Stack(
+                const Stack(
                   children: <Widget>[SectionAuthLoginForm()],
                 )
               ],

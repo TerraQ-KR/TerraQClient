@@ -23,7 +23,7 @@ class AuthRegisterScreen extends StatelessWidget {
             children: <Widget>[
               const Text(
                 'Create Account',
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                   color: Colors.black,
@@ -91,5 +91,12 @@ class AuthRegisterScreen extends StatelessWidget {
     if (_formKey.currentState!.validate()) {
       Navigator.pop(context);
     }
+  }
+}
+
+Future<void> validateAndSave(key) async {
+  final FormState? form = key.currentState;
+  if (form!.validate()) {
+    print('Form is valid');
   }
 }

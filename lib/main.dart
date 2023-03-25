@@ -15,7 +15,11 @@ class MyApp extends StatelessWidget {
       bowl: QueryBowl(),
       child: MaterialApp(
         title: 'Eco Reward',
-        routes: routes,
+        // routes: routes,
+        onGenerateRoute: Routes.RouteGenerater,
+        initialRoute: RouteParams(
+            path: Routes.start,
+            queryParameters: {Routes.memberKey: 1.toString()}),
       ),
     );
   }
