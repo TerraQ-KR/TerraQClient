@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/button_quest_detail.dart';
@@ -6,7 +7,7 @@ import 'package:eco_reward_app/screens/quest/certification/quest_image_screen.da
 
 class CertificateModal extends StatelessWidget {
   final String questName;
-  final double reward;
+  final int reward;
   final String information;
 
   const CertificateModal(
@@ -64,13 +65,13 @@ class CertificateModal extends StatelessWidget {
 }
 
 _navigateToImage(context, questName, reward) async {
-  return Navigator.push(
+  return Navigator.pushNamed(
     context,
-    MaterialPageRoute(
-        builder: (context) => QuestImageScreen(
-              questName,
-              reward,
-            )),
+    Routes.questimage,
+    arguments: QuestImageScreen(
+      questName: questName,
+      reward: reward,
+    ),
   );
 }
 

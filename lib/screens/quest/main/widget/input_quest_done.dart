@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:eco_reward_app/routes.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
@@ -6,7 +7,6 @@ import 'package:eco_reward_app/screens/quest/main/widget/button_quest_common.dar
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 import 'package:eco_reward_app/screens/quest/main/models/t_my_quest.dart';
-import 'package:eco_reward_app/screens/quest/detail/quest_detail_done_screen.dart';
 
 class InputQuestDone extends HookWidget {
   final TMyQuest quest;
@@ -83,9 +83,10 @@ class InputQuestDone extends HookWidget {
 }
 
 _navigateToQuestDetailScreen(context, id) async {
-  return Navigator.push(
+  return Navigator.pushNamed(
     context,
-    MaterialPageRoute(builder: (context) => QuestDetailDoneScreen(id)),
+    Routes.questdetail,
+    arguments: id,
   );
 }
 

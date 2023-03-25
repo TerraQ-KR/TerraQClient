@@ -13,10 +13,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return QueryBowlScope(
       bowl: QueryBowl(),
-      child: const MaterialApp(
+      child: MaterialApp(
         title: 'TerraQ',
         onGenerateRoute: Routes.RouteGenerater,
-        initialRoute: Routes.home,
+        initialRoute: RouteParams(
+            path: Routes.start,
+            queryParameters: {Routes.memberKey: 1.toString()}),
       ),
     );
   }

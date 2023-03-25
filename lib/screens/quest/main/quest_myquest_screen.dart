@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_done.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/toolbar_quest.dart';
@@ -22,18 +23,18 @@ class _MyQuestScreenState extends State<MyQuestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // var mid = Arguments(QueryParams(context)).mid;
+    var mid = Arguments(QueryParams(context)).mid;
 
-    final quest = cachedQuery(
-        queryKey: QueryKeys().myQuestIngList(1),
-        path: ApiPaths().myQuestIngList(1));
-    // ignore: prefer_if_null_operators
-    final questData = getMyQuest(quest.data);
+    var quest = cachedQuery(
+        queryKey: QueryKeys().myQuestIngList(mid),
+        path: ApiPaths().myQuestIngList(mid));
 
-    final doneQuest = cachedQuery(
-        queryKey: QueryKeys().myQuestDoneList(1),
-        path: ApiPaths().myQuestDoneList(1));
-    final doneQuestData = getMyQuest(doneQuest.data);
+    var questData = getMyQuest(quest.data);
+
+    var doneQuest = cachedQuery(
+        queryKey: QueryKeys().myQuestDoneList(mid),
+        path: ApiPaths().myQuestDoneList(mid));
+    var doneQuestData = getMyQuest(doneQuest.data);
 
     final isSuccess = quest.isSuccess;
 

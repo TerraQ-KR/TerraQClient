@@ -9,9 +9,7 @@ import 'package:eco_reward_app/screens/quest/detail/widget/container_quest_detai
 
 class QuestDetailScreen extends HookWidget {
   final int qid;
-  QuestDetailScreen(this.qid, {Key? key}) : super(key: key);
-
-  static const routeName = '/quest/detail';
+  QuestDetailScreen({Key? key, required this.qid}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

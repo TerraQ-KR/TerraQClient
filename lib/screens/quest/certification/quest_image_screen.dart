@@ -6,6 +6,7 @@ import 'package:image/image.dart' as img;
 import 'package:day/day.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:eco_reward_app/screens/quest/certification/widget/image_icon_button.dart';
@@ -13,8 +14,9 @@ import 'package:eco_reward_app/screens/quest/certification/quest_certification_s
 
 class QuestImageScreen extends StatefulHookWidget {
   final String questName;
-  final double reward;
-  const QuestImageScreen(this.questName, this.reward, {Key? key})
+  final int reward;
+  const QuestImageScreen(
+      {Key? key, required this.questName, required this.reward})
       : super(key: key);
 
   @override
@@ -145,9 +147,6 @@ _navigateToBefore(context) async {
 }
 
 _navigateToConfirmScreen(context, image) async {
-  return Navigator.push(
-    context,
-    MaterialPageRoute(
-        builder: (context) => QuestCertificationScreen(image: image)),
-  );
+  return Navigator.pushNamed(context, Routes.questcertification,
+      arguments: QuestCertificationScreen(image: image));
 }

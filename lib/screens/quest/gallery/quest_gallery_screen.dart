@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:eco_reward_app/routes.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:eco_reward_app/style/default_theme.dart';
@@ -14,11 +15,11 @@ class QuestGalleryScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var mid = Arguments(QueryParams(context)).mid;
+    var mid = Arguments(QueryParams(context)).mid;
 
     final image = cachedQuery(
-      queryKey: QueryKeys().certificateImages(1),
-      path: ApiPaths().certificateImages(1),
+      queryKey: QueryKeys().certificateImages(mid),
+      path: ApiPaths().certificateImages(mid),
     );
     final imageData = getGalleryList(image.data);
     final imageCount = imageData.length;
@@ -77,6 +78,8 @@ class QuestGalleryScreen extends HookWidget {
                           Text(
                             '''Out of a total N quests,
                           Accumulated $imageCount achievements''',
+                            style: Theme.of(context).textTheme.bodyText1,
+                            textAlign: TextAlign.center,
                           ),
                           Container(
                             padding: const EdgeInsets.all(20),
