@@ -13,10 +13,12 @@ import 'package:eco_reward_app/screens/quest/certification/quest_image_screen.da
 import 'package:eco_reward_app/screens/home/home_screen.dart';
 import 'package:eco_reward_app/screens/profile/profile_screen.dart';
 import 'package:eco_reward_app/screens/home/home_navigatorbar.dart';
+import 'package:eco_reward_app/screens/tutorial/tutorial_screen.dart';
 
 // query_parameter keys for Route
 class Routes {
   static const start = '/';
+  static const tutorial = '/tutorial';
   static const login = '/login';
   static const account = '/account';
   static const home = '/home';
@@ -56,6 +58,8 @@ class Routes {
                       child: const Text("return"))
                 ],
               );
+            case tutorial:
+              return TutorialScreen();
             case login:
               return AuthLoginScreen();
             case account:
