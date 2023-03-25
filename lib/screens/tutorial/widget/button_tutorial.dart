@@ -3,10 +3,15 @@ import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
 
 class ButtonTutorial extends StatelessWidget {
-  final onPressed;
   final String text;
+  final bool isSelected;
+  final VoidCallback onPressed;
 
-  const ButtonTutorial({Key? key, this.onPressed, required this.text})
+  const ButtonTutorial(
+      {Key? key,
+      required this.text,
+      required this.isSelected,
+      required this.onPressed})
       : super(key: key);
 
   @override
@@ -22,15 +27,8 @@ class ButtonTutorial extends StatelessWidget {
             side: BorderSide(color: Colors.black),
           ),
         ),
-        backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.pressed)) {
-            return Colors.grey; // Change color when pressed
-          } else if (states.contains(MaterialState.hovered)) {
-            return Colors.grey; // Change color when hovered
-          }
-          return Colors.white;
-        }),
+        backgroundColor: MaterialStateProperty.all<Color>(
+            isSelected ? Colors.grey : Colors.white),
         foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
       ),
       child: ConstrainedBox(

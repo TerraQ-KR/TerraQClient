@@ -1,13 +1,22 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/style/default_theme.dart';
 import 'package:eco_reward_app/screens/tutorial/widget/button_tutorial.dart';
+import 'package:eco_reward_app/network/custom_jobs.dart';
+import 'package:eco_reward_app/network/provider/api_paths.dart';
 
-// 12개 선택지 -> 선택 -> 확인 팝업창 -> 확인 누르면 다음 페이지, 취소 누르면 다시 선택지로 돌아감
+class TutorialScreen extends StatefulHookWidget {
+  const TutorialScreen({Key? key}) : super(key: key);
 
-class TutorialScreen extends HookWidget {
+  _TutorialScreenState createState() => _TutorialScreenState();
+}
+
+class _TutorialScreenState extends State<TutorialScreen> {
+  late int selectedNumber = 0;
+
   @override
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
@@ -15,6 +24,46 @@ class TutorialScreen extends HookWidget {
     double pixelWidth = deviceSize.width;
 
     var mid = Arguments(QueryParams(context)).mid;
+
+    final titleMutation = cachedMutation(
+      mutationKey: 'createTitle',
+      apiType: 'POST',
+      path: ApiPaths.createTitle(mid),
+    );
+
+    void _showDialog(context, mid, index) => showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Do you want to select this mbti?",
+                  style: defaultTheme.textTheme.bodyMedium!
+                      .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
+              actions: [
+                TextButton(
+                  child: Text("OK"),
+                  // ignore: prefer-extracting-callbacks
+                  onPressed: () {
+                    try {
+                      titleMutation.mutate(index,
+                          onData: (payload, variables, context) =>
+                              {print('payload: $payload')});
+                    } catch (e) {
+                      print(e);
+                    }
+
+                    navigateToStart(context, mid);
+                  },
+                ),
+                TextButton(
+                  child: Text("Cancel"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
 
     return Container(
       decoration: const BoxDecoration(
@@ -47,7 +96,7 @@ class TutorialScreen extends HookWidget {
                 margin: EdgeInsets.only(top: pixelHeight * 0.2),
                 child: GridView.count(
                   padding: EdgeInsets.fromLTRB(
-                      pixelWidth * 0.05, 0, pixelWidth * 0.05, 0),
+                      pixelWidth * 0.1, 0, pixelWidth * 0.1, 0),
                   crossAxisSpacing: pixelWidth * 0.05,
                   mainAxisSpacing: pixelHeight * 0.02,
                   crossAxisCount: 3,
@@ -59,15 +108,18 @@ class TutorialScreen extends HookWidget {
                       height: pixelHeight * 0.02,
                       child: ButtonTutorial(
                         text: mbtiList[index],
-                        onPressed: () {},
+                        isSelected: index == selectedNumber,
+                        // ignore: prefer-extracting-callbacks
+                        onPressed: () {
+                          setState(() {
+                            selectedNumber = index;
+                            _showDialog(context, mid, selectedNumber + 1);
+                          });
+                        },
                       ),
                     ),
                   ),
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () => navigateToStart(context, mid),
-                child: Text('Show Dialog'),
               ),
             ],
           ),

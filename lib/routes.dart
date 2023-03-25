@@ -14,6 +14,7 @@ import 'package:eco_reward_app/screens/home/home_screen.dart';
 import 'package:eco_reward_app/screens/profile/profile_screen.dart';
 import 'package:eco_reward_app/screens/home/home_navigatorbar.dart';
 import 'package:eco_reward_app/screens/tutorial/tutorial_screen.dart';
+import 'package:eco_reward_app/screens/tutorial/mbti_screen.dart';
 
 // query_parameter keys for Route
 class Routes {
@@ -29,6 +30,7 @@ class Routes {
   static const questgallery = '/quest/gallery';
   static const questimage = '/quest/certification/image';
   static const questcertificationmodal = 'quest/certification/modal';
+  static const mbti = '/mbti';
 
   static const memberKey = "mid";
 
@@ -60,6 +62,8 @@ class Routes {
               );
             case tutorial:
               return TutorialScreen();
+            case mbti:
+              return const MBTITestScreen();
             case login:
               return AuthLoginScreen();
             case account:

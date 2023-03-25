@@ -53,6 +53,10 @@ class ApiPaths {
     return "/add-to-my-quest/$memberId/$questId";
   }
 
+  static String createTitle(int memberId) {
+    return '/createTitle/$memberId';
+  }
+
   static const String createQeust = "/create-quest";
 
   // Put
