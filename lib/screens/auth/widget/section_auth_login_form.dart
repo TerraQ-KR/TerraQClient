@@ -1,4 +1,6 @@
 import 'package:eco_reward_app/network/custom_jobs.dart';
+import 'package:eco_reward_app/routes.dart';
+import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import '../utils/validate_auth_utils.dart';
@@ -17,6 +19,10 @@ class _SectionAuthLoginFormState extends State<SectionAuthLoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
+  bool errorEmail = false;
+  bool errorPassword = false;
+  bool loginSuccess = false;
+  int memberId = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +43,10 @@ class _SectionAuthLoginFormState extends State<SectionAuthLoginForm> {
               });
             },
           ),
+          errorEmail
+              ? const Text("There is no such email information.",
+                  style: TextStyle(color: ColorUtils.black))
+              : const Text(""),
           const SizedBox(height: 10),
           InputAuthCommon(
             text: 'Password',
@@ -49,17 +59,52 @@ class _SectionAuthLoginFormState extends State<SectionAuthLoginForm> {
               });
             },
           ),
+          errorPassword
+              ? const Text("Invalid Password",
+                  style: TextStyle(color: ColorUtils.black))
+              : const Text(""),
           const SizedBox(height: 25),
           ButtonAuthCommon(
             text: 'LOGIN',
             // ignore: prefer-extracting-callbacks
             onPressed: () async {
-              try {
-                mutateLogin.mutate({'email': email, 'password': password},
-                    onData: ((payload, variables, context) => print(payload)));
-              } catch (e) {
-                print(e);
+              print(email);
+              print(password);
+              mutateLogin.mutate(
+                {'email': email, 'password': password},
+                onData: (payload, variables, context) {
+                  var t = payload.toString();
+                  var first = t.split(",")[0].split("{")[1];
+                  var second = t.split(",")[1].split("}")[0];
+
+                  var key1 = first.split(":")[0];
+                  var key2 = second.split(":")[0];
+                  var value1 = first.split(":")[1];
+                  var value2 = second.split(":")[1];
+
+                  if (key1 == "\"errorCode\"") {
+                    setState(() {
+                      loginSuccess = false;
+                      errorEmail = value1 == "\"WRONG_EMAIL\"";
+                      errorPassword = value1 == "\"WRONG_PASSWORD\"";
+                    });
+                  } else if (key1 == "\"memberId\"") {
+                    setState(() {
+                      loginSuccess = true;
+                      memberId = int.parse(value1);
+                    });
+                  }
+                },
+              );
+              if (loginSuccess && !errorEmail && !errorPassword) {
+                await Navigator.pushNamed(
+                    context, RouteParams(path: Routes.home));
               }
+              setState(() {
+                loginSuccess = false;
+                errorEmail = false;
+                errorPassword = false;
+              });
             },
           )
         ]));
