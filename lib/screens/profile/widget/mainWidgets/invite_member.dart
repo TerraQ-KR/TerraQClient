@@ -15,16 +15,32 @@ class InviteMember extends StatefulWidget {
 }
 
 class _InviteMemberState extends State<InviteMember> {
-  void InviteDialog() {
+  final inviteLink = "null";
+
+  void _alertCopy() {
     showDialog(
-        context: context,
+        barrierColor: Colors.transparent,
         barrierDismissible: false,
+        context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-              shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ));
+          // ignore: prefer-extracting-callbacks
+          Future.delayed(const Duration(seconds: 1), () {
+            Navigator.pop(context);
+          });
+
+          return const Dialog(
+            alignment: Alignment.bottomCenter,
+            child: Text("The invite code has been copyed to clipboard",
+                style: TextStyle(
+                  fontSize: 15,
+                )),
+          );
         });
+  }
+
+  @override
+  dispose() {
+    super.dispose();
   }
 
   @override
@@ -55,7 +71,8 @@ class _InviteMemberState extends State<InviteMember> {
                   ),
                   // ignore: prefer-extracting-callbacks
                   onPressed: () {
-                    Clipboard.setData(const ClipboardData(text: "clip board"));
+                    Clipboard.setData(ClipboardData(text: inviteLink));
+                    _alertCopy();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
