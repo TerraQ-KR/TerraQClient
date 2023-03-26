@@ -121,7 +121,25 @@ class _QuestCertificationScreen extends State<QuestCertificationScreen> {
                   _showDialog(context, mid);
                   // ignore: prefer-extracting-callbacks
                 } catch (e) {
-                  print(e);
+                  //alert error message
+                  AlertDialog(
+                    title: Text("Error",
+                        style: questTheme.textTheme.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        )),
+                    actions: [
+                      TextButton(
+                        child: Text("OK"),
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context,
+                              RouteParams(path: Routes.start, queryParameters: {
+                                Routes.memberKey: mid.toString()
+                              }));
+                        },
+                      ),
+                    ],
+                  );
                 }
                 // ignore: await_only_futures
               }),
