@@ -22,7 +22,7 @@ class AuthLoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
-                    height: pixelHeight * 0.15,
+                    height: pixelHeight * 0.17,
                   ),
                   Text(
                     'TerraQ',

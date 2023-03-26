@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:eco_reward_app/network/custom_jobs.dart';
 import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
@@ -24,89 +26,119 @@ class _SectionAuthLoginFormState extends State<SectionAuthLoginForm> {
   bool loginSuccess = false;
   int memberId = -1;
 
+  void validLogin() {
+    if (loginSuccess && !errorEmail && !errorPassword) {
+      Navigator.pushNamed(
+        context,
+        RouteParams(
+          path: Routes.mypage,
+          queryParameters: {Routes.memberKey: memberId.toString()},
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final mutateLogin =
         cachedMutation(mutationKey: "LOGIN", apiType: "POST", path: '/login');
 
     return Form(
-        key: _formKey,
-        child: Column(children: <Widget>[
-          InputAuthCommon(
-            text: 'Email',
-            hintMessage: 'Email',
-            validator: (value) => ValidateAuthUtils().validateEmail(value),
-            // ignore: prefer-extracting-callbacks
-            onChanged: (value) {
-              setState(() {
-                email = value;
-              });
-            },
-          ),
-          errorEmail
-              ? const Text("There is no such email information.",
-                  style: TextStyle(color: ColorUtils.black))
-              : const Text(""),
-          const SizedBox(height: 10),
-          InputAuthCommon(
-            text: 'Password',
-            hintMessage: 'Password',
-            validator: (value) => ValidateAuthUtils().validatePassword(value),
-            // ignore: prefer-extracting-callbacks
-            onChanged: (value) {
-              setState(() {
-                password = value;
-              });
-            },
-          ),
-          errorPassword
-              ? const Text("Invalid Password",
-                  style: TextStyle(color: ColorUtils.black))
-              : const Text(""),
-          const SizedBox(height: 25),
-          ButtonAuthCommon(
-            text: 'LOGIN',
-            // ignore: prefer-extracting-callbacks
-            onPressed: () async {
-              print(email);
-              print(password);
-              mutateLogin.mutate(
-                {'email': email, 'password': password},
-                onData: (payload, variables, context) {
-                  var t = payload.toString();
-                  var first = t.split(",")[0].split("{")[1];
-                  var second = t.split(",")[1].split("}")[0];
+      key: _formKey,
+      child: Column(children: <Widget>[
+        InputAuthCommon(
+          text: 'Email',
+          hintMessage: 'Email',
+          validator: (value) => ValidateAuthUtils().validateEmail(value),
+          // ignore: prefer-extracting-callbacks
+          onChanged: (value) {
+            setState(() {
+              email = value;
+            });
+          },
+        ),
+        errorEmail
+            ? const Text("There is no such email information.",
+                style: TextStyle(color: ColorUtils.black))
+            : Container(),
+        const SizedBox(height: 10),
+        InputAuthCommon(
+          text: 'Password',
+          hintMessage: 'Password',
+          validator: (value) => ValidateAuthUtils().validatePassword(value),
+          // ignore: prefer-extracting-callbacks
+          onChanged: (value) {
+            setState(() {
+              password = value;
+            });
+          },
+        ),
+        errorPassword
+            ? const Text("Invalid Password",
+                style: TextStyle(color: ColorUtils.black))
+            : Container(),
+        const SizedBox(height: 25),
+        ButtonAuthCommon(
+          text: 'LOGIN',
+          // ignore: prefer-extracting-callbacks
+          onPressed: () async {
+            print(email);
+            print(password);
 
-                  var key1 = first.split(":")[0];
-                  var key2 = second.split(":")[0];
-                  var value1 = first.split(":")[1];
-                  var value2 = second.split(":")[1];
+            mutateLogin.mutate(
+              {'email': email, 'password': password},
+              onData: (payload, variables, context) {
+                var t = payload.toString();
+                var first = t.split(",")[0].split("{")[1];
 
-                  if (key1 == "\"errorCode\"") {
-                    setState(() {
-                      loginSuccess = false;
-                      errorEmail = value1 == "\"WRONG_EMAIL\"";
-                      errorPassword = value1 == "\"WRONG_PASSWORD\"";
-                    });
-                  } else if (key1 == "\"memberId\"") {
-                    setState(() {
-                      loginSuccess = true;
-                      memberId = int.parse(value1);
-                    });
-                  }
+                var key1 = first.split(":")[0];
+                var value1 = first.split(":")[1];
+
+                if (key1 == "\"errorCode\"") {
+                  setState(() {
+                    loginSuccess = false;
+                    errorEmail = value1 == "\"WRONG_EMAIL\"";
+                    errorPassword = value1 == "\"WRONG_PASSWORD\"";
+                  });
+                } else if (key1 == "\"memberId\"") {
+                  setState(() {
+                    loginSuccess = true;
+                    errorEmail = false;
+                    errorPassword = false;
+                    memberId = int.parse(value1);
+                  });
+                }
+
+                validLogin();
+              },
+            );
+
+            setState(() {
+              loginSuccess = false;
+            });
+            Timer(
+              const Duration(seconds: 3),
+              () => setState(
+                () {
+                  errorEmail = false;
+                  errorPassword = false;
                 },
-              );
-              if (loginSuccess && !errorEmail && !errorPassword) {
-                await Navigator.pushNamed(
-                    context, RouteParams(path: Routes.home));
-              }
-              setState(() {
-                loginSuccess = false;
-                errorEmail = false;
-                errorPassword = false;
-              });
-            },
-          )
-        ]));
+              ),
+            );
+          },
+        ),
+        TextButton(
+          // ignore: prefer-extracting-callbacks
+          onPressed: () => Navigator.pushNamed(
+            context,
+            RouteParams(path: Routes.account),
+          ),
+          child: Text(
+            "Don't have an account? Sign Up",
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        ),
+      ]),
+    );
   }
 }
