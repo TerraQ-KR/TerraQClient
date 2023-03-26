@@ -1,19 +1,17 @@
-import 'package:eco_reward_app/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:eco_reward_app/routes.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
-import 'package:eco_reward_app/screens/quest/certification/utils/certificate_modal.dart';
-import 'package:eco_reward_app/screens/quest/detail/quest_detail_screen.dart';
 import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/button_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 import 'package:eco_reward_app/screens/quest/main/models/t_my_quest.dart';
 
-class InputQuest extends HookWidget {
+class InputQuestDone extends HookWidget {
   final TMyQuest quest;
 
-  const InputQuest({
+  const InputQuestDone({
     Key? key,
     required this.quest,
   }) : super(key: key);
@@ -38,11 +36,7 @@ class InputQuest extends HookWidget {
                   Container(
                     alignment: const Alignment(0.8, 0.8),
                     child: ButtonQuest(
-                      onPressed: () => _navigateToCertificateScreen(
-                          context,
-                          quest.questName,
-                          quest.reward!.toInt(),
-                          quest.briefing!),
+                      onPressed: () => _showDialog(context),
                     ),
                   ),
                   Container(
@@ -92,18 +86,28 @@ _navigateToQuestDetailScreen(context, id) async {
   return Navigator.pushNamed(
     context,
     Routes.questdetail,
-    arguments: QuestDetailScreen(qid: id),
+    arguments: id,
   );
 }
 
-_navigateToCertificateScreen(context, questName, reward, information) async {
-  return Navigator.pushNamed(
-    context,
-    Routes.questcertificationmodal,
-    arguments: CertificateModal(
-      questName: questName ?? '',
-      reward: reward ?? 0,
-      information: information ?? '',
-    ),
+void _showDialog(context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("This quest is already certified.",
+            style: questTheme.textTheme.bodyLarge!.copyWith(
+              fontWeight: FontWeight.bold,
+            )),
+        actions: [
+          TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
   );
 }

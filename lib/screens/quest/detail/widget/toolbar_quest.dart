@@ -1,4 +1,4 @@
-import 'package:eco_reward_app/screens/quest/gallery/quest_gallery_screen.dart';
+import 'package:eco_reward_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
@@ -15,13 +15,15 @@ class ToolbarQuest extends StatefulWidget {
 class _ToolbarQuest extends State<ToolbarQuest> {
   @override
   Widget build(BuildContext context) {
+    var mid = Arguments(QueryParams(context)).mid;
+
     return Container(
       margin: const EdgeInsets.only(left: 20, right: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ElevatedButton.icon(
-            onPressed: () => navigateToStatus(context),
+            onPressed: () => navigateToStatus(context, mid),
             icon: const Icon(Icons.image, color: ColorUtils.black, size: 20),
             label: const Text(
               'Gallery',
@@ -45,10 +47,7 @@ class _ToolbarQuest extends State<ToolbarQuest> {
                 icon: Icons.search,
                 onPressed: () => {},
               ),
-              QuestIconButton(
-                icon: Icons.sort,
-                onPressed: () => ModalUtils().sortMyQuest(context),
-              ),
+              const ModalUtils(),
               QuestIconButton(
                 icon: Icons.alarm,
                 onPressed: () => {},
@@ -61,7 +60,8 @@ class _ToolbarQuest extends State<ToolbarQuest> {
   }
 }
 
-Future navigateToStatus(context) async {
-  Navigator.push(context,
-      new MaterialPageRoute(builder: (context) => new QuestGalleryScreen()));
-}
+navigateToStatus(context, mid) async => Navigator.pushNamed(
+    context,
+    RouteParams(
+        path: Routes.questgallery,
+        queryParameters: {Routes.memberKey: mid.toString()}));

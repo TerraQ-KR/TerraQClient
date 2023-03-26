@@ -5,16 +5,18 @@ import 'package:eco_reward_app/network/provider/api_path.dart';
 import 'package:eco_reward_app/network/provider/query_keys.dart';
 import 'package:eco_reward_app/network/custom_jobs.dart';
 import 'package:eco_reward_app/screens/quest/detail/model/get_detail.dart';
-import 'package:eco_reward_app/screens/quest/detail/widget/container_quest_detail.dart';
+import 'package:eco_reward_app/screens/quest/detail/widget/container_quest_detail_done.dart';
 
-class QuestDetailScreen extends HookWidget {
+class QuestDetailDoneScreen extends HookWidget {
   final int qid;
-  const QuestDetailScreen({Key? key, required this.qid}) : super(key: key);
+  QuestDetailDoneScreen(this.qid, {Key? key}) : super(key: key);
+
+  static const routeName = '/quest/detail';
 
   @override
   Widget build(BuildContext context) {
     final quest = cachedQuery(
-        queryKey: QueryKeys.myQuestDetailView(qid),
+        queryKey: QueryKeys().myQuestDetailView(qid),
         path: ApiPaths().myQuestDetailView(qid));
 
     getDetail questData = getdetail(quest.data);
@@ -49,13 +51,14 @@ class QuestDetailScreen extends HookWidget {
                 ),
                 Expanded(
                   child: isSuccess
-                      ? ContainerQuestDetail(
+                      ? ContainerQuestDetailDone(
+                          id: questData.questId,
                           questName: questData.questName,
                           startDate: questData.startDate,
                           endDate: questData.dueDate,
-                          information: questData.briefing,
                           reward: questData.reward.toInt(),
                           challenger: questData.challenger,
+                          images: questData.images,
                         )
                       : const SizedBox(),
                 ),

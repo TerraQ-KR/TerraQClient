@@ -26,7 +26,8 @@ class QuestInformBox extends StatelessWidget {
                   children: [
                     QuestIconBox(
                       icon: Icons.watch,
-                      text: 'Date :  $startDate ~ $endDate',
+                      text: '''Date :  $startDate 
+~ $endDate''',
                     ),
                     IconButton(
                       // ignore: no-empty-block

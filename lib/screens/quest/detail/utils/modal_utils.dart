@@ -1,10 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
-import 'package:eco_reward_app/screens/quest/detail/widget/quest_icon_box.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/button_quest_detail.dart';
 
-class ModalUtils {
+class ModalUtils extends StatefulWidget {
+  const ModalUtils({super.key});
+
+  @override
+  State<ModalUtils> createState() => _ModalUtils();
+}
+
+enum SortType { date, category }
+
+class _ModalUtils extends State<ModalUtils> {
+  SortType _sortType = SortType.date;
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton.small(
+      backgroundColor: ColorUtils.white,
+      onPressed: () {
+        sortMyQuest(context);
+      },
+      child: const Icon(Icons.sort, color: ColorUtils.black, size: 20),
+    );
+  }
+
   // ignore: strict_raw_type
   Future sortMyQuest(context) async {
     showModalBottomSheet<void>(
@@ -17,6 +38,7 @@ class ModalUtils {
           resizeToAvoidBottomInset: false,
           body: SingleChildScrollView(
             child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.3,
               child: Column(
                 children: [
                   const Padding(
@@ -31,23 +53,36 @@ class ModalUtils {
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                    child: QuestIconBox(
-                      icon: Icons.check_circle_outline_rounded,
-                      text: 'Sort by Date',
-                    ),
+                  RadioListTile(
+                    title: const Text('Sort by Date'),
+                    value: SortType.date,
+                    groupValue: _sortType,
+                    // ignore: prefer-extracting-callbacks
+                    onChanged: (SortType? value) {
+                      setState(() {
+                        _sortType = value!;
+                      });
+                    },
                   ),
-                  const QuestIconBox(
-                    icon: Icons.check_circle_outline_rounded,
-                    text: 'Sort by Category',
+                  RadioListTile(
+                    title: const Text('Sort by Category'),
+                    value: SortType.category,
+                    groupValue: _sortType,
+                    // ignore: prefer-extracting-callbacks
+                    onChanged: (SortType? value) {
+                      setState(() {
+                        _sortType = value!;
+                      });
+                    },
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: ButtonQuestDetail(
                       text: 'Confirm',
-                      // ignore: no-empty-block
-                      onPressed: () {},
+                      // ignore: prefer-extracting-callbacks
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
                   ),
                 ],

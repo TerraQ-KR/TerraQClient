@@ -14,6 +14,7 @@ List<TMyQuest> getMyQuest(dataSource) {
       reward: item['questDto']['reward'] ?? 0,
       briefing: item['questDto']['briefing'] ?? 'null',
       timeLimit: item['questDto']['timeLimit'] ?? 0,
+      challenger: item['questDto']['challenger'] ?? 0,
       startDate: item['startDate'] ?? 'null',
       dueDate: item['dueDate'] ?? 'null',
       // leftTime: item['leftTime'] ?? 0,

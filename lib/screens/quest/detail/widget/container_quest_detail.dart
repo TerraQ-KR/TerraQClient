@@ -4,13 +4,14 @@ import 'package:eco_reward_app/screens/quest/detail/widget/quest_description_box
 import 'package:eco_reward_app/screens/quest/detail/widget/quest_infrom_box.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/tag_quest_foot.dart';
-import 'package:eco_reward_app/screens/quest/main/models/t_my_quest.dart';
 
 class ContainerQuestDetail extends StatelessWidget {
   final String questName;
   final String startDate;
   final String endDate;
   final String information;
+  final int reward;
+  final int challenger;
 
   const ContainerQuestDetail({
     Key? key,
@@ -18,6 +19,8 @@ class ContainerQuestDetail extends StatelessWidget {
     required this.startDate,
     required this.endDate,
     required this.information,
+    required this.reward,
+    required this.challenger,
   }) : super(key: key);
 
   @override
@@ -33,21 +36,26 @@ class ContainerQuestDetail extends StatelessWidget {
               style: detailTheme.textTheme.titleMedium,
             ),
           ),
-          const Row(
+          Row(
             children: [
-              Padding(padding: EdgeInsets.all(20), child: TagQuestFoot()),
-              TagQuestPeople(quest_user_count: 100),
+              Padding(
+                  padding: EdgeInsets.all(20),
+                  child: TagQuestFoot(
+                    reward: reward.toString(),
+                  )),
+              TagQuestPeople(quest_user_count: challenger),
             ],
           ),
           QuestInformBox(
             startDate: startDate,
-            // quest.startDate! ?? ,
             endDate: endDate,
-            // quest.dueDate! ??
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.5,
+            margin: const EdgeInsets.only(top: 20),
             child: QuestDescriptionBox(
+              questName: questName,
+              reward: reward,
               information: information,
             ),
           ),
