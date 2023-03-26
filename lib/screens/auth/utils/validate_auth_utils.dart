@@ -13,7 +13,7 @@ class ValidateAuthUtils {
     RegExp regPassword = RegExp(
         r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?~^<>,.&+=])[A-Za-z\d$@$!%*#?~^<>,.&+=]{8,}$');
     if (!regPassword.hasMatch(value)) {
-      return 'Enter a valid password';
+      return 'Enter a valid password\n[minimum 8 character, 1 number, 1 special character]';
     }
 
     return null;

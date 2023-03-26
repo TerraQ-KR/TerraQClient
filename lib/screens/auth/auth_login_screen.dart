@@ -8,24 +8,32 @@ class AuthLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size deviceSize = MediaQuery.of(context).size;
+    double pixelHeight = deviceSize.height;
+
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.fromLTRB(30.0, 0, 30.0, 0),
         child: Stack(
           children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'TerraQ',
-                  style: defaultTheme.textTheme.titleLarge,
-                ),
-                const SizedBox(height: 80),
-                const Stack(
-                  children: <Widget>[SectionAuthLoginForm()],
-                )
-              ],
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height: pixelHeight * 0.17,
+                  ),
+                  Text(
+                    'TerraQ',
+                    style: defaultTheme.textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 80),
+                  const Stack(
+                    children: <Widget>[SectionAuthLoginForm()],
+                  )
+                ],
+              ),
             ),
           ],
         ),

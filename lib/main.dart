@@ -17,9 +17,7 @@ class MyApp extends StatelessWidget {
         title: 'Eco Reward',
         // routes: routes,
         onGenerateRoute: Routes.RouteGenerater,
-        initialRoute: RouteParams(
-            path: Routes.start,
-            queryParameters: {Routes.memberKey: 1.toString()}),
+        initialRoute: RouteParams(path: Routes.login),
       ),
     );
   }
