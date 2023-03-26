@@ -31,7 +31,7 @@ class _SectionAuthLoginFormState extends State<SectionAuthLoginForm> {
       Navigator.pushNamed(
         context,
         RouteParams(
-          path: Routes.mypage,
+          path: Routes.start,
           queryParameters: {Routes.memberKey: memberId.toString()},
         ),
       );

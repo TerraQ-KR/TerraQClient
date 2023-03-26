@@ -5,6 +5,7 @@ import 'package:eco_reward_app/network/custom_jobs.dart';
 import 'package:eco_reward_app/network/provider/api_paths.dart';
 import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/profile/model/member_profile.dart';
+import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eco_reward_app/screens/auth/widget/input_auth_common.dart';
@@ -94,7 +95,7 @@ class _AuthRegisterScreenState extends State<AuthRegisterScreen> {
                                   ? Text(
                                       redundentEmail,
                                       style: const TextStyle(
-                                        color: Colors.grey,
+                                        color: ColorUtils.error,
                                         fontSize: 14,
                                       ),
                                     )
@@ -146,7 +147,7 @@ class _AuthRegisterScreenState extends State<AuthRegisterScreen> {
                                       Navigator.pushNamed(
                                           context,
                                           RouteParams(
-                                              path: Routes.mypage,
+                                              path: Routes.mbti,
                                               queryParameters: {
                                                 Routes.memberKey:
                                                     profile.memberid.toString()

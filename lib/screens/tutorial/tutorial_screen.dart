@@ -1,3 +1,4 @@
+import 'package:eco_reward_app/network/provider/query_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:eco_reward_app/routes.dart';
@@ -31,6 +32,11 @@ class _TutorialScreenState extends State<TutorialScreen> {
       path: ApiPaths.createTitle(mid),
     );
 
+    var profileQuery = cachedQuery(
+      queryKey: QueryKeys.memberdetail(mid),
+      path: ApiPaths.memberdetail(mid),
+    );
+
     void _showDialog(context, mid, index) => showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -46,8 +52,10 @@ class _TutorialScreenState extends State<TutorialScreen> {
                     print('index : $index');
                     try {
                       titleMutation.mutate(index,
-                          onData: (payload, variables, context) =>
-                              {print('payload: $payload, index : $index')});
+                          onData: (payload, variables, context) {
+                        print('payload: $payload, index : $index');
+                        profileQuery.refetch();
+                      });
                     } catch (e) {
                       print(e);
                     }

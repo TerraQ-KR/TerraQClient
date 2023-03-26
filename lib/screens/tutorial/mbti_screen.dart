@@ -182,7 +182,7 @@ class _MBTITestScreenState extends State<MBTITestScreen> {
     },
   ];
 
-  void _selectAnswer(int questionIndex, int answerIndex) {
+  void _selectAnswer(int questionIndex, int answerIndex, int mid) {
     final answerWeights =
         _questions[questionIndex]['answers'][answerIndex]['weights'];
 
@@ -208,7 +208,11 @@ class _MBTITestScreenState extends State<MBTITestScreen> {
         //     mbtiType += letter.toLowerCase();
         //   }
         // });
-        Navigator.pushNamed(context, Routes.tutorial);
+        Navigator.pushNamed(
+            context,
+            RouteParams(
+                path: Routes.tutorial,
+                queryParameters: {Routes.memberKey: mid.toString()}));
       }
     });
   }
@@ -217,6 +221,8 @@ class _MBTITestScreenState extends State<MBTITestScreen> {
   Widget build(BuildContext context) {
     final question = _questions[_currentQuestionIndex]['question'];
     final answers = _questions[_currentQuestionIndex]['answers'];
+
+    var mid = Arguments(QueryParams(context)).mid;
 
     return Container(
       decoration: const BoxDecoration(
@@ -242,7 +248,8 @@ class _MBTITestScreenState extends State<MBTITestScreen> {
             ...List.generate(
               answers.length,
               (index) => ElevatedButton(
-                onPressed: () => _selectAnswer(_currentQuestionIndex, index),
+                onPressed: () =>
+                    _selectAnswer(_currentQuestionIndex, index, mid),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -250,11 +257,13 @@ class _MBTITestScreenState extends State<MBTITestScreen> {
                   backgroundColor: Colors.white,
                 ),
                 child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: Text(answers[index]['text'],
-                      style: defaultTheme.textTheme.bodyMedium!.copyWith(
-                        fontSize: 16,
-                      )),
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    answers[index]['text'],
+                    style: defaultTheme.textTheme.bodyMedium!.copyWith(
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
               ),
             ),
