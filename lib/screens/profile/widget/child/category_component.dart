@@ -108,11 +108,13 @@ class _CategoryComponentState extends State<CategoryComponent>
     );
     var badgeCateIndex = 0;
     var colorIndex = 0;
+    var mainbadgename = "";
     if (!badgesQuery.isLoading && !badgesQuery.isError && badgesQuery.hasData) {
       final List<BadgeModel?> badgeLists = badgeList(badgesQuery.data);
 
       for (var badges in badgeLists) {
         if (badges!.choice) {
+          mainbadgename = badges.badge.badgeName;
           hasMainBadge = true;
           switch (badges.badge.category.name) {
             case "House":
@@ -206,20 +208,25 @@ class _CategoryComponentState extends State<CategoryComponent>
                   ],
                 ),
                 hasMainBadge
-                    ? Container(
-                        decoration: const BoxDecoration(
-                          color: ColorUtils.white,
-                          shape: BoxShape.circle,
-                          border: Border.fromBorderSide(
-                            BorderSide(color: ColorUtils.grey03, width: 3),
-                          ),
-                        ),
-                        padding: const EdgeInsets.all(20),
-                        child: Image(
-                          image: NetworkImage(cateIcons[badgeCateIndex]),
-                          color: cate_colorList[categorys[badgeCateIndex]]![
-                              colorIndex],
-                        ))
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                              decoration: BoxDecoration(
+                                color: ColorUtils.white.withOpacity(0.8),
+                                shape: BoxShape.circle,
+                              ),
+                              padding: const EdgeInsets.all(20),
+                              child: Image(
+                                image: NetworkImage(cateIcons[badgeCateIndex]),
+                                color: cate_colorList[
+                                    categorys[badgeCateIndex]]![colorIndex],
+                              )),
+                          Text(mainbadgename,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w500)),
+                        ],
+                      )
                     : Container(
                         decoration: const BoxDecoration(
                           color: ColorUtils.white,
