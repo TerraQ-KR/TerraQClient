@@ -68,7 +68,7 @@ class AuthRegisterScreen extends StatelessWidget {
                                   .validateConfirmPassword(value, password),
                             ),
                             const SizedBox(height: 50),
-                            ButtonAuth(
+                            ButtonAuthCommon(
                               text: 'Sign up',
                               onPressed: () => handleClick(context),
                             ),

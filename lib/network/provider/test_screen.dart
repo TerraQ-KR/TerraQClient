@@ -47,13 +47,6 @@ class UseQueryWidget extends HookWidget {
   }
 }
 
-class Arguments {
-  late final int mid;
-  Arguments(Map<String, String> map) {
-    mid = int.parse(map[Routes.memberKey] ?? "");
-  }
-}
-
 // ignore: camel_case_types
 // ignore: prefer-single-widget-per-file, camel_case_types
 class testOtherScreen extends HookWidget {
