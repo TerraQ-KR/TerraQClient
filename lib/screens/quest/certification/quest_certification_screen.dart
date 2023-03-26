@@ -56,7 +56,7 @@ class _QuestCertificationScreen extends State<QuestCertificationScreen> {
     var mid = Arguments(QueryParams(context)).mid;
 
     final imageQuery = cachedQuery(
-      queryKey: QueryKeys().certificateImages(mid),
+      queryKey: QueryKeys.certificateImages(mid),
       path: ApiPaths.certificateImages(mid),
     );
 

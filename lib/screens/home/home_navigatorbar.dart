@@ -14,9 +14,9 @@ class BottomNavigatorbar extends StatefulWidget {
 class _BottomNavigatorbarState extends State<BottomNavigatorbar> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    QuestTabScreen(),
-    ProfileScreen(),
+    const HomeScreen(),
+    const QuestTabScreen(),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {

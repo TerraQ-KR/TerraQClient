@@ -40,13 +40,14 @@ class _TutorialScreenState extends State<TutorialScreen> {
                       .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
               actions: [
                 TextButton(
-                  child: Text("OK"),
+                  child: const Text("OK"),
                   // ignore: prefer-extracting-callbacks
                   onPressed: () {
+                    print('index : $index');
                     try {
                       titleMutation.mutate(index,
                           onData: (payload, variables, context) =>
-                              {print('payload: $payload')});
+                              {print('payload: $payload, index : $index')});
                     } catch (e) {
                       print(e);
                     }
@@ -55,7 +56,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
                   },
                 ),
                 TextButton(
-                  child: Text("Cancel"),
+                  child: const Text("Cancel"),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
