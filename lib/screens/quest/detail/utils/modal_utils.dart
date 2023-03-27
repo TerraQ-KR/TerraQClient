@@ -30,65 +30,62 @@ class _ModalUtils extends State<ModalUtils> {
   Future sortMyQuest(context) async {
     showModalBottomSheet<void>(
       context: context,
+      clipBehavior: Clip.hardEdge,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
       ),
       builder: (BuildContext context) {
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: SingleChildScrollView(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 40),
-                    child: Text(
-                      'Please select the sort order.',
-                      style: TextStyle(
-                        color: ColorUtils.black,
-                        fontSize: 18,
-                        fontFamily: FontUtils.primary,
-                        fontWeight: FontWeight.w700,
-                      ),
+        return Wrap(
+          children: [
+            Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 40),
+                  child: Text(
+                    'Please select the sort order.',
+                    style: TextStyle(
+                      color: ColorUtils.black,
+                      fontSize: 18,
+                      fontFamily: FontUtils.primary,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
-                  RadioListTile(
-                    title: const Text('Sort by Date'),
-                    value: SortType.date,
-                    groupValue: _sortType,
+                ),
+                RadioListTile(
+                  title: const Text('Sort by Date'),
+                  value: SortType.date,
+                  groupValue: _sortType,
+                  // ignore: prefer-extracting-callbacks
+                  onChanged: (SortType? value) {
+                    setState(() {
+                      _sortType = value!;
+                    });
+                  },
+                ),
+                RadioListTile(
+                  title: const Text('Sort by Category'),
+                  value: SortType.category,
+                  groupValue: _sortType,
+                  // ignore: prefer-extracting-callbacks
+                  onChanged: (SortType? value) {
+                    setState(() {
+                      _sortType = value!;
+                    });
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, bottom: 20),
+                  child: ButtonQuestDetail(
+                    text: 'Confirm',
                     // ignore: prefer-extracting-callbacks
-                    onChanged: (SortType? value) {
-                      setState(() {
-                        _sortType = value!;
-                      });
+                    onPressed: () {
+                      Navigator.pop(context);
                     },
                   ),
-                  RadioListTile(
-                    title: const Text('Sort by Category'),
-                    value: SortType.category,
-                    groupValue: _sortType,
-                    // ignore: prefer-extracting-callbacks
-                    onChanged: (SortType? value) {
-                      setState(() {
-                        _sortType = value!;
-                      });
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: ButtonQuestDetail(
-                      text: 'Confirm',
-                      // ignore: prefer-extracting-callbacks
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ),
+          ],
         );
       },
     );
