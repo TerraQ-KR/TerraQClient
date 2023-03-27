@@ -10,7 +10,7 @@ class ContainerQuestDetailDone extends HookWidget {
   final String questName;
   final String startDate;
   final String endDate;
-  final int reward;
+  final double reward;
   final int challenger;
   final List<dynamic> images;
 

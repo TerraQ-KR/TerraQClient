@@ -10,7 +10,7 @@ class ContainerQuestDetail extends StatelessWidget {
   final String startDate;
   final String endDate;
   final String information;
-  final int reward;
+  final double reward;
   final int challenger;
 
   const ContainerQuestDetail({

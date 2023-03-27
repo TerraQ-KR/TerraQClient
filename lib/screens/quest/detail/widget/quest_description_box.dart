@@ -5,7 +5,7 @@ import 'package:eco_reward_app/screens/quest/certification/utils/certificate_mod
 
 class QuestDescriptionBox extends StatelessWidget {
   final String questName;
-  final int reward;
+  final double reward;
   final String information;
 
   const QuestDescriptionBox(
