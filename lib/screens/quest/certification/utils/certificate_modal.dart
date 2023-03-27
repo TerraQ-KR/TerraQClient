@@ -7,7 +7,7 @@ import 'package:eco_reward_app/screens/quest/certification/quest_image_screen.da
 
 class CertificateModal extends StatelessWidget {
   final String questName;
-  final int reward;
+  final double reward;
   final String information;
 
   const CertificateModal(
@@ -43,13 +43,16 @@ class CertificateModal extends StatelessWidget {
                 ),
               ),
             ),
-            Text(information,
-                style: const TextStyle(
-                  color: ColorUtils.black,
-                  fontSize: 14,
-                  fontFamily: FontUtils.primary,
-                  fontWeight: FontWeight.w400,
-                )),
+            Padding(
+              padding: EdgeInsets.only(left: 30, right: 30, top: 20),
+              child: Text(information,
+                  style: const TextStyle(
+                    color: ColorUtils.black,
+                    fontSize: 14,
+                    fontFamily: FontUtils.primary,
+                    fontWeight: FontWeight.w400,
+                  )),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 30),
               child: ButtonQuestDetail(

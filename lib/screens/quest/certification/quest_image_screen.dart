@@ -14,7 +14,7 @@ import 'package:eco_reward_app/screens/quest/certification/quest_certification_s
 
 class QuestImageScreen extends StatefulHookWidget {
   final String questName;
-  final int reward;
+  final double reward;
   const QuestImageScreen(
       {Key? key, required this.questName, required this.reward})
       : super(key: key);
