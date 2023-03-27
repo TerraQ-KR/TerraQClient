@@ -43,14 +43,20 @@ class _ToolbarQuest extends State<ToolbarQuest> {
           ),
           Row(
             children: [
-              QuestIconButton(
-                icon: Icons.search,
-                onPressed: () => {},
+              Container(
+                margin: const EdgeInsets.only(right: 10),
+                child: QuestIconButton(
+                  icon: Icons.alarm,
+                  onPressed: () => {},
+                ),
               ),
               const ModalUtils(),
-              QuestIconButton(
-                icon: Icons.alarm,
-                onPressed: () => {},
+              Container(
+                margin: const EdgeInsets.only(left: 10),
+                child: QuestIconButton(
+                  icon: Icons.search,
+                  onPressed: () => {},
+                ),
               ),
             ],
           ),
