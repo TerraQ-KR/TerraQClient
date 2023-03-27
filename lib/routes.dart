@@ -8,7 +8,6 @@ import 'package:eco_reward_app/screens/quest/detail/quest_detail_screen.dart';
 import 'package:eco_reward_app/screens/quest/gallery/quest_gallery_screen.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/certification/utils/certificate_modal.dart';
-import 'package:eco_reward_app/screens/quest/certification/quest_certification_screen.dart';
 import 'package:eco_reward_app/screens/quest/certification/quest_image_screen.dart';
 import 'package:eco_reward_app/screens/home/home_screen.dart';
 import 'package:eco_reward_app/screens/profile/profile_screen.dart';
@@ -76,13 +75,6 @@ class Routes {
               final QuestDetailScreen detailArgs = args as QuestDetailScreen;
               return QuestDetailScreen(
                 qid: detailArgs.qid,
-              );
-
-            case questcertification:
-              final QuestCertificationScreen certArgs =
-                  args as QuestCertificationScreen;
-              return QuestCertificationScreen(
-                image: certArgs.image,
               );
 
             case questimage:

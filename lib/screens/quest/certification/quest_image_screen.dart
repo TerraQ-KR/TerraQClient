@@ -1,5 +1,8 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:eco_reward_app/style/default_theme.dart';
 import 'dart:async';
+import 'package:fl_query/fl_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
@@ -9,8 +12,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
+import 'package:eco_reward_app/network/custom_jobs.dart';
+import 'package:eco_reward_app/network/provider/api_paths.dart';
+import 'package:eco_reward_app/network/provider/query_keys.dart';
 import 'package:eco_reward_app/screens/quest/certification/widget/image_icon_button.dart';
-import 'package:eco_reward_app/screens/quest/certification/quest_certification_screen.dart';
+import 'package:eco_reward_app/screens/quest/detail/widget/button_quest_detail.dart';
 
 class QuestImageScreen extends StatefulHookWidget {
   final String questName;
@@ -25,6 +31,7 @@ class QuestImageScreen extends StatefulHookWidget {
 }
 
 class _QuestImageScreen extends State<QuestImageScreen> {
+  bool isEnabled = false;
   XFile? _image;
   final picker = ImagePicker();
   final now = Day();
@@ -89,6 +96,20 @@ class _QuestImageScreen extends State<QuestImageScreen> {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
+    var mid = Arguments(QueryParams(context)).mid;
+
+    final imageQuery = cachedQuery(
+      queryKey: QueryKeys().certificateImages(mid),
+      path: ApiPaths.certificateImages(mid),
+    );
+
+    final imageMutation = cachedMutation(
+      mutationKey: 'certificateImage',
+      apiType: 'patch',
+      path: ApiPaths.updateCertificateImage(mid),
+      options: Options(contentType: 'multipart/form-data'),
+    );
+
     return Scaffold(
       backgroundColor: ColorUtils.black,
       body: Column(
@@ -124,17 +145,66 @@ class _QuestImageScreen extends State<QuestImageScreen> {
             margin: const EdgeInsets.only(top: 25, bottom: 50),
             child: showImage(),
           ),
-          ImageIconButton(
-            icon: Icons.circle_outlined,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ImageIconButton(
+                icon: Icons.camera,
+                // ignore: prefer-extracting-callbacks
+                onPressed: () async {
+                  await getImage();
 
-            // ignore: prefer-extracting-callbacks
-            onPressed: () async {
-              await getImage();
+                  if (_image != null) {
+                    setState(() {
+                      isEnabled = true;
+                    });
+                  }
+                },
+              ),
+              ImageIconButton(
+                icon: Icons.upload,
+                onPressed: () async {
+                  try {
+                    final formData = FormData.fromMap({
+                      'file': await MultipartFile.fromFile(
+                        _image!.path,
+                        filename: 'certificateImage',
+                      )
+                    });
 
-              if (_image != null) {
-                _navigateToConfirmScreen(context, _image);
-              }
-            },
+                    imageMutation.mutate(
+                      formData,
+                      onData: (payload, variables, context) =>
+                          imageQuery.refetch(),
+                    );
+                    _showDialog(context, mid);
+                    // ignore: prefer-extracting-callbacks
+                  } catch (e) {
+                    //alert error message
+                    AlertDialog(
+                      title: Text("Error",
+                          style: defaultTheme.textTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                          )),
+                      actions: [
+                        TextButton(
+                          child: Text("OK"),
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context,
+                                RouteParams(
+                                    path: Routes.start,
+                                    queryParameters: {
+                                      Routes.memberKey: mid.toString()
+                                    }));
+                          },
+                        ),
+                      ],
+                    );
+                  }
+                },
+              ),
+            ],
           ),
         ],
       ),
@@ -146,7 +216,28 @@ _navigateToBefore(context) async {
   return Navigator.pop(context);
 }
 
-_navigateToConfirmScreen(context, image) async {
-  return Navigator.pushNamed(context, Routes.questcertification,
-      arguments: QuestCertificationScreen(image: image));
-}
+void _showDialog(context, mid) => showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("This quest is certified.",
+              style: defaultTheme.textTheme.bodyLarge!.copyWith(
+                fontWeight: FontWeight.bold,
+              )),
+          actions: [
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Timer(
+                    const Duration(seconds: 3),
+                    () => Navigator.pushNamed(
+                        context,
+                        RouteParams(path: Routes.start, queryParameters: {
+                          Routes.memberKey: mid.toString()
+                        })));
+              },
+            ),
+          ],
+        );
+      },
+    );

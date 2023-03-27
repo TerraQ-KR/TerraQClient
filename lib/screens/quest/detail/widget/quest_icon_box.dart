@@ -19,7 +19,7 @@ class QuestIconBox extends StatelessWidget {
           ),
           Text(
             text,
-            style: detailTheme.textTheme.bodyLarge!
+            style: detailTheme.textTheme.bodyMedium!
                 .copyWith(color: ColorUtils.black),
           ),
         ],
