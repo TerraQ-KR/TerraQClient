@@ -1,13 +1,16 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:eco_reward_app/network/custom_jobs.dart';
 import 'package:eco_reward_app/routes.dart';
+import 'package:eco_reward_app/screens/auth/userInfo.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import '../utils/validate_auth_utils.dart';
 import 'button_auth_common.dart';
 import 'input_auth_common.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SectionAuthLoginForm extends StatefulHookWidget {
   const SectionAuthLoginForm({Key? key}) : super(key: key);
@@ -19,6 +22,9 @@ class SectionAuthLoginForm extends StatefulHookWidget {
 
 class _SectionAuthLoginFormState extends State<SectionAuthLoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  static const storage = FlutterSecureStorage();
+  dynamic userInfo = '';
+
   String email = '';
   String password = '';
   bool errorEmail = false;
@@ -26,8 +32,36 @@ class _SectionAuthLoginFormState extends State<SectionAuthLoginForm> {
   bool loginSuccess = false;
   int memberId = -1;
 
-  void validLogin() {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _asyncMethod();
+    });
+  }
+
+  _asyncMethod() async {
+    userInfo = await storage.read(key: 'login');
+
+    if (userInfo != null) {
+      var mid = jsonDecode(userInfo)["user_id"];
+
+      Navigator.pushNamed(
+          context,
+          RouteParams(
+              path: Routes.start, queryParameters: {Routes.memberKey: mid}));
+    }
+  }
+
+  void validLogin() async {
     if (loginSuccess && !errorEmail && !errorPassword) {
+      await storage.write(
+          key: 'login',
+          value: jsonEncode(
+            Login(email, password, memberId.toString()),
+          ));
+
       Navigator.pushNamed(
         context,
         RouteParams(

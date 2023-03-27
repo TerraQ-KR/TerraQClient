@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import,non_constant_identifier_names
 
 import 'package:eco_reward_app/network/provider/test_screen.dart';
+import 'package:eco_reward_app/screens/Logo.dart';
 import 'package:eco_reward_app/screens/profile/mybadges.dart';
 import 'package:eco_reward_app/screens/profile/myreport.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ import 'package:eco_reward_app/screens/profile/leaderboard.dart';
 class Routes {
   static const start = '/';
   static const tutorial = '/tutorial';
+  static const logo = '/logo';
   static const login = '/login';
   static const account = '/account';
   static const home = '/home';
@@ -60,6 +62,8 @@ class Routes {
     return MaterialPageRoute(
         builder: (context) {
           switch (uri.path) {
+            case logo:
+              return const Logo();
             case start:
               if (params.isNotEmpty) {
                 return const BottomNavigatorbar();
@@ -79,7 +83,7 @@ class Routes {
             case login:
               return AuthLoginScreen();
             case account:
-              return AuthRegisterScreen();
+              return const AuthRegisterScreen();
             case quest:
               if (params.isNotEmpty) {
                 return const QuestTabScreen();

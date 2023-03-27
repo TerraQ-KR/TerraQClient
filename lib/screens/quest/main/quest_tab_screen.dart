@@ -35,18 +35,9 @@ class _QuestTabScreenState extends State<QuestTabScreen>
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
         body: Container(
-          margin: const EdgeInsets.only(top: 50),
+          margin: const EdgeInsets.only(top: 30),
           child: Column(
             children: [
-              Container(
-                alignment: Alignment.centerLeft,
-                margin: const EdgeInsets.only(bottom: 20),
-                child: IconButton(
-                  onPressed: () => _navigateToBefore(context),
-                  icon: const Icon(Icons.navigate_before,
-                      color: ColorUtils.black, size: 50),
-                ),
-              ),
               FractionallySizedBox(
                 widthFactor: 0.9,
                 child: Container(

@@ -1,6 +1,6 @@
-import 'package:eco_reward_app/screens/profile/widget/mainWidgets/personal_profile.dart';
 import 'package:eco_reward_app/screens/profile/widget/mainWidgets/invite_member.dart';
 import 'package:eco_reward_app/screens/profile/widget/mainWidgets/my_history.dart';
+import 'package:eco_reward_app/screens/profile/widget/mainWidgets/personal_profile.dart';
 import 'package:eco_reward_app/screens/profile/widget/mainWidgets/personal_status.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
@@ -22,44 +22,31 @@ class ProfileScreen extends HookWidget {
           colors: [ColorUtils.primary, ColorUtils.subBlue],
         ),
       ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: ColorUtils.white,
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          children: [
+            const Flexible(
+              flex: 3,
+              child: personalProfile(),
+            ),
+            SizedBox(height: 0.01 * pixelHeight),
+            const Flexible(
+              flex: 3,
+              child: personalStatus(),
+            ),
+            SizedBox(height: 0.017 * pixelHeight),
+            const Flexible(
+              flex: 6,
+              child: PersonalHistory(),
+            ),
+            SizedBox(height: 0.017 * pixelHeight),
+            const Flexible(
+              flex: 4,
+              child: InviteMember(),
+            ),
+          ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            children: [
-              const Flexible(
-                flex: 3,
-                child: personalProfile(),
-              ),
-              SizedBox(height: 0.01 * pixelHeight),
-              const Flexible(
-                flex: 3,
-                child: personalStatus(),
-              ),
-              SizedBox(height: 0.017 * pixelHeight),
-              const Flexible(
-                flex: 6,
-                child: PersonalHistory(),
-              ),
-              SizedBox(height: 0.017 * pixelHeight),
-              const Flexible(
-                flex: 4,
-                child: InviteMember(),
-              ),
-            ],
-          ),
-        ),
-        // bottomNavigationBar: NavigationBar(
-        //   destinations: const [
-        //     Text("Navigator"),
-        //     Text(" "),
-        //   ],
-        //   backgroundColor: ColorUtils.white,
-        // ),
       ),
     );
   }

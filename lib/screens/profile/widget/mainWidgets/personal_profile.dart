@@ -40,6 +40,7 @@ class personalProfile extends HookWidget {
     );
 
     MemberProfile profile = memberProfile(profileQuery.data);
+    print(profile.imageUrl);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
