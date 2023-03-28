@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:eco_reward_app/screens/auth/auth_login_screen.dart';
 import 'package:eco_reward_app/screens/home/type/t_category.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
-import 'package:flutter_svg/svg.dart';
 
 class BoxHomeCategory extends StatelessWidget {
   final TCategory category;
@@ -34,9 +33,10 @@ class BoxHomeCategory extends StatelessWidget {
                 child: SizedBox(
                   width: 40,
                   height: 40,
-                  child: SvgPicture.network(
+                  child: Image(
+                      image: NetworkImage(
                     category.icon,
-                  ),
+                  )),
                 ),
               ),
             ),
