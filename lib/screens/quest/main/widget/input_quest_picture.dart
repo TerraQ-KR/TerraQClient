@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import 'package:fl_query/fl_query.dart';
 import 'package:fl_query_hooks/fl_query_hooks.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -9,7 +7,6 @@ import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/network/provider/api_paths.dart';
 import 'package:eco_reward_app/network/provider/query_keys.dart';
 import 'package:eco_reward_app/network/custom_jobs.dart';
-import 'package:eco_reward_app/network/BasicAPI.dart';
 import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
@@ -28,7 +25,6 @@ class InputQuestPicture extends StatefulHookWidget {
 }
 
 class _InputQuestPictureState extends State<InputQuestPicture> {
-  late bool isBookmarked;
   bool isTextOverflow = false;
   bool isMore = false;
 
@@ -37,21 +33,20 @@ class _InputQuestPictureState extends State<InputQuestPicture> {
   @override
   void initState() {
     super.initState();
-    isBookmarked = false;
     isTextOverflow = widget.quest.briefing!.length > maxLength;
     isMore = !isTextOverflow;
   }
 
-  void _toggleBookmark() async {
-    setState(() {
-      isBookmarked = !isBookmarked;
-    });
+  @override
+  Widget build(BuildContext context) {
+    bool isBookmarked = false;
     final mid = Arguments(QueryParams(context)).mid;
     final qid = widget.quest.questId ?? 1;
     final myquestQuery = cachedQuery(
       queryKey: QueryKeys().myQuestIngList(mid),
       path: ApiPaths.myQuestIngList(mid),
     );
+
     final questQuery = cachedQuery(
       queryKey: QueryKeys().questNotMyQuestList(mid),
       path: ApiPaths.questNotMyQuestList(mid),
@@ -62,32 +57,17 @@ class _InputQuestPictureState extends State<InputQuestPicture> {
         apiType: 'POST',
         path: ApiPaths.addMyQuest(mid, qid));
 
-    mutateQuest.mutate(
-      qid,
-      onData: (payload, variables, context) =>
-          {myquestQuery.refetch(), questQuery.refetch()},
-    );
+    void _toggleBookmark() {
+      setState(() {
+        isBookmarked = !isBookmarked;
+      });
+      mutateQuest.mutate(
+        qid,
+        onData: (payload, variables, context) =>
+            {myquestQuery.refetch(), questQuery.refetch()},
+      );
+    }
 
-    // final Response<dynamic> response = await API.POST(
-    //     path: ApiPaths.addMyQuest(mid, qid), data: {'bookmark': isBookmarked});
-  }
-  // final mutateQuest = cachedMutation(
-  //   mutationKey: 'addMyQuest',
-  //   apiType: 'POST',
-  //   path: ApiPaths.addMyQuest(mid, id),
-  // );
-
-  //   mutateQuest.mutate(
-  //     id,
-  //     onData: (payload, variables, context) => {
-  //       questQuery.refetch(),
-  //       myquestQuery.refetch(),
-  //     },
-  //   );
-  // }
-
-  @override
-  Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       child: FractionallySizedBox(
@@ -156,13 +136,14 @@ class _InputQuestPictureState extends State<InputQuestPicture> {
                               ? Container(
                                   margin: const EdgeInsets.only(right: 20),
                                   child: InkWell(
+                                    // ignore: prefer-extracting-callbacks
                                     onTap: () {
                                       setState(() {
                                         isMore = !isMore;
                                       });
                                     },
                                     child: badges.Badge(
-                                      badgeContent: Icon(
+                                      badgeContent: const Icon(
                                         Icons.arrow_drop_down,
                                         color: ColorUtils.black,
                                         size: 30,
