@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<key>NSCameraUsageDescription</key>
+<string>Used to demonstrate image picker plugin</string>
+<key>NSMicrophoneUsageDescription</key>
+<string>Used to capture audio for image picker plugin</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Used to demonstrate image picker plugin</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -47,5 +53,18 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+		<string></string>
+		<key>NSCameraUsageDescription</key>
+		<string></string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string></string>
+	<key>LSApplicationQueriesSchemes</key>
+  	<array>
+    <string>https</string>
+    <string>http</string>
+	<string>sms</string>
+  	<string>tel</string>
+  </array>
 </dict>
 </plist>

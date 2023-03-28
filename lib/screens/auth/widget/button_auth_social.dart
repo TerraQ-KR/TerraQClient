@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:eco_reward_app/utils/color_utils.dart';
+import 'package:eco_reward_app/utils/font_utils.dart';
+
 class ButtonAuthSocial extends StatelessWidget {
   final String text;
   const ButtonAuthSocial(this.text, {super.key});
@@ -12,7 +15,7 @@ class ButtonAuthSocial extends StatelessWidget {
         print(text);
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.yellow,
+        backgroundColor: ColorUtils.subBlue,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
@@ -24,7 +27,7 @@ class ButtonAuthSocial extends StatelessWidget {
         child: Text(
           'Continue with $text',
           style: const TextStyle(
-            fontFamily: 'Nunito',
+            fontFamily: FontUtils.primary,
             fontSize: 14,
             color: Colors.black,
             fontWeight: FontWeight.bold,
