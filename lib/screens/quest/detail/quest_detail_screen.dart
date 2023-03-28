@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/network/provider/api_path.dart';
 import 'package:eco_reward_app/network/provider/query_keys.dart';
@@ -8,11 +9,12 @@ import 'package:eco_reward_app/screens/quest/detail/model/get_detail.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/container_quest_detail.dart';
 
 class QuestDetailScreen extends HookWidget {
-  final int qid;
-  QuestDetailScreen({Key? key, required this.qid}) : super(key: key);
+  QuestDetailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var qid = questArguments(QueryParams(context)).qid;
+
     final quest = cachedQuery(
         queryKey: QueryKeys().myQuestDetailView(qid),
         path: ApiPaths().myQuestDetailView(qid));
@@ -50,6 +52,7 @@ class QuestDetailScreen extends HookWidget {
                 Expanded(
                   child: isSuccess
                       ? ContainerQuestDetail(
+                          questId: questData.memDoId,
                           questName: questData.questName,
                           startDate: questData.startDate,
                           endDate: questData.dueDate,

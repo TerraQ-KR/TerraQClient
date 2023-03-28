@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:eco_reward_app/style/default_theme.dart';
 import 'dart:async';
-import 'package:fl_query/fl_query.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
@@ -10,20 +9,16 @@ import 'package:day/day.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:eco_reward_app/routes.dart';
+import 'package:eco_reward_app/screens/quest/detail/model/get_detail.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:eco_reward_app/network/custom_jobs.dart';
 import 'package:eco_reward_app/network/provider/api_paths.dart';
 import 'package:eco_reward_app/network/provider/query_keys.dart';
 import 'package:eco_reward_app/screens/quest/certification/widget/image_icon_button.dart';
-import 'package:eco_reward_app/screens/quest/detail/widget/button_quest_detail.dart';
 
 class QuestImageScreen extends StatefulHookWidget {
-  final String questName;
-  final double reward;
-  const QuestImageScreen(
-      {Key? key, required this.questName, required this.reward})
-      : super(key: key);
+  const QuestImageScreen({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -35,39 +30,10 @@ class _QuestImageScreen extends State<QuestImageScreen> {
   XFile? _image;
   final picker = ImagePicker();
   final now = Day();
+
   @override
   void initState() {
     super.initState();
-  }
-
-  Future<void> getImage() async {
-    final certificateImage = await picker.pickImage(
-      source: ImageSource.camera,
-      imageQuality: 30,
-    );
-
-    if (certificateImage != null) {
-      final bytes = await certificateImage.readAsBytes();
-      final decodeImage = img.decodeImage(bytes);
-      final now = DateTime.now();
-      final timeText = '${now.year}-${now.month}-${now.day}';
-      final rewardText = '${widget.reward.toString()}kg';
-      img.drawString(decodeImage!, font: img.arial24, x: 100, y: 400, timeText);
-      img.drawString(
-          decodeImage, font: img.arial24, x: 100, y: 450, rewardText);
-      img.drawString(
-          decodeImage, font: img.arial24, x: 100, y: 350, widget.questName);
-      img.drawString(decodeImage, font: img.arial24, x: 450, y: 10, 'TerraQ');
-
-      var encodeImage = img.encodeJpg(decodeImage, quality: 100);
-      var finalImage = File(certificateImage.path)
-        ..writeAsBytesSync(encodeImage);
-
-      setState(() {
-        _image = XFile(finalImage.path);
-        print(_image!.path);
-      });
-    }
   }
 
   Widget showImage() {
@@ -95,6 +61,47 @@ class _QuestImageScreen extends State<QuestImageScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    var qid = questArguments(QueryParams(context)).qid;
+
+    final quest = cachedQuery(
+        queryKey: QueryKeys().myQuestDetailView(qid),
+        path: ApiPaths.myQuestDetailView(qid));
+
+    getDetail questData = getdetail(quest.data);
+    Future<void> getImage() async {
+      final certificateImage = await picker.pickImage(
+        source: ImageSource.camera,
+        imageQuality: 30,
+      );
+
+      if (certificateImage != null) {
+        final bytes = await certificateImage.readAsBytes();
+        final decodeImage = img.decodeImage(bytes);
+        final now = DateTime.now();
+        final timeText = '${now.year}-${now.month}-${now.day}';
+        final rewardText = '${questData.reward.toString()}kg';
+        img.drawString(
+            decodeImage!, font: img.arial24, x: 100, y: 400, timeText);
+        img.drawString(
+            decodeImage, font: img.arial24, x: 100, y: 450, rewardText);
+        img.drawString(
+            decodeImage,
+            font: img.arial24,
+            x: 100,
+            y: 350,
+            questData.questName);
+        img.drawString(decodeImage, font: img.arial24, x: 450, y: 10, 'TerraQ');
+
+        var encodeImage = img.encodeJpg(decodeImage, quality: 100);
+        var finalImage = File(certificateImage.path)
+          ..writeAsBytesSync(encodeImage);
+
+        setState(() {
+          _image = XFile(finalImage.path);
+          print(_image!.path);
+        });
+      }
+    }
 
     var mid = Arguments(QueryParams(context)).mid;
 

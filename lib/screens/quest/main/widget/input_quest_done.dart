@@ -74,7 +74,9 @@ class _InputQuestDoneState extends State<InputQuestDone> {
                             margin: const EdgeInsets.only(right: 10, top: 5),
                             child: IconButton(
                               onPressed: () => _navigateToQuestDetailScreen(
-                                  context, widget.quest.memDoId!),
+                                  context,
+                                  widget.quest.memDoId!,
+                                  widget.quest.questId!),
                               icon: const Icon(Icons.navigate_next, size: 45),
                             ),
                           ),
@@ -150,12 +152,12 @@ class _InputQuestDoneState extends State<InputQuestDone> {
   }
 }
 
-_navigateToQuestDetailScreen(context, id) async {
+_navigateToQuestDetailScreen(context, mid, qid) async {
   return Navigator.pushNamed(
-    context,
-    Routes.questdetail,
-    arguments: id,
-  );
+      context,
+      RouteParams(
+          path: Routes.questdetail,
+          queryParameters: {'mid': mid.toString(), 'qid': qid.toString()}));
 }
 
 void _showDialog(context) {

@@ -28,15 +28,17 @@ class Routes {
   static const questcertificationmodal = 'quest/certification/modal';
 
   static const memberKey = "mid";
+  static const questKey = "qid";
 
   static Route<dynamic> RouteGenerater(RouteSettings settings) {
     Uri uri = Uri.parse(settings.name ?? "");
     Map<String, dynamic> params = {};
-    final Object? args = settings.arguments;
+
     uri.queryParameters.forEach((key, value) {
-      if (key != memberKey) {
+      if (key != memberKey && key != questKey) {
         throw ArgumentError("Router QueryKey is invalid");
       }
+
       params[key] = int.tryParse(value) ?? value;
     });
 
@@ -45,7 +47,7 @@ class Routes {
           switch (uri.path) {
             case start:
               if (params.isNotEmpty) {
-                return BottomNavigatorbar();
+                return const BottomNavigatorbar();
               }
               return Row(
                 children: [
@@ -72,16 +74,29 @@ class Routes {
                 ],
               );
             case questdetail:
-              final QuestDetailScreen detailArgs = args as QuestDetailScreen;
-              return QuestDetailScreen(
-                qid: detailArgs.qid,
+              if (params.isNotEmpty) {
+                return QuestDetailScreen();
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
               );
 
             case questimage:
-              final QuestImageScreen imageArgs = args as QuestImageScreen;
-              return QuestImageScreen(
-                questName: imageArgs.questName,
-                reward: imageArgs.reward,
+              if (params.isNotEmpty) {
+                return const QuestImageScreen();
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
               );
 
             case questgallery:
@@ -98,21 +113,20 @@ class Routes {
               );
 
             case questcertificationmodal:
-              final CertificateModal modalArgs = args as CertificateModal;
-              return CertificateModal(
-                questName: modalArgs.questName,
-                reward: modalArgs.reward,
-                information: modalArgs.information,
+              if (params.isNotEmpty) {
+                return const CertificateModal();
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
               );
             case home:
               return const HomeScreen();
-            // case home:
-            //   return const HomeScreen();
-            // case test:
-            //   if (params.isNotEmpty) {
-            //     return const testOtherScreen();
-            //   }
-            //   return TestWidget();
+
             default:
               throw Exception('Invalid route: ${settings.name}');
           }
@@ -139,5 +153,12 @@ class Arguments {
   late final int mid;
   Arguments(Map<String, String> map) {
     mid = int.parse(map[Routes.memberKey] ?? '1');
+  }
+}
+
+class questArguments {
+  late final int qid;
+  questArguments(Map<String, String> map) {
+    qid = int.parse(map[Routes.questKey] ?? '1');
   }
 }

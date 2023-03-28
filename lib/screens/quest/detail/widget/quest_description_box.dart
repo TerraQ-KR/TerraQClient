@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/button_quest_detail.dart';
-import 'package:eco_reward_app/screens/quest/certification/utils/certificate_modal.dart';
 
 class QuestDescriptionBox extends StatelessWidget {
+  final int questId;
   final String questName;
   final double reward;
   final String information;
 
   const QuestDescriptionBox(
       {super.key,
+      required this.questId,
       required this.questName,
       required this.reward,
       required this.information});
@@ -37,8 +38,8 @@ class QuestDescriptionBox extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: ButtonQuestDetail(
                   text: 'Certification',
-                  onPressed: () => _navigateToCertificateScreen(
-                      context, questName, reward, information)),
+                  onPressed: () =>
+                      _navigateToCertificateScreen(context, questId)),
             ),
             const SizedBox(height: 20),
           ],
@@ -48,11 +49,10 @@ class QuestDescriptionBox extends StatelessWidget {
   }
 }
 
-_navigateToCertificateScreen(context, questName, reward, information) async {
+_navigateToCertificateScreen(context, id) async {
   return Navigator.pushNamed(
-    context,
-    Routes.questcertificationmodal,
-    arguments: CertificateModal(
-        questName: questName, reward: reward, information: information),
-  );
+      context,
+      RouteParams(
+          path: Routes.questcertificationmodal,
+          queryParameters: {'qid': id.toString()}));
 }

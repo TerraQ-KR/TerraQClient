@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:eco_reward_app/utils/color_utils.dart';
-import 'package:eco_reward_app/screens/quest/certification/utils/certificate_modal.dart';
-import 'package:eco_reward_app/screens/quest/detail/quest_detail_screen.dart';
 import 'package:eco_reward_app/screens/quest/main/style/main_theme.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/button_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_common.dart';
@@ -75,7 +73,9 @@ class _InputQuestState extends State<InputQuest> {
                             margin: const EdgeInsets.only(right: 10, top: 5),
                             child: IconButton(
                               onPressed: () => _navigateToQuestDetailScreen(
-                                  context, widget.quest.memDoId!),
+                                  context,
+                                  widget.quest.memDoId!,
+                                  widget.quest.questId!),
                               icon: const Icon(Icons.navigate_next, size: 45),
                             ),
                           ),
@@ -139,11 +139,8 @@ class _InputQuestState extends State<InputQuest> {
                         alignment: Alignment.centerRight,
                         margin: const EdgeInsets.only(right: 20, bottom: 10),
                         child: ButtonQuest(
-                          onPressed: () => _navigateToCertificateScreen(
-                              context,
-                              widget.quest.questName,
-                              widget.quest.reward,
-                              widget.quest.briefing),
+                          onPressed: () => _navigateToCertificateScreen(context,
+                              widget.quest.memDoId, widget.quest.questId),
                         ),
                       ),
                     ],
@@ -158,22 +155,18 @@ class _InputQuestState extends State<InputQuest> {
   }
 }
 
-_navigateToQuestDetailScreen(context, id) async {
+_navigateToQuestDetailScreen(context, mid, qid) async {
   return Navigator.pushNamed(
-    context,
-    Routes.questdetail,
-    arguments: QuestDetailScreen(qid: id),
-  );
+      context,
+      RouteParams(
+          path: Routes.questdetail,
+          queryParameters: {'mid': mid.toString(), 'qid': qid.toString()}));
 }
 
-_navigateToCertificateScreen(context, questName, reward, information) async {
+_navigateToCertificateScreen(context, mid, qid) async {
   return Navigator.pushNamed(
-    context,
-    Routes.questcertificationmodal,
-    arguments: CertificateModal(
-      questName: questName ?? '',
-      reward: reward ?? 0,
-      information: information ?? '',
-    ),
-  );
+      context,
+      RouteParams(
+          path: Routes.questcertificationmodal,
+          queryParameters: {'mid': mid.toString(), 'qid': qid.toString()}));
 }

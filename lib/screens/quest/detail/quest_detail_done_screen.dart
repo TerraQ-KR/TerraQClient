@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
+import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/network/provider/api_path.dart';
 import 'package:eco_reward_app/network/provider/query_keys.dart';
 import 'package:eco_reward_app/network/custom_jobs.dart';
@@ -8,13 +9,12 @@ import 'package:eco_reward_app/screens/quest/detail/model/get_detail.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/container_quest_detail_done.dart';
 
 class QuestDetailDoneScreen extends HookWidget {
-  final int qid;
-  QuestDetailDoneScreen(this.qid, {Key? key}) : super(key: key);
-
-  static const routeName = '/quest/detail';
+  QuestDetailDoneScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var qid = questArguments(QueryParams(context)).qid;
+
     final quest = cachedQuery(
         queryKey: QueryKeys().myQuestDetailView(qid),
         path: ApiPaths().myQuestDetailView(qid));

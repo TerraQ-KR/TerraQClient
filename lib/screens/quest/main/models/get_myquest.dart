@@ -9,6 +9,7 @@ List<TMyQuest> getMyQuest(dataSource) {
     return TMyQuest(
       memDoId: item['memDoId'] ?? 0,
       questName: item['questDto']['questName'] ?? 'questName',
+      questId: item['questDto']['questId'] ?? 0,
       subCategoryName: item['questDto']['categoryDto']['subCategoryName'] ??
           'subCategoryName',
       reward: item['questDto']['reward'] ?? 0,

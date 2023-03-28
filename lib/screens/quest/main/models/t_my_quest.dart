@@ -1,6 +1,7 @@
 class TMyQuest {
   final int? memDoId;
   final String? questName;
+  final int? questId;
   final String? subCategoryName;
   final double? reward;
   final String? briefing;
@@ -15,6 +16,7 @@ class TMyQuest {
   TMyQuest({
     required this.memDoId,
     required this.questName,
+    required this.questId,
     required this.subCategoryName,
     required this.reward,
     required this.briefing,
