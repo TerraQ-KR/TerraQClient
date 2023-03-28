@@ -16,15 +16,15 @@ class getDetail {
   getDetail();
 
   getDetail.fromJson(Map<String, dynamic> json)
-      : memDoId = json["memDoId"],
-        questName = json["questDto"]['questName'] ?? "",
-        questId = json["questDto"]['questId'] ?? 0,
+      : memDoId = json["memDoId"] ?? 0,
+        questName = json["questDto"]?['questName'] ?? '',
+        questId = json["questDto"]?['questId'] ?? 0,
         subCategoryName =
-            json["questDto"]['categoryDto']['subCategoryName'] ?? "",
-        reward = json["questDto"]['reward'] ?? 0,
-        briefing = json["questDto"]['briefing'] ?? "",
-        information = json["questDto"]['information'] ?? "",
-        challenger = json["questDto"]['challenger'] ?? 0,
+            json["questDto"]?['categoryDto']?['subCategoryName'] ?? '',
+        reward = json["questDto"]?['reward'] ?? 0,
+        briefing = json['questDto']?['briefing'] ?? '',
+        information = json["questDto"]?['information'] ?? '',
+        challenger = json["questDto"]?['challenger'] ?? 0,
         startDate = json["startDate"] ?? "",
         dueDate = json["dueDate"] ?? "",
         images = json["certificateImages"] ?? [];

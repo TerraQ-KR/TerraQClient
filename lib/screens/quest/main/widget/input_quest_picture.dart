@@ -47,19 +47,29 @@ class _InputQuestPictureState extends State<InputQuestPicture> {
       isBookmarked = !isBookmarked;
     });
     final mid = Arguments(QueryParams(context)).mid;
-    final id = widget.quest.questId ?? 1;
+    final qid = widget.quest.questId ?? 1;
     final myquestQuery = cachedQuery(
       queryKey: QueryKeys().myQuestIngList(mid),
       path: ApiPaths.myQuestIngList(mid),
     );
-
-    final Response<dynamic> response = await API.POST(
-        path: ApiPaths.addMyQuest(mid, id), data: {'bookmark': isBookmarked});
-
     final questQuery = cachedQuery(
       queryKey: QueryKeys().questNotMyQuestList(mid),
       path: ApiPaths.questNotMyQuestList(mid),
     );
+
+    final mutateQuest = cachedMutation(
+        mutationKey: 'add-my-quest',
+        apiType: 'POST',
+        path: ApiPaths.addMyQuest(mid, qid));
+
+    mutateQuest.mutate(
+      qid,
+      onData: (payload, variables, context) =>
+          {myquestQuery.refetch(), questQuery.refetch()},
+    );
+
+    // final Response<dynamic> response = await API.POST(
+    //     path: ApiPaths.addMyQuest(mid, qid), data: {'bookmark': isBookmarked});
   }
   // final mutateQuest = cachedMutation(
   //   mutationKey: 'addMyQuest',
