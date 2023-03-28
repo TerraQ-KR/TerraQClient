@@ -20,9 +20,9 @@ class _QuestListScreenState extends State<QuestListScreen> {
     var mid = Arguments(QueryParams(context)).mid;
 
     var quest = cachedQuery(
-        queryKey: QueryKeys().questNotMyQuestList(mid),
+        queryKey: QueryKeys.questNotMyQuestList(mid),
         path: ApiPaths.questNotMyQuestList(mid));
-
+    // ignore: prefer_if_null_operators
     var questData = getQuestNotMyQuestList(quest.data);
 
     final isSuccess = quest.isSuccess;
@@ -39,9 +39,9 @@ class _QuestListScreenState extends State<QuestListScreen> {
                     itemCount: questData.length,
                     itemBuilder: (BuildContext context, int index) {
                       final data = questData[index];
-                      // ignore: newline-before-return
+
                       return Container(
-                        margin: EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
                         child: Column(
                           children: [
                             InputQuestPicture(

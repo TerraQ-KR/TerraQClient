@@ -1,6 +1,6 @@
 class ApiPaths {
   // Get
-  final String members = "/get-all-members";
+  static const String members = "/get-all-members";
 
   static String memberdetail(int memberId) {
     return "/get-member-detail/$memberId";
@@ -44,6 +44,18 @@ class ApiPaths {
     return "/getMyQuestDoneList/$memberId";
   }
 
+  static String myBadge(int memberId) {
+    return "/getMyBadge/$memberId";
+  }
+
+  static String monthlyReport(int memberId) {
+    return "/getMonthlyReport/$memberId";
+  }
+
+  static String weeklyReport(int memberId) {
+    return "/getWeeklyReport/$memberId";
+  }
+
   // Post
   static const String createMember = "/create-member";
   static const String login = "/login";
@@ -53,7 +65,13 @@ class ApiPaths {
     return "/add-to-my-quest/$memberId/$questId";
   }
 
+  static String createTitle(int memberId) {
+    return '/createTitle/$memberId';
+  }
+
   static const String createQeust = "/create-quest";
+
+  static const String createMainBadge = "/createMainBadge";
 
   // Put
   static String updateMember(int memberId) {
@@ -64,10 +82,14 @@ class ApiPaths {
 
   // Patch??
   static String updateMemberImage(int memberId) {
-    return "update-member-image/$memberId";
+    return "/update-member-image/$memberId";
   }
 
   static String updateCertificateImage(int memberDoId) {
-    return "uploadCertificateImage/$memberDoId";
+    return "/uploadCertificateImage/$memberDoId";
+  }
+
+  static String updateMainBadge(int memberId) {
+    return "/updateMainBadge/$memberId";
   }
 }

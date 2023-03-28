@@ -9,14 +9,14 @@ import 'package:eco_reward_app/screens/quest/detail/model/get_detail.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/container_quest_detail_done.dart';
 
 class QuestDetailDoneScreen extends HookWidget {
-  QuestDetailDoneScreen({Key? key}) : super(key: key);
+  const QuestDetailDoneScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var qid = questArguments(QueryParams(context)).qid;
 
     final quest = cachedQuery(
-        queryKey: QueryKeys().myQuestDetailView(qid),
+        queryKey: QueryKeys.myQuestDetailView(qid),
         path: ApiPaths().myQuestDetailView(qid));
 
     getDetail questData = getdetail(quest.data);

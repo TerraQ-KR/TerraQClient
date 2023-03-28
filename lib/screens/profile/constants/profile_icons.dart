@@ -16,6 +16,10 @@
 ///         Author:    Google
 ///         License:   Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
 ///         Homepage:  https://design.google.com/icons/
+/// * Font Awesome 4, Copyright (C) 2016 by Dave Gandy
+///         Author:    Dave Gandy
+///         License:   SIL ()
+///         Homepage:  http://fortawesome.github.com/Font-Awesome/
 /// * Octicons, Copyright (C) 2020 by GitHub Inc.
 ///         Author:    GitHub
 ///         License:   MIT (http://opensource.org/licenses/mit-license.php)
@@ -33,12 +37,16 @@ class ProfileIcons {
   static const _kFontFam = 'ProfileIcons';
   static const String? _kFontPkg = null;
 
+  static const IconData clap_hands_svgrepo_com =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData addGroup =
       IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData phone =
       IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData arrows =
       IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData sort_alt_up =
+      IconData(0xf160, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData graph =
       IconData(0xf35a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData carbonprint =

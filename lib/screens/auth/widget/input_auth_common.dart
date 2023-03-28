@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
-import '../../../style/default_theme.dart';
+import 'package:eco_reward_app/style/default_theme.dart';
 
 class InputAuthCommon extends StatelessWidget {
   final String text;
@@ -27,7 +28,7 @@ class InputAuthCommon extends StatelessWidget {
             fontFamily: FontUtils.primary,
             fontSize: 16,
             fontWeight: FontWeight.w600,
-            color: Colors.black,
+            color: ColorUtils.black,
           ),
         ),
         const SizedBox(height: 4),
@@ -41,16 +42,20 @@ class InputAuthCommon extends StatelessWidget {
             obscureText: (text == 'Password' || text == 'Confirm Password'),
             decoration: InputDecoration(
               enabledBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
                 borderSide: BorderSide(color: ColorUtils.primary),
               ),
               focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: ColorUtils.primary),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderSide: BorderSide(color: ColorUtils.subBlue),
               ),
               errorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color.fromARGB(255, 72, 90, 73)),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderSide: BorderSide(color: ColorUtils.error),
               ),
               focusedErrorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: ColorUtils.primary),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderSide: BorderSide(color: ColorUtils.error),
               ),
               hintText: hintMessage,
               hintStyle: const TextStyle(
@@ -59,7 +64,6 @@ class InputAuthCommon extends StatelessWidget {
               ),
               fillColor: Colors.white,
             ),
-            autovalidateMode: AutovalidateMode.onUserInteraction,
           ),
         ),
       ],

@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
         title: 'TerraQ',
         onGenerateRoute: Routes.RouteGenerater,
         initialRoute: RouteParams(
-            path: Routes.start,
-            queryParameters: {Routes.memberKey: 1.toString()}),
+          path: Routes.logo,
+        ),
       ),
     );
   }
