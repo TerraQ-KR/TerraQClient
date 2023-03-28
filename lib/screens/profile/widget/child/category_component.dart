@@ -96,10 +96,10 @@ class _CategoryComponentState extends State<CategoryComponent>
 
     List<String> categorys = ["House", "Consumption", "Transport", "Food"];
     List<String> cateIcons = [
-      "https://storage.googleapis.com/eco-reward-bucket/icon/holiday_village_white_36dp.png",
-      "https://storage.googleapis.com/eco-reward-bucket/icon/shopping_basket_white_36dp.png",
-      "https://storage.googleapis.com/eco-reward-bucket/icon/electric_moped_white_36dp.png",
-      "https://storage.googleapis.com/eco-reward-bucket/icon/restaurant_menu_white_36dp.png",
+      "https://storage.googleapis.com/terra-q-bucket/icon/holiday_village_white_36dp.png",
+      "https://storage.googleapis.com/terra-q-bucket/icon/shopping_basket_white_36dp.png",
+      "https://storage.googleapis.com/terra-q-bucket/icon/electric_moped_white_36dp.png",
+      "https://storage.googleapis.com/terra-q-bucket/icon/restaurant_menu_white_36dp.png",
     ];
 
     final badgesQuery = cachedQuery(
