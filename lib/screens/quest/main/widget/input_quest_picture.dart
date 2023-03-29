@@ -43,12 +43,12 @@ class _InputQuestPictureState extends State<InputQuestPicture> {
     final mid = Arguments(QueryParams(context)).mid;
     final qid = widget.quest.questId ?? 1;
     final myquestQuery = cachedQuery(
-      queryKey: QueryKeys().myQuestIngList(mid),
+      queryKey: QueryKeys.myQuestIngList(mid),
       path: ApiPaths.myQuestIngList(mid),
     );
 
     final questQuery = cachedQuery(
-      queryKey: QueryKeys().questNotMyQuestList(mid),
+      queryKey: QueryKeys.questNotMyQuestList(mid),
       path: ApiPaths.questNotMyQuestList(mid),
     );
 

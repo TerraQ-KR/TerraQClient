@@ -18,7 +18,7 @@ class CertificateModal extends HookWidget {
     var mid = Arguments(QueryParams(context)).mid;
 
     final quest = cachedQuery(
-        queryKey: QueryKeys().myQuestDetailView(memdoid),
+        queryKey: QueryKeys.myQuestDetailView(memdoid),
         path: ApiPaths().myQuestDetailView(memdoid));
 
     getDetail questData = getdetail(quest.data);

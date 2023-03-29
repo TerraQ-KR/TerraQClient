@@ -64,7 +64,7 @@ class _QuestImageScreen extends State<QuestImageScreen> {
     var memDoId = memDoIdArguments(QueryParams(context)).memdoid;
 
     final quest = cachedQuery(
-        queryKey: QueryKeys().myQuestDetailView(memDoId),
+        queryKey: QueryKeys.myQuestDetailView(memDoId),
         path: ApiPaths.myQuestDetailView(memDoId));
 
     getDetail questData = getdetail(quest.data);
@@ -109,7 +109,7 @@ class _QuestImageScreen extends State<QuestImageScreen> {
     var mid = Arguments(QueryParams(context)).mid;
 
     final imageQuery = cachedQuery(
-      queryKey: QueryKeys().certificateImages(mid),
+      queryKey: QueryKeys.certificateImages(mid),
       path: ApiPaths.certificateImages(mid),
     );
 

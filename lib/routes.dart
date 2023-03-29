@@ -1,6 +1,12 @@
 // ignore_for_file: unused_import,non_constant_identifier_names
+
+import 'package:eco_reward_app/network/provider/test_screen.dart';
+import 'package:eco_reward_app/screens/Logo.dart';
+import 'package:eco_reward_app/screens/profile/mybadges.dart';
+import 'package:eco_reward_app/screens/profile/myreport.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/network/provider/test_screen.dart';
+import 'package:eco_reward_app/screens/home/home_navigatorbar.dart';
 import 'package:eco_reward_app/screens/auth/auth_register_screen.dart';
 import 'package:eco_reward_app/screens/auth/auth_login_screen.dart';
 import 'package:eco_reward_app/screens/quest/main/quest_tab_screen.dart';
@@ -10,23 +16,35 @@ import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart
 import 'package:eco_reward_app/screens/quest/certification/utils/certificate_modal.dart';
 import 'package:eco_reward_app/screens/quest/certification/quest_image_screen.dart';
 import 'package:eco_reward_app/screens/home/home_screen.dart';
+
 import 'package:eco_reward_app/screens/profile/profile_screen.dart';
 import 'package:eco_reward_app/screens/home/home_navigatorbar.dart';
+import 'package:eco_reward_app/screens/tutorial/tutorial_screen.dart';
+import 'package:eco_reward_app/screens/tutorial/mbti_screen.dart';
+import 'package:eco_reward_app/screens/profile/leaderboard.dart';
 
 // query_parameter keys for Route
 class Routes {
   static const start = '/';
+  static const tutorial = '/tutorial';
+  static const logo = '/logo';
   static const login = '/login';
   static const account = '/account';
   static const home = '/home';
   static const test = '/test';
+  static const mypage = '/mypage';
+  static const leaderboard = '/mypage/leaderboard';
+  static const mybadges = '/mypage/badge';
+  static const myreport = '/mypage/report';
   static const quest = '/quest';
   static const questdetail = '/quest/detail';
   static const questcertification = '/quest/certification';
   static const questgallery = '/quest/gallery';
   static const questimage = '/quest/certification/image';
   static const questcertificationmodal = 'quest/certification/modal';
+  static const mbti = '/mbti';
 
+  // query_parameter keys for Route
   static const memberKey = "mid";
   static const questKey = "qid";
   static const memdoidKey = 'memdoid';
@@ -47,6 +65,8 @@ class Routes {
     return MaterialPageRoute(
         builder: (context) {
           switch (uri.path) {
+            case logo:
+              return const Logo();
             case start:
               if (params.isNotEmpty) {
                 return const BottomNavigatorbar();
@@ -59,10 +79,14 @@ class Routes {
                       child: const Text("return"))
                 ],
               );
+            case tutorial:
+              return const TutorialScreen();
+            case mbti:
+              return const MBTITestScreen();
             case login:
               return AuthLoginScreen();
             case account:
-              return AuthRegisterScreen();
+              return const AuthRegisterScreen();
             case quest:
               if (params.isNotEmpty) {
                 return HeroControllerScope(
@@ -133,9 +157,15 @@ class Routes {
               );
             case home:
               return const HomeScreen();
-
             default:
-              throw Exception('Invalid route: ${settings.name}');
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
+              );
           }
         },
         settings: RouteSettings(name: settings.name));
