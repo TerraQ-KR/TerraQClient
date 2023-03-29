@@ -14,12 +14,12 @@ class CertificateModal extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    var memdoid = memDoIdArguments(QueryParams(context)).memdoid;
     var mid = Arguments(QueryParams(context)).mid;
-    var qid = questArguments(QueryParams(context)).qid;
 
     final quest = cachedQuery(
-        queryKey: QueryKeys().myQuestDetailView(qid),
-        path: ApiPaths().myQuestDetailView(qid));
+        queryKey: QueryKeys().myQuestDetailView(memdoid),
+        path: ApiPaths().myQuestDetailView(memdoid));
 
     getDetail questData = getdetail(quest.data);
 
@@ -62,7 +62,7 @@ class CertificateModal extends HookWidget {
               padding: const EdgeInsets.only(top: 30),
               child: ButtonQuestDetail(
                 text: 'Confirm',
-                onPressed: () => _navigateToImage(context, mid, qid),
+                onPressed: () => _navigateToImage(context, mid, memdoid),
               ),
             ),
           ],
@@ -72,12 +72,12 @@ class CertificateModal extends HookWidget {
   }
 }
 
-_navigateToImage(context, mid, qid) async {
+_navigateToImage(context, mid, id) async {
   return Navigator.pushNamed(
       context,
       RouteParams(
           path: Routes.questimage,
-          queryParameters: {'mid': mid.toString(), 'qid': qid.toString()}));
+          queryParameters: {'mid': mid.toString(), 'memdoid': id.toString()}));
 }
 
 _navigateToBefore(context) async {

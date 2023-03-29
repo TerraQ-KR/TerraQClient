@@ -36,6 +36,8 @@ class _InputQuestState extends State<InputQuest> {
 
   @override
   Widget build(BuildContext context) {
+    var mid = Arguments(QueryParams(context)).mid;
+
     return Container(
       alignment: Alignment.center,
       child: FractionallySizedBox(
@@ -137,8 +139,8 @@ class _InputQuestState extends State<InputQuest> {
                         alignment: Alignment.centerRight,
                         margin: const EdgeInsets.only(right: 20, bottom: 10),
                         child: ButtonQuest(
-                          onPressed: () => _navigateToCertificateScreen(context,
-                              widget.quest.memDoId, widget.quest.questId),
+                          onPressed: () => _navigateToCertificateScreen(
+                              context, mid, widget.quest.memDoId),
                         ),
                       ),
                     ],
@@ -161,10 +163,11 @@ _navigateToQuestDetailScreen(context, memdoid) async {
           queryParameters: {'memdoid': memdoid.toString()}));
 }
 
-_navigateToCertificateScreen(context, mid, qid) async {
+_navigateToCertificateScreen(context, mid, memdoid) async {
   return Navigator.pushNamed(
       context,
-      RouteParams(
-          path: Routes.questcertificationmodal,
-          queryParameters: {'mid': mid.toString(), 'qid': qid.toString()}));
+      RouteParams(path: Routes.questcertificationmodal, queryParameters: {
+        'mid': mid.toString(),
+        'memdoid': memdoid.toString()
+      }));
 }
