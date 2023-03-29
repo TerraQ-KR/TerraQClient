@@ -17,41 +17,49 @@ class QuestInformBox extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(15),
           ),
-          child: SizedBox(
-            width: double.infinity,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    QuestIconBox(
-                      icon: Icons.watch,
-                      text: '''Date :  $startDate 
-~ $endDate''',
-                    ),
-                    IconButton(
-                      // ignore: no-empty-block
-                      onPressed: () {},
-                      icon: const Icon(Icons.navigate_next, size: 30),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const QuestIconBox(
-                      icon: Icons.camera,
-                      text: 'Authentication methods',
-                    ),
-                    IconButton(
-                      // ignore: no-empty-block
-                      onPressed: () {},
-                      icon: const Icon(Icons.navigate_next, size: 30),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+          child: Wrap(
+            children: [
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: QuestIconBox(
+                          icon: Icons.watch,
+                          text: 'Date :  $startDate ~ $endDate',
+                        ),
+                      ),
+                      Flexible(
+                        child: IconButton(
+                          // ignore: no-empty-block
+                          onPressed: () {},
+                          icon: const Icon(Icons.navigate_next, size: 30),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: QuestIconBox(
+                          icon: Icons.camera,
+                          text: 'Authentication methods',
+                        ),
+                      ),
+                      Flexible(
+                        child: IconButton(
+                          // ignore: no-empty-block
+                          onPressed: () {},
+                          icon: const Icon(Icons.navigate_next, size: 30),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

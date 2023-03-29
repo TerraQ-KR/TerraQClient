@@ -13,11 +13,11 @@ class QuestDetailScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var qid = questArguments(QueryParams(context)).qid;
+    var memdoid = memDoIdArguments(QueryParams(context)).memdoid;
 
     final quest = cachedQuery(
-        queryKey: QueryKeys().myQuestDetailView(qid),
-        path: ApiPaths().myQuestDetailView(qid));
+        queryKey: QueryKeys().myQuestDetailView(memdoid),
+        path: ApiPaths().myQuestDetailView(memdoid));
 
     getDetail questData = getdetail(quest.data);
     final isSuccess = quest.isSuccess;
@@ -40,6 +40,7 @@ class QuestDetailScreen extends HookWidget {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       IconButton(
+                        key: ObjectKey('back $memdoid'),
                         onPressed: () => _navigateToBefore(context),
                         icon: const Icon(Icons.navigate_before,
                             color: ColorUtils.black, size: 50),
@@ -52,7 +53,8 @@ class QuestDetailScreen extends HookWidget {
                 Expanded(
                   child: isSuccess
                       ? ContainerQuestDetail(
-                          questId: questData.memDoId,
+                          memDoId: questData.memDoId,
+                          questId: questData.questId,
                           questName: questData.questName,
                           startDate: questData.startDate,
                           endDate: questData.dueDate,

@@ -73,9 +73,7 @@ class _InputQuestState extends State<InputQuest> {
                             margin: const EdgeInsets.only(right: 10, top: 5),
                             child: IconButton(
                               onPressed: () => _navigateToQuestDetailScreen(
-                                  context,
-                                  widget.quest.memDoId!,
-                                  widget.quest.questId!),
+                                  context, widget.quest.memDoId!),
                               icon: const Icon(Icons.navigate_next, size: 45),
                             ),
                           ),
@@ -155,12 +153,12 @@ class _InputQuestState extends State<InputQuest> {
   }
 }
 
-_navigateToQuestDetailScreen(context, mid, qid) async {
+_navigateToQuestDetailScreen(context, memdoid) async {
   return Navigator.pushNamed(
       context,
       RouteParams(
           path: Routes.questdetail,
-          queryParameters: {'mid': mid.toString(), 'qid': qid.toString()}));
+          queryParameters: {'memdoid': memdoid.toString()}));
 }
 
 _navigateToCertificateScreen(context, mid, qid) async {

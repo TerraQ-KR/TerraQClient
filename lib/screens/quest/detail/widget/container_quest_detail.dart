@@ -6,6 +6,7 @@ import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/tag_quest_foot.dart';
 
 class ContainerQuestDetail extends StatelessWidget {
+  final int memDoId;
   final int questId;
   final String questName;
   final String startDate;
@@ -16,6 +17,7 @@ class ContainerQuestDetail extends StatelessWidget {
 
   const ContainerQuestDetail({
     Key? key,
+    required this.memDoId,
     required this.questId,
     required this.questName,
     required this.startDate,
@@ -56,6 +58,7 @@ class ContainerQuestDetail extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.5,
             margin: const EdgeInsets.only(top: 20),
             child: QuestDescriptionBox(
+              memDoId: memDoId,
               questId: questId,
               questName: questName,
               reward: reward,

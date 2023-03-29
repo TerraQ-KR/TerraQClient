@@ -93,8 +93,10 @@ class QuestGalleryScreen extends HookWidget {
                               children: [
                                 ...List.generate(
                                   imageCount,
-                                  (index) =>
-                                      QuestImage(gallery: imageData[index]),
+                                  (index) => Hero(
+                                      tag: '${imageData[index].id}',
+                                      child: QuestImage(
+                                          gallery: imageData[index])),
                                 ),
                                 ...List.generate(
                                   remainingImage,

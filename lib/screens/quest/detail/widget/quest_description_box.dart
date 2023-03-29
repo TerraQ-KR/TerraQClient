@@ -3,6 +3,7 @@ import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/button_quest_detail.dart';
 
 class QuestDescriptionBox extends StatelessWidget {
+  final int memDoId;
   final int questId;
   final String questName;
   final double reward;
@@ -10,6 +11,7 @@ class QuestDescriptionBox extends StatelessWidget {
 
   const QuestDescriptionBox(
       {super.key,
+      required this.memDoId,
       required this.questId,
       required this.questName,
       required this.reward,
@@ -35,12 +37,13 @@ class QuestDescriptionBox extends StatelessWidget {
               ),
             ),
             Container(
-              alignment: Alignment.bottomCenter,
-              child: ButtonQuestDetail(
-                  text: 'Certification',
-                  onPressed: () =>
-                      _navigateToCertificateScreen(context, questId)),
-            ),
+                alignment: Alignment.bottomCenter,
+                child: Hero(
+                    tag: 'certification ${memDoId}',
+                    child: ButtonQuestDetail(
+                        text: 'Certification',
+                        onPressed: () =>
+                            _navigateToCertificateScreen(context, memDoId)))),
             const SizedBox(height: 20),
           ],
         ),
@@ -54,5 +57,5 @@ _navigateToCertificateScreen(context, id) async {
       context,
       RouteParams(
           path: Routes.questcertificationmodal,
-          queryParameters: {'qid': id.toString()}));
+          queryParameters: {'memdoid': id.toString()}));
 }

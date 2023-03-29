@@ -29,13 +29,15 @@ class Routes {
 
   static const memberKey = "mid";
   static const questKey = "qid";
+  static const memdoidKey = 'memdoid';
 
   static Route<dynamic> RouteGenerater(RouteSettings settings) {
     Uri uri = Uri.parse(settings.name ?? "");
     Map<String, dynamic> params = {};
+    final heroController = HeroController();
 
     uri.queryParameters.forEach((key, value) {
-      if (key != memberKey && key != questKey) {
+      if (key != memberKey && key != questKey && key != memdoidKey) {
         throw ArgumentError("Router QueryKey is invalid");
       }
 
@@ -63,7 +65,8 @@ class Routes {
               return AuthRegisterScreen();
             case quest:
               if (params.isNotEmpty) {
-                return const QuestTabScreen();
+                return HeroControllerScope(
+                    controller: heroController, child: QuestTabScreen());
               }
               return Row(
                 children: [
@@ -75,7 +78,8 @@ class Routes {
               );
             case questdetail:
               if (params.isNotEmpty) {
-                return QuestDetailScreen();
+                return HeroControllerScope(
+                    controller: heroController, child: QuestDetailScreen());
               }
               return Row(
                 children: [
@@ -88,7 +92,8 @@ class Routes {
 
             case questimage:
               if (params.isNotEmpty) {
-                return const QuestImageScreen();
+                return HeroControllerScope(
+                    controller: heroController, child: QuestImageScreen());
               }
               return Row(
                 children: [
@@ -101,7 +106,8 @@ class Routes {
 
             case questgallery:
               if (params.isNotEmpty) {
-                return const QuestGalleryScreen();
+                return HeroControllerScope(
+                    controller: heroController, child: QuestGalleryScreen());
               }
               return Row(
                 children: [
@@ -114,7 +120,8 @@ class Routes {
 
             case questcertificationmodal:
               if (params.isNotEmpty) {
-                return const CertificateModal();
+                return HeroControllerScope(
+                    controller: heroController, child: CertificateModal());
               }
               return Row(
                 children: [
@@ -160,5 +167,12 @@ class questArguments {
   late final int qid;
   questArguments(Map<String, String> map) {
     qid = int.parse(map[Routes.questKey] ?? '1');
+  }
+}
+
+class memDoIdArguments {
+  late final int memdoid;
+  memDoIdArguments(Map<String, String> map) {
+    memdoid = int.parse(map[Routes.memdoidKey] ?? '1');
   }
 }
