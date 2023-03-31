@@ -8,9 +8,13 @@ import 'package:eco_reward_app/network/custom_jobs.dart';
 import 'package:eco_reward_app/screens/quest/main/models/get_quest.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-class QuestListScreen extends HookWidget {
+class QuestListScreen extends StatefulHookWidget {
   const QuestListScreen({Key? key}) : super(key: key);
+  @override
+  _QuestListScreenState createState() => _QuestListScreenState();
+}
 
+class _QuestListScreenState extends State<QuestListScreen> {
   @override
   Widget build(BuildContext context) {
     var mid = Arguments(QueryParams(context)).mid;

@@ -11,16 +11,22 @@ class QuestIconBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-      child: Row(
+      child: Wrap(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: Icon(icon),
-          ),
-          Text(
-            text,
-            style: detailTheme.textTheme.bodyLarge!
-                .copyWith(color: ColorUtils.black),
+          Row(
+            children: [
+              Icon(icon),
+              const SizedBox(width: 10),
+              Flexible(
+                child: Text(
+                  text,
+                  style: detailTheme.textTheme.bodyMedium!
+                      .copyWith(color: ColorUtils.black),
+                  softWrap: true,
+                  maxLines: 2,
+                ),
+              ),
+            ],
           ),
         ],
       ),

@@ -45,11 +45,12 @@ class _MyQuestScreenState extends State<MyQuestScreen> {
           children: [
             const SizedBox(height: 20),
             const ToolbarQuest(),
+            const SizedBox(height: 20),
             Expanded(
               child: isSuccess
                   ? ListView.separated(
                       separatorBuilder: (context, index) =>
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 20),
                       itemCount: questData.length + doneQuestData.length,
                       itemBuilder: (BuildContext context, int index) {
                         if (index < questData.length) {

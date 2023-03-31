@@ -6,16 +6,18 @@ import 'package:eco_reward_app/screens/quest/main/widget/tag_quest_people.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/tag_quest_foot.dart';
 
 class ContainerQuestDetailDone extends HookWidget {
+  final int memDoId;
   final int id;
   final String questName;
   final String startDate;
   final String endDate;
-  final int reward;
+  final double reward;
   final int challenger;
   final List<dynamic> images;
 
   const ContainerQuestDetailDone({
     Key? key,
+    required this.memDoId,
     required this.id,
     required this.questName,
     required this.startDate,
@@ -73,15 +75,18 @@ class ContainerQuestDetailDone extends HookWidget {
                       shrinkWrap: true,
                       itemCount: images.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          height: 200,
-                          width: 200,
-                          margin: const EdgeInsets.all(20),
-                          alignment: Alignment.center,
-                          child: FittedBox(
-                            fit: BoxFit.fill,
-                            child:
-                                Image.network(images.elementAt(index)['image']),
+                        return Hero(
+                          tag: images.elementAt(index)['image'],
+                          child: Container(
+                            height: 200,
+                            width: 200,
+                            margin: const EdgeInsets.all(20),
+                            alignment: Alignment.center,
+                            child: FittedBox(
+                              fit: BoxFit.fill,
+                              child: Image.network(
+                                  images.elementAt(index)['image']),
+                            ),
                           ),
                         );
                       },

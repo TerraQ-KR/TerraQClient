@@ -14,7 +14,6 @@ import 'package:eco_reward_app/screens/quest/detail/quest_detail_screen.dart';
 import 'package:eco_reward_app/screens/quest/gallery/quest_gallery_screen.dart';
 import 'package:eco_reward_app/screens/quest/main/widget/input_quest_common.dart';
 import 'package:eco_reward_app/screens/quest/certification/utils/certificate_modal.dart';
-import 'package:eco_reward_app/screens/quest/certification/quest_certification_screen.dart';
 import 'package:eco_reward_app/screens/quest/certification/quest_image_screen.dart';
 import 'package:eco_reward_app/screens/home/home_screen.dart';
 
@@ -47,15 +46,19 @@ class Routes {
 
   // query_parameter keys for Route
   static const memberKey = "mid";
+  static const questKey = "qid";
+  static const memdoidKey = 'memdoid';
 
   static Route<dynamic> RouteGenerater(RouteSettings settings) {
     Uri uri = Uri.parse(settings.name ?? "");
     Map<String, dynamic> params = {};
-    final Object? args = settings.arguments;
+    final heroController = HeroController();
+
     uri.queryParameters.forEach((key, value) {
-      if (key != memberKey) {
+      if (key != memberKey && key != questKey && key != memdoidKey) {
         throw ArgumentError("Router QueryKey is invalid");
       }
+
       params[key] = int.tryParse(value) ?? value;
     });
 
@@ -86,7 +89,8 @@ class Routes {
               return const AuthRegisterScreen();
             case quest:
               if (params.isNotEmpty) {
-                return const QuestTabScreen();
+                return HeroControllerScope(
+                    controller: heroController, child: QuestTabScreen());
               }
               return Row(
                 children: [
@@ -97,28 +101,37 @@ class Routes {
                 ],
               );
             case questdetail:
-              final QuestDetailScreen detailArgs = args as QuestDetailScreen;
-              return QuestDetailScreen(
-                qid: detailArgs.qid,
-              );
-
-            case questcertification:
-              final QuestCertificationScreen certArgs =
-                  args as QuestCertificationScreen;
-              return QuestCertificationScreen(
-                image: certArgs.image,
+              if (params.isNotEmpty) {
+                return HeroControllerScope(
+                    controller: heroController, child: QuestDetailScreen());
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
               );
 
             case questimage:
-              final QuestImageScreen imageArgs = args as QuestImageScreen;
-              return QuestImageScreen(
-                questName: imageArgs.questName,
-                reward: imageArgs.reward,
+              if (params.isNotEmpty) {
+                return HeroControllerScope(
+                    controller: heroController, child: QuestImageScreen());
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
               );
 
             case questgallery:
               if (params.isNotEmpty) {
-                return const QuestGalleryScreen();
+                return HeroControllerScope(
+                    controller: heroController, child: QuestGalleryScreen());
               }
               return Row(
                 children: [
@@ -130,74 +143,20 @@ class Routes {
               );
 
             case questcertificationmodal:
-              final CertificateModal modalArgs = args as CertificateModal;
-              return CertificateModal(
-                questName: modalArgs.questName,
-                reward: modalArgs.reward,
-                information: modalArgs.information,
+              if (params.isNotEmpty) {
+                return HeroControllerScope(
+                    controller: heroController, child: CertificateModal());
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
               );
             case home:
               return const HomeScreen();
-            // case home:
-            //   return const HomeScreen();
-            // case test:
-            //   if (params.isNotEmpty) {
-            //     return const testOtherScreen();
-            //   }
-            //   return TestWidget();
-            case test:
-              if (params.isNotEmpty) {
-                return const testOtherScreen();
-              }
-              return TestWidget();
-            case mypage:
-              if (params.isNotEmpty) {
-                return const ProfileScreen();
-              }
-              return Row(
-                children: [
-                  const Text("Error"),
-                  ElevatedButton(
-                      onPressed: () => {Navigator.pop(context)},
-                      child: const Text("return"))
-                ],
-              );
-            case leaderboard:
-              if (params.isNotEmpty) {
-                return const LeaderBoard();
-              }
-              return Row(
-                children: [
-                  const Text("Error"),
-                  ElevatedButton(
-                      onPressed: () => {Navigator.pop(context)},
-                      child: const Text("return"))
-                ],
-              );
-            case mybadges:
-              if (params.isNotEmpty) {
-                return const MyBadges();
-              }
-              return Row(
-                children: [
-                  const Text("Error"),
-                  ElevatedButton(
-                      onPressed: () => {Navigator.pop(context)},
-                      child: const Text("return"))
-                ],
-              );
-            case myreport:
-              if (params.isNotEmpty) {
-                return const MyReport();
-              }
-              return Row(
-                children: [
-                  const Text("Error"),
-                  ElevatedButton(
-                      onPressed: () => {Navigator.pop(context)},
-                      child: const Text("return"))
-                ],
-              );
             default:
               return Row(
                 children: [
@@ -231,5 +190,19 @@ class Arguments {
   late final int mid;
   Arguments(Map<String, String> map) {
     mid = int.parse(map[Routes.memberKey] ?? '1');
+  }
+}
+
+class questArguments {
+  late final int qid;
+  questArguments(Map<String, String> map) {
+    qid = int.parse(map[Routes.questKey] ?? '1');
+  }
+}
+
+class memDoIdArguments {
+  late final int memdoid;
+  memDoIdArguments(Map<String, String> map) {
+    memdoid = int.parse(map[Routes.memdoidKey] ?? '1');
   }
 }

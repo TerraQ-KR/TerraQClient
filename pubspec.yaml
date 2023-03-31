@@ -44,6 +44,10 @@ dependencies:
   day: ^0.8.0
   image: ^4.0.15
   url_launcher: ^6.1.10
+  badges: ^3.0.3
+
+
+  # permission_handler: ^5.0.1+1
   percent_indicator: ^4.2.3
   flutter_secure_storage : ^5.0.2
 

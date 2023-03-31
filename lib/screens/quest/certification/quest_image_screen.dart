@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:eco_reward_app/style/default_theme.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,17 +9,16 @@ import 'package:day/day.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:eco_reward_app/routes.dart';
+import 'package:eco_reward_app/screens/quest/detail/model/get_detail.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
+import 'package:eco_reward_app/network/custom_jobs.dart';
+import 'package:eco_reward_app/network/provider/api_paths.dart';
+import 'package:eco_reward_app/network/provider/query_keys.dart';
 import 'package:eco_reward_app/screens/quest/certification/widget/image_icon_button.dart';
-import 'package:eco_reward_app/screens/quest/certification/quest_certification_screen.dart';
 
 class QuestImageScreen extends StatefulHookWidget {
-  final String questName;
-  final int reward;
-  const QuestImageScreen(
-      {Key? key, required this.questName, required this.reward})
-      : super(key: key);
+  const QuestImageScreen({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -25,42 +26,14 @@ class QuestImageScreen extends StatefulHookWidget {
 }
 
 class _QuestImageScreen extends State<QuestImageScreen> {
+  bool isEnabled = false;
   XFile? _image;
   final picker = ImagePicker();
   final now = Day();
+
   @override
   void initState() {
     super.initState();
-  }
-
-  Future<void> getImage() async {
-    final certificateImage = await picker.pickImage(
-      source: ImageSource.camera,
-      imageQuality: 30,
-    );
-
-    if (certificateImage != null) {
-      final bytes = await certificateImage.readAsBytes();
-      final decodeImage = img.decodeImage(bytes);
-      final now = DateTime.now();
-      final timeText = '${now.year}-${now.month}-${now.day}';
-      final rewardText = '${widget.reward.toString()}kg';
-      img.drawString(decodeImage!, font: img.arial24, x: 100, y: 400, timeText);
-      img.drawString(
-          decodeImage, font: img.arial24, x: 100, y: 450, rewardText);
-      img.drawString(
-          decodeImage, font: img.arial24, x: 100, y: 350, widget.questName);
-      img.drawString(decodeImage, font: img.arial24, x: 450, y: 10, 'TerraQ');
-
-      var encodeImage = img.encodeJpg(decodeImage, quality: 100);
-      var finalImage = File(certificateImage.path)
-        ..writeAsBytesSync(encodeImage);
-
-      setState(() {
-        _image = XFile(finalImage.path);
-        print(_image!.path);
-      });
-    }
   }
 
   Widget showImage() {
@@ -88,6 +61,64 @@ class _QuestImageScreen extends State<QuestImageScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    var memDoId = memDoIdArguments(QueryParams(context)).memdoid;
+
+    final quest = cachedQuery(
+        queryKey: QueryKeys.myQuestDetailView(memDoId),
+        path: ApiPaths.myQuestDetailView(memDoId));
+
+    getDetail questData = getdetail(quest.data);
+    Future<void> getImage() async {
+      final certificateImage = await picker.pickImage(
+        source: ImageSource.camera,
+        imageQuality: 30,
+      );
+
+      if (certificateImage != null) {
+        final bytes = await certificateImage.readAsBytes();
+        final decodeImage = img.decodeImage(bytes);
+        final resizedImage =
+            img.copyResize(decodeImage!, width: 800, height: 600);
+        final now = DateTime.now();
+        final timeText = '${now.year}-${now.month}-${now.day}';
+        final rewardText = '${questData.reward.toString()}kg';
+        img.drawString(
+            resizedImage, font: img.arial24, x: 120, y: 400, timeText);
+        img.drawString(
+            resizedImage, font: img.arial24, x: 120, y: 450, rewardText);
+        img.drawString(
+            resizedImage,
+            font: img.arial24,
+            x: 120,
+            y: 350,
+            questData.questName);
+        img.drawString(
+            resizedImage, font: img.arial24, x: 700, y: 10, 'TerraQ');
+
+        var encodeImage = img.encodeJpg(resizedImage, quality: 100);
+        var finalImage = File(certificateImage.path)
+          ..writeAsBytesSync(encodeImage);
+
+        setState(() {
+          _image = XFile(finalImage.path);
+          print(_image!.path);
+        });
+      }
+    }
+
+    var mid = Arguments(QueryParams(context)).mid;
+
+    final imageQuery = cachedQuery(
+      queryKey: QueryKeys.certificateImages(mid),
+      path: ApiPaths.certificateImages(mid),
+    );
+
+    final imageMutation = cachedMutation(
+      mutationKey: 'certificateImage',
+      apiType: 'patch',
+      path: ApiPaths.updateCertificateImage(mid),
+      options: Options(contentType: 'multipart/form-data'),
+    );
 
     return Scaffold(
       backgroundColor: ColorUtils.black,
@@ -124,17 +155,66 @@ class _QuestImageScreen extends State<QuestImageScreen> {
             margin: const EdgeInsets.only(top: 25, bottom: 50),
             child: showImage(),
           ),
-          ImageIconButton(
-            icon: Icons.circle_outlined,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ImageIconButton(
+                icon: Icons.camera,
+                // ignore: prefer-extracting-callbacks
+                onPressed: () async {
+                  await getImage();
 
-            // ignore: prefer-extracting-callbacks
-            onPressed: () async {
-              await getImage();
+                  if (_image != null) {
+                    setState(() {
+                      isEnabled = true;
+                    });
+                  }
+                },
+              ),
+              ImageIconButton(
+                icon: Icons.upload,
+                onPressed: () async {
+                  try {
+                    final formData = FormData.fromMap({
+                      'file': await MultipartFile.fromFile(
+                        _image!.path,
+                        filename: 'certificateImage',
+                      )
+                    });
 
-              if (_image != null) {
-                _navigateToConfirmScreen(context, _image);
-              }
-            },
+                    imageMutation.mutate(
+                      formData,
+                      onData: (payload, variables, context) =>
+                          imageQuery.refetch(),
+                    );
+                    _showDialog(context, mid);
+                    // ignore: prefer-extracting-callbacks
+                  } catch (e) {
+                    //alert error message
+                    AlertDialog(
+                      title: Text("Error",
+                          style: defaultTheme.textTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                          )),
+                      actions: [
+                        TextButton(
+                          child: Text("OK"),
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context,
+                                RouteParams(
+                                    path: Routes.start,
+                                    queryParameters: {
+                                      Routes.memberKey: mid.toString()
+                                    }));
+                          },
+                        ),
+                      ],
+                    );
+                  }
+                },
+              ),
+            ],
           ),
         ],
       ),
@@ -146,7 +226,28 @@ _navigateToBefore(context) async {
   return Navigator.pop(context);
 }
 
-_navigateToConfirmScreen(context, image) async {
-  return Navigator.pushNamed(context, Routes.questcertification,
-      arguments: QuestCertificationScreen(image: image));
-}
+void _showDialog(context, mid) => showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("This quest is certified.",
+              style: defaultTheme.textTheme.bodyLarge!.copyWith(
+                fontWeight: FontWeight.bold,
+              )),
+          actions: [
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Timer(
+                    const Duration(seconds: 3),
+                    () => Navigator.pushNamed(
+                        context,
+                        RouteParams(path: Routes.start, queryParameters: {
+                          Routes.memberKey: mid.toString()
+                        })));
+              },
+            ),
+          ],
+        );
+      },
+    );

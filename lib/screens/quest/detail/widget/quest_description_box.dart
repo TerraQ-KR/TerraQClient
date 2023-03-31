@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/button_quest_detail.dart';
-import 'package:eco_reward_app/screens/quest/certification/utils/certificate_modal.dart';
 
 class QuestDescriptionBox extends StatelessWidget {
+  final int memDoId;
+  final int questId;
   final String questName;
-  final int reward;
+  final double reward;
   final String information;
 
   const QuestDescriptionBox(
       {super.key,
+      required this.memDoId,
+      required this.questId,
       required this.questName,
       required this.reward,
       required this.information});
@@ -34,12 +37,13 @@ class QuestDescriptionBox extends StatelessWidget {
               ),
             ),
             Container(
-              alignment: Alignment.bottomCenter,
-              child: ButtonQuestDetail(
-                  text: 'Certification',
-                  onPressed: () => _navigateToCertificateScreen(
-                      context, questName, reward, information)),
-            ),
+                alignment: Alignment.bottomCenter,
+                child: Hero(
+                    tag: 'certification ${memDoId}',
+                    child: ButtonQuestDetail(
+                        text: 'Certification',
+                        onPressed: () =>
+                            _navigateToCertificateScreen(context, memDoId)))),
             const SizedBox(height: 20),
           ],
         ),
@@ -48,11 +52,10 @@ class QuestDescriptionBox extends StatelessWidget {
   }
 }
 
-_navigateToCertificateScreen(context, questName, reward, information) async {
+_navigateToCertificateScreen(context, id) async {
   return Navigator.pushNamed(
-    context,
-    Routes.questcertificationmodal,
-    arguments: CertificateModal(
-        questName: questName, reward: reward, information: information),
-  );
+      context,
+      RouteParams(
+          path: Routes.questcertificationmodal,
+          queryParameters: {'memdoid': id.toString()}));
 }

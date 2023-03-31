@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
 import 'package:eco_reward_app/utils/font_utils.dart';
+import 'package:eco_reward_app/network/provider/api_path.dart';
+import 'package:eco_reward_app/network/provider/query_keys.dart';
+import 'package:eco_reward_app/network/custom_jobs.dart';
+import 'package:eco_reward_app/screens/quest/detail/model/get_detail.dart';
 import 'package:eco_reward_app/screens/quest/detail/widget/button_quest_detail.dart';
-import 'package:eco_reward_app/screens/quest/certification/quest_image_screen.dart';
 
-class CertificateModal extends StatelessWidget {
-  final String questName;
-  final int reward;
-  final String information;
-
-  const CertificateModal(
-      {super.key,
-      required this.questName,
-      required this.reward,
-      required this.information});
+class CertificateModal extends HookWidget {
+  const CertificateModal({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var memdoid = memDoIdArguments(QueryParams(context)).memdoid;
+    var mid = Arguments(QueryParams(context)).mid;
+
+    final quest = cachedQuery(
+        queryKey: QueryKeys.myQuestDetailView(memdoid),
+        path: ApiPaths().myQuestDetailView(memdoid));
+
+    getDetail questData = getdetail(quest.data);
+
     return Scaffold(
       body: SizedBox(
         child: Column(
@@ -43,18 +48,21 @@ class CertificateModal extends StatelessWidget {
                 ),
               ),
             ),
-            Text(information,
-                style: const TextStyle(
-                  color: ColorUtils.black,
-                  fontSize: 14,
-                  fontFamily: FontUtils.primary,
-                  fontWeight: FontWeight.w400,
-                )),
+            Padding(
+              padding: EdgeInsets.only(left: 30, right: 30, top: 20),
+              child: Text(questData.information,
+                  style: const TextStyle(
+                    color: ColorUtils.black,
+                    fontSize: 14,
+                    fontFamily: FontUtils.primary,
+                    fontWeight: FontWeight.w400,
+                  )),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 30),
               child: ButtonQuestDetail(
                 text: 'Confirm',
-                onPressed: () => _navigateToImage(context, questName, reward),
+                onPressed: () => _navigateToImage(context, mid, memdoid),
               ),
             ),
           ],
@@ -64,15 +72,12 @@ class CertificateModal extends StatelessWidget {
   }
 }
 
-_navigateToImage(context, questName, reward) async {
+_navigateToImage(context, mid, id) async {
   return Navigator.pushNamed(
-    context,
-    Routes.questimage,
-    arguments: QuestImageScreen(
-      questName: questName,
-      reward: reward,
-    ),
-  );
+      context,
+      RouteParams(
+          path: Routes.questimage,
+          queryParameters: {'mid': mid.toString(), 'memdoid': id.toString()}));
 }
 
 _navigateToBefore(context) async {
