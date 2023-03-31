@@ -13,11 +13,11 @@ class QuestDetailDoneScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var qid = questArguments(QueryParams(context)).qid;
+    var memdoid = memDoIdArguments(QueryParams(context)).memdoid;
 
     final quest = cachedQuery(
-        queryKey: QueryKeys.myQuestDetailView(qid),
-        path: ApiPaths().myQuestDetailView(qid));
+        queryKey: QueryKeys.myQuestDetailView(memdoid),
+        path: ApiPaths().myQuestDetailView(memdoid));
 
     getDetail questData = getdetail(quest.data);
     final isSuccess = quest.isSuccess;
@@ -39,10 +39,13 @@ class QuestDetailDoneScreen extends HookWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      IconButton(
-                        onPressed: () => _navigateToBefore(context),
-                        icon: const Icon(Icons.navigate_before,
-                            color: ColorUtils.black, size: 50),
+                      Hero(
+                        tag: 'quest detail done back $memdoid',
+                        child: IconButton(
+                          onPressed: () => _navigateToBefore(context),
+                          icon: const Icon(Icons.navigate_before,
+                              color: ColorUtils.black, size: 50),
+                        ),
                       ),
                       const Icon(Icons.recycling,
                           color: ColorUtils.black, size: 30),
@@ -52,6 +55,7 @@ class QuestDetailDoneScreen extends HookWidget {
                 Expanded(
                   child: isSuccess
                       ? ContainerQuestDetailDone(
+                          memDoId: questData.memDoId,
                           id: questData.questId,
                           questName: questData.questName,
                           startDate: questData.startDate,

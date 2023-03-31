@@ -61,11 +61,11 @@ class _QuestImageScreen extends State<QuestImageScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-    var qid = questArguments(QueryParams(context)).qid;
+    var memDoId = memDoIdArguments(QueryParams(context)).memdoid;
 
     final quest = cachedQuery(
-        queryKey: QueryKeys.myQuestDetailView(qid),
-        path: ApiPaths.myQuestDetailView(qid));
+        queryKey: QueryKeys.myQuestDetailView(memDoId),
+        path: ApiPaths.myQuestDetailView(memDoId));
 
     getDetail questData = getdetail(quest.data);
     Future<void> getImage() async {
@@ -77,22 +77,25 @@ class _QuestImageScreen extends State<QuestImageScreen> {
       if (certificateImage != null) {
         final bytes = await certificateImage.readAsBytes();
         final decodeImage = img.decodeImage(bytes);
+        final resizedImage =
+            img.copyResize(decodeImage!, width: 800, height: 600);
         final now = DateTime.now();
         final timeText = '${now.year}-${now.month}-${now.day}';
         final rewardText = '${questData.reward.toString()}kg';
         img.drawString(
-            decodeImage!, font: img.arial24, x: 100, y: 400, timeText);
+            resizedImage, font: img.arial24, x: 120, y: 400, timeText);
         img.drawString(
-            decodeImage, font: img.arial24, x: 100, y: 450, rewardText);
+            resizedImage, font: img.arial24, x: 120, y: 450, rewardText);
         img.drawString(
-            decodeImage,
+            resizedImage,
             font: img.arial24,
-            x: 100,
+            x: 120,
             y: 350,
             questData.questName);
-        img.drawString(decodeImage, font: img.arial24, x: 450, y: 10, 'TerraQ');
+        img.drawString(
+            resizedImage, font: img.arial24, x: 700, y: 10, 'TerraQ');
 
-        var encodeImage = img.encodeJpg(decodeImage, quality: 100);
+        var encodeImage = img.encodeJpg(resizedImage, quality: 100);
         var finalImage = File(certificateImage.path)
           ..writeAsBytesSync(encodeImage);
 

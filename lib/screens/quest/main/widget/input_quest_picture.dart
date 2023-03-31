@@ -57,9 +57,9 @@ class _InputQuestPictureState extends State<InputQuestPicture> {
         path: ApiPaths.addMyQuest(mid, qid));
 
     void _toggleBookmark() {
-      setState(() {
-        isBookmarked = !isBookmarked;
-      });
+      // setState(() {
+      //   isBookmarked = !isBookmarked;
+      // });
       mutateQuest.mutate(
         qid,
         onData: (payload, variables, context) =>
@@ -107,10 +107,7 @@ class _InputQuestPictureState extends State<InputQuestPicture> {
                               // ignore: prefer-extracting-callbacks
                               onPressed: _toggleBookmark,
                               icon: Icon(
-                                isBookmarked
-                                    ? Icons
-                                        .bookmark_rounded // Use bookmark_rounded when bookmarked
-                                    : Icons.bookmark_border_rounded,
+                                Icons.bookmark_border_rounded,
                                 // Use bookmark_border_rounded when not bookmarked
                                 color: ColorUtils.subBlue,
                                 size: 30,
