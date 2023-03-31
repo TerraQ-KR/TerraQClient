@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:eco_reward_app/routes.dart';
 import 'package:eco_reward_app/utils/color_utils.dart';
+import 'package:eco_reward_app/utils/font_utils.dart';
 import 'package:flutter/material.dart';
 
 class Logo extends StatelessWidget {
@@ -24,13 +25,18 @@ class Logo extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.circle_outlined,
-              size: pixelWidth * 0.7,
+            Container(
+              padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+              child: Image.asset('assets/imgs/logo.png'),
             ),
             const Text(
               "TerraQ",
-              style: TextStyle(color: ColorUtils.black, fontSize: 45),
+              style: TextStyle(
+                color: ColorUtils.black,
+                fontSize: 45,
+                fontFamily: FontUtils.primary,
+                fontWeight: FontWeight.bold,
+              ),
             )
           ],
         ),

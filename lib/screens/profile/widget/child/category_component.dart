@@ -15,7 +15,12 @@ final colorList = [
   const Color.fromARGB(255, 88, 179, 253)
 ];
 
-final List<String> categoryes = ["House", "Transport", "Food", "Consumption"];
+final List<String> categoryes = [
+  "House",
+  "Consumption",
+  "Transport",
+  "Food",
+];
 
 final Map<String, List<String>> cate_badges = {
   "House": [

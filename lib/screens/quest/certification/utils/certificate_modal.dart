@@ -18,7 +18,7 @@ class CertificateModal extends HookWidget {
     var qid = questArguments(QueryParams(context)).qid;
 
     final quest = cachedQuery(
-        queryKey: QueryKeys().myQuestDetailView(qid),
+        queryKey: QueryKeys.myQuestDetailView(qid),
         path: ApiPaths().myQuestDetailView(qid));
 
     getDetail questData = getdetail(quest.data);
@@ -49,7 +49,7 @@ class CertificateModal extends HookWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 30, right: 30, top: 20),
+              padding: const EdgeInsets.only(left: 30, right: 30, top: 20),
               child: Text(questData.information,
                   style: const TextStyle(
                     color: ColorUtils.black,

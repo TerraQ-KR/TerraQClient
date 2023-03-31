@@ -5,7 +5,6 @@ import 'package:eco_reward_app/screens/Logo.dart';
 import 'package:eco_reward_app/screens/profile/mybadges.dart';
 import 'package:eco_reward_app/screens/profile/myreport.dart';
 import 'package:flutter/material.dart';
-import 'package:eco_reward_app/network/provider/test_screen.dart';
 import 'package:eco_reward_app/screens/home/home_navigatorbar.dart';
 import 'package:eco_reward_app/screens/auth/auth_register_screen.dart';
 import 'package:eco_reward_app/screens/auth/auth_login_screen.dart';
@@ -18,7 +17,6 @@ import 'package:eco_reward_app/screens/quest/certification/quest_image_screen.da
 import 'package:eco_reward_app/screens/home/home_screen.dart';
 
 import 'package:eco_reward_app/screens/profile/profile_screen.dart';
-import 'package:eco_reward_app/screens/home/home_navigatorbar.dart';
 import 'package:eco_reward_app/screens/tutorial/tutorial_screen.dart';
 import 'package:eco_reward_app/screens/tutorial/mbti_screen.dart';
 import 'package:eco_reward_app/screens/profile/leaderboard.dart';
@@ -150,6 +148,42 @@ class Routes {
               );
             case home:
               return const HomeScreen();
+            case leaderboard:
+              if (params.isNotEmpty) {
+                return const LeaderBoard();
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
+              );
+            case mybadges:
+              if (params.isNotEmpty) {
+                return const MyBadges();
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
+              );
+            case myreport:
+              if (params.isNotEmpty) {
+                return const MyReport();
+              }
+              return Row(
+                children: [
+                  const Text("Error"),
+                  ElevatedButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      child: const Text("return"))
+                ],
+              );
             default:
               return Row(
                 children: [

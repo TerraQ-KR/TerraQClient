@@ -64,7 +64,7 @@ class _QuestImageScreen extends State<QuestImageScreen> {
     var qid = questArguments(QueryParams(context)).qid;
 
     final quest = cachedQuery(
-        queryKey: QueryKeys().myQuestDetailView(qid),
+        queryKey: QueryKeys.myQuestDetailView(qid),
         path: ApiPaths.myQuestDetailView(qid));
 
     getDetail questData = getdetail(quest.data);
@@ -106,7 +106,7 @@ class _QuestImageScreen extends State<QuestImageScreen> {
     var mid = Arguments(QueryParams(context)).mid;
 
     final imageQuery = cachedQuery(
-      queryKey: QueryKeys().certificateImages(mid),
+      queryKey: QueryKeys.certificateImages(mid),
       path: ApiPaths.certificateImages(mid),
     );
 
@@ -195,7 +195,7 @@ class _QuestImageScreen extends State<QuestImageScreen> {
                           )),
                       actions: [
                         TextButton(
-                          child: Text("OK"),
+                          child: const Text("OK"),
                           onPressed: () {
                             Navigator.pushNamed(
                                 context,
@@ -233,7 +233,7 @@ void _showDialog(context, mid) => showDialog(
               )),
           actions: [
             TextButton(
-              child: Text("OK"),
+              child: const Text("OK"),
               onPressed: () {
                 Timer(
                     const Duration(seconds: 3),

@@ -62,6 +62,7 @@ class CategoryBadges extends HookWidget {
     );
 
     final List<BadgeModel?> badgeLists = badgeList(badgesQuery.data);
+    print(badgesQuery.data);
 
     var matchedBadgesNames = [];
     var matchedBadges = [];
@@ -69,15 +70,21 @@ class CategoryBadges extends HookWidget {
     if (!badgesQuery.isError && !badgesQuery.isLoading) {
       // ignore: unused_local_variable
       var gotBadges = [false, false, false, false];
+      int cidx = 0;
 
       for (var index = 0; index < badgeLists.length; index++) {
         if (badgeLists[index]!.badge.category.name == category) {
           matchedBadgesNames.add(badgeLists[index]!.badge.badgeName);
           matchedBadges.add(badgeLists[index]!.mgId);
           badgeimages.add(badgeLists[index]!.badge.category.icon);
-          gotBadges[index] = true;
+          gotBadges[cidx] = true;
+          cidx++;
         }
       }
+      print(gotBadges);
+      print(matchedBadgesNames);
+      print(matchedBadges);
+      print(badges);
 
       return Container(
           decoration: BoxDecoration(color: color),

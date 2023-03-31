@@ -61,18 +61,17 @@ class _BottomNavigatorbarState extends State<BottomNavigatorbar> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        title: const Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
+        title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
-              Icons.circle,
-              color: ColorUtils.black,
-              size: 25,
+            Image.asset(
+              'assets/imgs/logo.png',
+              width: 35,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
-            Text(
+            const Text(
               "TerraQ",
               style: TextStyle(
                 color: ColorUtils.black,
