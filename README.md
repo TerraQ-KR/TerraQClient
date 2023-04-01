@@ -39,11 +39,8 @@ Our team chose a robust and scalable architecture for the TerraQ solution, consi
 - **Programming Languages**: Java for backend development and Dart for frontend development.
 - Tools: Spring Boot (backend framework), Flutter (frontend framework), and Google Cloud Platform (database, cloud engine, storage service and authentication).
 #
-## **5. Application Details**
-[ppt에 들어가는 이미지들 추가]
-#
-## **6. Demo Video**
-[ppt에 들어가는 영상 추가]
+## **5. Demo Video**
+![Video Label](http://img.youtube.com/vi/QJZqtmmeeSE/0.jpg)](https://youtu.be/QJZqtmmeeSE)
 #
 ## **Getting Started**
 
