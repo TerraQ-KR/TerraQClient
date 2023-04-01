@@ -40,8 +40,8 @@ Our team chose a robust and scalable architecture for the TerraQ solution, consi
 - Tools: Spring Boot (backend framework), Flutter (frontend framework), and Google Cloud Platform (database, cloud engine, storage service and authentication).
 #
 ## **5. Demo Video**
-(https://youtu.be/QJZqtmmeeSE)
-![Video Label](http://img.youtube.com/vi/QJZqtmmeeSE/0.jpg)
+- (https://youtu.be/QJZqtmmeeSE)
+- ![Video Label](http://img.youtube.com/vi/QJZqtmmeeSE/0.jpg)
 #
 ## **Getting Started**
 
